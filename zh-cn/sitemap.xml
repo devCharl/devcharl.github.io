@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.developmentscharles.cc/en/categories/</loc>
+    <loc>https://www.developmentscharles.cc/zh-cn/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.developmentscharles.cc/en/</loc>
+    <loc>https://www.developmentscharles.cc/zh-cn/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.developmentscharles.cc/en/tags/</loc>
+    <loc>https://www.developmentscharles.cc/zh-cn/tags/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
