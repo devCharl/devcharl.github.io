@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Den</title>
-    <link>https://example.com/en/</link>
+    <link>https://www.developmentscharles.cc/en/</link>
     <description>Recent content on Den</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 06 Mar 2018 16:01:23 +0800</lastBuildDate>
     
-    <atom:link href="https://example.com/en/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.developmentscharles.cc/en/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://example.com/en/about/</link>
+      <link>https://www.developmentscharles.cc/en/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://example.com/en/about/</guid>
+      <guid>https://www.developmentscharles.cc/en/about/</guid>
       <description>Hugo is a static site engine written in Go.
 It makes use of a variety of open source projects including:
 Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
@@ -34,10 +34,10 @@ Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</descr
     
     <item>
       <title>Den Theme Preview</title>
-      <link>https://example.com/en/2018/03/06/den-theme-preview/</link>
+      <link>https://www.developmentscharles.cc/en/2018/03/06/den-theme-preview/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://example.com/en/2018/03/06/den-theme-preview/</guid>
+      <guid>https://www.developmentscharles.cc/en/2018/03/06/den-theme-preview/</guid>
       <description>&lt;p&gt;This is a simple preview for styles in Den.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<p>This is a simple preview for styles in Den.</p>
 <h2 id="header">Header</h2>
@@ -176,10 +176,10 @@ text code blocks
     
     <item>
       <title>Header Image</title>
-      <link>https://example.com/en/2018/03/05/header-image/</link>
+      <link>https://www.developmentscharles.cc/en/2018/03/05/header-image/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://example.com/en/2018/03/05/header-image/</guid>
+      <guid>https://www.developmentscharles.cc/en/2018/03/05/header-image/</guid>
       <description>This is a simple note.</description>
       <content:encoded><![CDATA[<p>This is a simple note.</p>
 ]]></content:encoded>
@@ -187,10 +187,10 @@ text code blocks
     
     <item>
       <title>Note 2</title>
-      <link>https://example.com/en/2018/03/04/note-2/</link>
+      <link>https://www.developmentscharles.cc/en/2018/03/04/note-2/</link>
       <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://example.com/en/2018/03/04/note-2/</guid>
+      <guid>https://www.developmentscharles.cc/en/2018/03/04/note-2/</guid>
       <description>This is a simple note.</description>
       <content:encoded><![CDATA[<p>This is a simple note.</p>
 ]]></content:encoded>
@@ -198,10 +198,10 @@ text code blocks
     
     <item>
       <title>Shortcodes Preview</title>
-      <link>https://example.com/en/2018/03/04/shortcodes-preview/</link>
+      <link>https://www.developmentscharles.cc/en/2018/03/04/shortcodes-preview/</link>
       <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://example.com/en/2018/03/04/shortcodes-preview/</guid>
+      <guid>https://www.developmentscharles.cc/en/2018/03/04/shortcodes-preview/</guid>
       <description>Twiiter Hugo 0.24 Released: Big archetype update + @Netlify _redirects etc. file supporthttps://t.co/X94FmYDEZJ #gohugo #golang @spf13 @bepsays
 &amp;mdash; GoHugo.io (@GoHugoIO) June 21, 2017 Google Map Figure Globe Highlight for Shells # test echo test # just a test echo hello world </description>
       <content:encoded><![CDATA[<h2 id="twiiter">Twiiter</h2>
@@ -222,7 +222,7 @@ text code blocks
 
 <h2 id="figure">Figure</h2>
 
-<link rel="stylesheet" href="https://example.com/css/hugo-easy-gallery.css" />
+<link rel="stylesheet" href="https://www.developmentscharles.cc/css/hugo-easy-gallery.css" />
 <div class="box aligncenter" style="max-width:300px;">
   <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
     <div class="img">
@@ -248,10 +248,10 @@ text code blocks
     
     <item>
       <title>Note 1</title>
-      <link>https://example.com/en/2018/03/03/note-1/</link>
+      <link>https://www.developmentscharles.cc/en/2018/03/03/note-1/</link>
       <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://example.com/en/2018/03/03/note-1/</guid>
+      <guid>https://www.developmentscharles.cc/en/2018/03/03/note-1/</guid>
       <description>This is a simple note.</description>
       <content:encoded><![CDATA[<p>This is a simple note.</p>
 ]]></content:encoded>
