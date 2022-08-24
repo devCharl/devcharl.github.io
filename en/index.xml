@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Den</title>
+    <link>https://example.com/en/</link>
+    <description>Recent content on Den</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 06 Mar 2018 16:01:23 +0800</lastBuildDate>
+    
+    <atom:link href="https://example.com/en/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://example.com/en/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      
+      <guid>https://example.com/en/about/</guid>
+      <description>Hugo is a static site engine written in Go.
+It makes use of a variety of open source projects including:
+Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
+      <content:encoded><![CDATA[<p>Hugo is a static site engine written in Go.</p>
+<p>It makes use of a variety of open source projects including:</p>
+<ul>
+<li><a href="https://github.com/spf13/cobra">Cobra</a></li>
+<li><a href="https://github.com/spf13/viper">Viper</a></li>
+<li><a href="https://github.com/spf13/jWalterWeatherman">J Walter Weatherman</a></li>
+<li><a href="https://github.com/spf13/cast">Cast</a></li>
+</ul>
+<p>Learn more and contribute on <a href="https://github.com/gohugoio">GitHub</a>.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Den Theme Preview</title>
+      <link>https://example.com/en/2018/03/06/den-theme-preview/</link>
+      <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://example.com/en/2018/03/06/den-theme-preview/</guid>
+      <description>&lt;p&gt;This is a simple preview for styles in Den.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>This is a simple preview for styles in Den.</p>
+<h2 id="header">Header</h2>
+<p>A paragraph is like this.</p>
+<p>A paragraph might be very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long.</p>
+<h3 id="headers">Headers</h3>
+<h4 id="headers-1">Headers</h4>
+<h2 id="code-blocks">Code blocks</h2>
+<pre><code>text code blocks
+text code blocks
+text code blocks
+text code blocks
+</code></pre>
+<h2 id="highlighted-code-blocks">Highlighted Code Blocks</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="blockquotes">Blockquotes</h2>
+<blockquote>
+<p>This is a blockquote with two paragraphs. This is first paragraph.</p>
+<p>This is second pragraph.</p>
+</blockquote>
+<h2 id="lists">Lists</h2>
+<ul>
+<li>Red</li>
+<li>Green</li>
+<li>Blue</li>
+</ul>
+<ol>
+<li>Red</li>
+<li>Green</li>
+<li>Blue
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C
+<ol>
+<li>D</li>
+<li>E</li>
+<li>F</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="task-list">Task List</h2>
+<ul>
+<li><input disabled="" type="checkbox"> a task list item</li>
+<li><input disabled="" type="checkbox"> list syntax <del>required</del></li>
+<li><input disabled="" type="checkbox"> normal <strong>formatting</strong></li>
+<li><input disabled="" type="checkbox"> incomplete</li>
+<li><input checked="" disabled="" type="checkbox"> completed</li>
+</ul>
+<h2 id="formatted-texts">Formatted Texts</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Markdown</th>
+<th>HTML tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Emphasis</em></td>
+<td>*Emphasis*</td>
+<td><code>&lt;em&gt;&lt;/em&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Strong</strong></td>
+<td>**Strong**</td>
+<td><code>&lt;strong&gt;&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td><code>code</code></td>
+<td>`code`</td>
+<td><code>&lt;code&gt;&lt;/code&gt;</code></td>
+</tr>
+<tr>
+<td><del>Strikethrough</del></td>
+<td>~~Strikethrough~~</td>
+<td><code>&lt;del&gt;&lt;/del</code></td>
+</tr>
+<tr>
+<td><strong>Underline</strong></td>
+<td>__underline__</td>
+<td><code>&lt;u&gt;&lt;/u&gt;</code></td>
+</tr>
+<tr>
+<td><!-- raw HTML omitted -->Key<!-- raw HTML omitted --></td>
+<td>&lt;kbd&gt;Key&lt;/kbd&gt;</td>
+<td><code>&lt;kbd&gt;&lt;/kbd&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tables">Tables</h2>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+</tr>
+</tbody>
+</table>
+<h2 id="footnotes">Footnotes</h2>
+<p>You can create footnotes like this<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<h2 id="horizontal-rules">Horizontal Rules</h2>
+<p>A rule.</p>
+<hr>
+<p>A rule.</p>
+<hr>
+<h2 id="links">Links</h2>
+<p>This is <a href="http://example.com/%22Title%22">an example</a> inline link.</p>
+<h2 id="images">Images</h2>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Octicons-globe.svg/240px-Octicons-globe.svg.png" alt="Globe"></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Here is the <em>text</em> of the <strong>footnote</strong>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Header Image</title>
+      <link>https://example.com/en/2018/03/05/header-image/</link>
+      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://example.com/en/2018/03/05/header-image/</guid>
+      <description>This is a simple note.</description>
+      <content:encoded><![CDATA[<p>This is a simple note.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Note 2</title>
+      <link>https://example.com/en/2018/03/04/note-2/</link>
+      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://example.com/en/2018/03/04/note-2/</guid>
+      <description>This is a simple note.</description>
+      <content:encoded><![CDATA[<p>This is a simple note.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Shortcodes Preview</title>
+      <link>https://example.com/en/2018/03/04/shortcodes-preview/</link>
+      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://example.com/en/2018/03/04/shortcodes-preview/</guid>
+      <description>Twiiter Hugo 0.24 Released: Big archetype update + @Netlify _redirects etc. file supporthttps://t.co/X94FmYDEZJ #gohugo #golang @spf13 @bepsays
+&amp;mdash; GoHugo.io (@GoHugoIO) June 21, 2017 Google Map Figure Globe Highlight for Shells # test echo test # just a test echo hello world </description>
+      <content:encoded><![CDATA[<h2 id="twiiter">Twiiter</h2>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Hugo 0.24 Released: Big archetype update + <a href="https://twitter.com/Netlify?ref_src=twsrc%5Etfw">@Netlify</a> _redirects etc. file support<a href="https://t.co/X94FmYDEZJ">https://t.co/X94FmYDEZJ</a> <a href="https://twitter.com/hashtag/gohugo?src=hash&amp;ref_src=twsrc%5Etfw">#gohugo</a> <a href="https://twitter.com/hashtag/golang?src=hash&amp;ref_src=twsrc%5Etfw">#golang</a> <a href="https://twitter.com/spf13?ref_src=twsrc%5Etfw">@spf13</a> <a href="https://twitter.com/bepsays?ref_src=twsrc%5Etfw">@bepsays</a></p>&mdash; GoHugo.io (@GoHugoIO) <a href="https://twitter.com/GoHugoIO/status/877500564405444608?ref_src=twsrc%5Etfw">June 21, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="google-map">Google Map</h2>
+<div class="embed googlemaps">
+	<iframe
+		src="https://mapsengine.google.com/map/embed?mid=17_6iCOL6LkRjIFGPKmXBxjsvbBc"
+		frameborder="0"
+		scrolling="no"
+        width="100%"
+        height="400"
+        >
+	</iframe>
+</div>
+
+<h2 id="figure">Figure</h2>
+
+<link rel="stylesheet" href="https://example.com/css/hugo-easy-gallery.css" />
+<div class="box aligncenter" style="max-width:300px;">
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img  itemprop="thumbnail" src="/images/globe.svg" alt="Globe" />
+    </div>
+    
+      <figcaption>
+          <p><strong>Globe</strong>
+              
+          </p>
+      </figcaption>
+  </figure>
+</div>
+
+<h2 id="highlight-for-shells">Highlight for Shells</h2>
+<div class="sh-highlight"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># test</span>
+</span></span><span class="line hl"><span class="cl"><span class="nb">echo</span> <span class="nb">test</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># just a test</span>
+</span></span><span class="line hl"><span class="cl"><span class="nb">echo</span> hello world</span></span></code></pre></div></div>
+
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Note 1</title>
+      <link>https://example.com/en/2018/03/03/note-1/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://example.com/en/2018/03/03/note-1/</guid>
+      <description>This is a simple note.</description>
+      <content:encoded><![CDATA[<p>This is a simple note.</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
