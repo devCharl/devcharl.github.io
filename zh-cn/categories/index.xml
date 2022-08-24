@@ -5,6 +5,25 @@
     <link>https://www.developmentscharles.cc/zh-cn/categories/</link>
     <description>Recent content in Categories on Den</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://www.developmentscharles.cc/zh-cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 05 Mar 2018 16:01:23 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/zh-cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Demos</title>
+      <link>https://www.developmentscharles.cc/zh-cn/category/demos/</link>
+      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/category/demos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Notes</title>
+      <link>https://www.developmentscharles.cc/zh-cn/category/notes/</link>
+      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/category/notes/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
