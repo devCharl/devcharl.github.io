@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dbus on Den</title>
+    <link>https://www.developmentscharles.cc/tag/dbus/</link>
+    <description>Recent content in dbus on Den</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/tag/dbus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dbus learning notes 01</title>
+      <link>https://www.developmentscharles.cc/2022/09/07/dbus-learning-notes-01/</link>
+      <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/2022/09/07/dbus-learning-notes-01/</guid>
+      <description>Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，</description>
+    </item>
+    
+  </channel>
+</rss>

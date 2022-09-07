@@ -9,29 +9,57 @@
   </url>
   
   <url>
+    <loc>https://www.developmentscharles.cc/categories/</loc>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.developmentscharles.cc/tag/dbus/</loc>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.developmentscharles.cc/category/dbus/</loc>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.developmentscharles.cc/2022/09/07/dbus-learning-notes-01/</loc>
-    <lastmod>2022-09-07T15:47:20+08:00</lastmod>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://www.developmentscharles.cc/</loc>
-    <lastmod>2022-09-07T15:47:20+08:00</lastmod>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.developmentscharles.cc/tag/linux/</loc>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://www.developmentscharles.cc/posts/</loc>
-    <lastmod>2022-09-07T15:47:20+08:00</lastmod>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.developmentscharles.cc/categories/</loc>
-    <lastmod>2022-08-24T16:03:16+08:00</lastmod>
+    <loc>https://www.developmentscharles.cc/tags/</loc>
+    <lastmod>2022-09-08T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -59,13 +87,6 @@
   
   <url>
     <loc>https://www.developmentscharles.cc/tag/images/</loc>
-    <lastmod>2018-03-05T16:01:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.developmentscharles.cc/tags/</loc>
     <lastmod>2018-03-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
