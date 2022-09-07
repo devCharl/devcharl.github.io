@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Den</title>
+    <title>Charles&#39; Personal Development Notes</title>
     <link>https://www.developmentscharles.cc/</link>
-    <description>Recent content on Den</description>
+    <description>Recent content on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate>
@@ -225,28 +225,6 @@ If the pending call is already completed, this function returns immediately.
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
       <guid>https://www.developmentscharles.cc/2018/03/05/%E6%A8%99%E9%A0%AD%E5%9C%96%E7%89%87/</guid>
-      <description>這是一個簡單的筆記。</description>
-      <content:encoded><![CDATA[<p>這是一個簡單的筆記。</p>
-]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>筆記 2</title>
-      <link>https://www.developmentscharles.cc/2018/03/04/%E7%AD%86%E8%A8%98-2/</link>
-      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://www.developmentscharles.cc/2018/03/04/%E7%AD%86%E8%A8%98-2/</guid>
-      <description>這是一個簡單的筆記。</description>
-      <content:encoded><![CDATA[<p>這是一個簡單的筆記。</p>
-]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>筆記 1</title>
-      <link>https://www.developmentscharles.cc/2018/03/03/%E7%AD%86%E8%A8%98-1/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://www.developmentscharles.cc/2018/03/03/%E7%AD%86%E8%A8%98-1/</guid>
       <description>這是一個簡單的筆記。</description>
       <content:encoded><![CDATA[<p>這是一個簡單的筆記。</p>
 ]]></content:encoded>
