@@ -6,7 +6,16 @@
     <description>Recent content in Categories on Den</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 05 Mar 2018 16:01:23 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Aug 2022 16:03:16 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tools</title>
+      <link>https://www.developmentscharles.cc/category/tools/</link>
+      <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/category/tools/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Demos</title>
       <link>https://www.developmentscharles.cc/category/demos/</link>
