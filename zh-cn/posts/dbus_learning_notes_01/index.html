@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta name="generator" content="Hugo 0.101.0" />
+  <meta charset="utf-8">
+  <title>Dbus learning notes 01 · Charles&#39; Personal Development Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，" />
+
+  <meta name="keywords" content="personal, development" />
+
+<link rel="canonical" href="https://www.developmentscharles.cc/zh-cn/posts/dbus_learning_notes_01/" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.developmentscharles.cc/css/den.css">
+
+
+
+
+<meta property="og:title" content="Dbus learning notes 01" />
+<meta property="og:description" content="Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.developmentscharles.cc/zh-cn/posts/dbus_learning_notes_01/" /><meta property="article:section" content="zh-CN" />
+<meta property="article:published_time" content="2022-09-07T15:47:20+08:00" />
+<meta property="article:modified_time" content="2022-09-08T16:01:23+08:00" />
+
+<meta itemprop="name" content="Dbus learning notes 01">
+<meta itemprop="description" content="Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，"><meta itemprop="datePublished" content="2022-09-07T15:47:20+08:00" />
+<meta itemprop="dateModified" content="2022-09-08T16:01:23+08:00" />
+<meta itemprop="wordCount" content="3298">
+<meta itemprop="keywords" content="dbus,linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dbus learning notes 01"/>
+<meta name="twitter:description" content="Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，"/>
+</head>
+<body>
+  
+  <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://www.developmentscharles.cc/images/background.jpg'); background-position: center; background-size: cover;">
+  <div class="container">
+  <nav class="header-nav navbar navbar-expand-md navbar-dark light-dark">
+    <div class="header-logo navbar-brand">
+      
+        <a class="float-left" href="https://www.developmentscharles.cc/">
+      
+        
+        <img class="mr20 header-logo-image" src="https://www.developmentscharles.cc/images/globe.svg" alt="logo">
+        
+        
+          Charles' personal development notes
+         
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="nav-menu collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://www.developmentscharles.cc/category/notes/">笔记</a>
+              
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <a class="nav-link" href="https://www.developmentscharles.cc/en/about/">About</a>
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <a class="nav-link" href="https://www.developmentscharles.cc/about/">关于</a>
+            
+          </li>
+        
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="container header-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="header-content">
+        <h1 class="header-title text-uppercase">
+          Dbus learning notes 01
+        </h1>
+        <div class="header-underline"></div>
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+  <main>
+<div class="container content">
+  <h1 id="dbus-学习笔记">Dbus 学习笔记</h1>
+<hr>
+<h2 id="基础概念">基础概念</h2>
+<hr>
+<ul>
+<li>
+<p>D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途</p>
+</li>
+<li>
+<p>D-Bus是三层架构的进程间通信系统，接口层+总线层+包装层</p>
+<ul>
+<li>接口层：接口层由函数库libdbus提供，进程可通过该库使用D-Bus的能力</li>
+<li>总线层：总线层实际上是由D-Bus总线守护进程提供的。它在Linux系统启动时运行，负责进程间的消息路由和传递，其中包括Linux内核和Linux桌面环境的消息传递</li>
+<li>包装层：包装层一系列基于特定应用程序框架的Wrapper库</li>
+</ul>
+</li>
+<li>
+<p>D-Bus具备自身的协议，协议基于二进制数据设计，与数据结构和编码方式无关</p>
+<ul>
+<li>libdbus/D-Bus总线守护进程，均不需要太大的系统开销</li>
+</ul>
+</li>
+<li>
+<p>总线是D-Bus的进程间通信机制，一个系统中通常存在多条总线，这些总线由D-Bus总线守护进程管理</p>
+<ul>
+<li>系统总线（System Bus），只有Linux内核、Linux桌面环境和权限较高的程序才能向该总线写入消息，以此保障系统安全性，防止有恶意进程假冒Linux发送消息</li>
+<li>会话总线（Session Buses）由普通进程创建，可同时存在多条。会话总线属于某个进程私有，它用于进程间传递消息</li>
+</ul>
+</li>
+<li>
+<p><strong>D-Bus 重要概念</strong></p>
+<ul>
+<li>对象：对象是封装后的匹配器与回调函数，它以对等（peer-to-peer）协议使每个消息都有一个源地址和一个目的地址。这些地址又称为对象路径，或者称之为总线名称。对象的接口是回调函数，它以类似C++的虚拟函数实现。当一个进程注册到某个总线时，都要创建相应的消息对象</li>
+<li>消息：D-Bus的消息分为信号（signals）、方法调用（method calls）、方法返回（method returns）和错误（errors）。信号是最基本的消息，注册的进程可简单地发送信号到总线上，其他进程通过总线读取消息。方法调用是通过总线传递 参数，执行另一个进程接口函数的机制，用于某个进程控制另一个进程。方法返回是注册的进程在收到相关信息后，自动做出反应的机制，由回调函数实现。错误是信号的一种，是注册进程错误处理机制之一</li>
+<li>服务：服务（Services）是进程注册的抽象。进程注册某个地址后，即可获得对应总线的服务。D-Bus提供了服务查询接口，进程可通过该接口查询某个服务是否存在。或者在服务结束时自动收到来自系统的消息</li>
+</ul>
+</li>
+<li>
+<p>建立服务的流程：</p>
+<ol>
+<li>建立dbus连接（dbus_bus_get()）</li>
+<li>为这个dbus连接(DbusConnection)起名（dbus_bus_request_name()），此名即为后续远程调用的服务名</li>
+<li>进入监听循环（dbus_connection_read_write()）</li>
+<li>循环中，从总线中取出信息（dbus_connection_pop_message()）</li>
+<li>通过比对信息中的方法接口名和方法名（dbus_message_is_method_call()）,如果一致，跳转到相应的处理中，从消息中取出远程调用的参数，并建立回传[1]结果的通路（reply_to_method_call()）</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>[1] 回传动作本身等同于一次不需要等待结果的远程调用。</p>
+</blockquote>
+<ul>
+<li>
+<p>发送信号的流程：</p>
+<ol>
+<li>建立dbus连接，并为这个连接起名，建立发送信号的通道</li>
+<li>注意在建立通道的函数中，需要我们填写该信号的接口名及信号名（dbus_message_new_signal()）</li>
+<li>将相关的参数压到对应的信号中去（dbus_message_iter_init_append(),dbus_message_iter_append_basic()）</li>
+<li>启动发送（dbus_connection_send(),dbus_connection_flush）</li>
+</ol>
+</li>
+<li>
+<p>进行远程调用的流程</p>
+<ol>
+<li>建立dbus连接，并为dbus连接命名</li>
+<li>申请一个远程调用通道（dbus_message_new_method_call()）,注意填写服务器名，及本次调用的接口名+方法名，压入本次调用的参数（dbus_message_iter_init_append(),dbus_message_iter_append_basic()）</li>
+<li>把真正要传的参数，往首地址里面送（送完之后一般都会判断是否越界）</li>
+<li>之后，启动发送调用并释放发送相关的消息结构（dbus_connection_send_with_reply()）,启动函数中带有一个句柄，之后阻塞等待句柄给我们带回总线上回传的信息，当句柄回传信息之后，我们从信息结构中分离出参数。（dbus_message_iter_init(),dbus_message_iter_next(),dbus_message_iter_get_arg_type(),dbus_message_iter_get_basic()）</li>
+</ol>
+</li>
+<li>
+<p>信号接收流程：</p>
+<ol>
+<li>建立dbus连接并为dbus连接起名，为要进行的消息循环添加匹配条件（就是通过信号名和信号接口名来进行匹配控制的）（dbus_bus_add_match()）。我们进入等待循环后，只需要对信号名，信号接口名进行判断就可以分别处理各种信号了</li>
+<li>函数使用：
+<ol>
+<li>dbus_connection_read_write(): As long as the connection is open, this function will block until it can read or write, then read or write, then return #TRUE.If the connection is closed, the function returns #FALSE.</li>
+<li>dbus_connection_pop_message():Returns the first-received message from the incoming message queue, removing it from the queue. The caller owns a reference to the returned message. If the queue is empty, returns #NULL.</li>
+<li>dbus_connection_send():Adds a message to the outgoing message queue. Does not block to write the message to the network; that happens asynchronously. To force the message to be written, call dbus_connection_flush(). Because this only queues the message, the only reason it can fail is lack of memory. Even if the connection is disconnected, no error will be returned.
+@param connection the connection.
+@param message the message to write.
+@param serial return location for message serial, or #NULL if you don&rsquo;t care
+@returns #TRUE on success.</li>
+<li>dbus_connection_send_with_reply():Queues a message to send, as with dbus_connection_send(), but also returns a #DBusPendingCall used to receive a reply to the message. If no reply is received in the given timeout_milliseconds, this function expires the pending reply and generates a synthetic error reply (generated in-process, not by the remote application) indicating that a timeout occurred
+#DBusPendingCall will see a reply message before any filters or registered object path handlers. See dbus_connection_dispatch() for details on when handlers are run.
+#DBusPendingCall will always see exactly one reply message, unless it&rsquo;s cancelled with dbus_pending_call_cancel().
+If #NULL is passed for the pending_return, the #DBusPendingCall will still be generated internally, and used to track the message reply timeout. This means a timeout error will occur if no reply arrives, unlike with dbus_connection_send().
+If -1 is passed for the timeout, a sane default timeout is used. -1 is typically the best value for the timeout for this reason, unless you want a very short or very long timeout. There is no way to avoid a timeout entirely, other than passing INT_MAX for the timeout to mean &ldquo;very long timeout.&rdquo; libdbus clamps an INT_MAX timeout down to a few hours timeout though.
+@warning if the connection is disconnected, the #DBusPendingCall will be set to #NULL, so be careful with this.
+@param connection the connection
+@param message the message to send
+@param pending_return return location for a #DBusPendingCall object, or #NULL if connection is disconnected
+@param timeout_milliseconds timeout in milliseconds or -1 for default
+@returns #FALSE if no memory, #TRUE otherwise</li>
+<li>dbus_message_is_signal():Checks whether the message is a signal with the given interface and member fields. If the message is not #DBUS_MESSAGE_TYPE_SIGNAL, or has a different interface or member field, returns #FALSE.</li>
+<li>dbus_message_iter_init():Initializes a #DBusMessageIter for reading the arguments of the message passed in.</li>
+<li>dbus_message_iter_next():Moves the iterator to the next field, if any. If there&rsquo;s no next field, returns #FALSE. If the iterator moves forward, returns #TRUE.</li>
+<li>dbus_message_iter_get_arg_type():Returns the argument type of the argument that the message iterator points to. If the iterator is at the end of the message, returns #DBUS_TYPE_INVALID</li>
+<li>dbus_message_iter_get_basic():Reads a basic-typed value from the message iterator. Basic types are the non-containers such as integer and string</li>
+<li>dbus_message_new_signal():Constructs a new message representing a signal emission. Returns #NULL if memory can&rsquo;t be allocated for the message. A signal is identified by its originating object path, interface, and the name of the signal.Path, interface, and signal name must all be valid (the D-Bus specification defines the syntax of these fields).
+@param path the path to the object emitting the signal
+@param interface the interface the signal is emitted from
+@param name name of the signal
+@returns a new DBusMessage, free with dbus_message_unref()</li>
+<li>dbus_message_iter_init_append():Initializes a #DBusMessageIter for appending arguments to the end of a message.
+@param message the message
+@param iter pointer to an iterator to initialize</li>
+<li>dbus_message_iter_append_basic():Appends a basic-typed value to the message. The basic types are the non-container types such as integer and string.
+@param iter the append iterator
+@param type the type of the value
+@param value the address of the value
+@returns #FALSE if not enough memory</li>
+<li>dbus_message_new_method_call():Constructs a new message to invoke a method on a remote object. Returns #NULL if memory can&rsquo;t be allocated for the message. The destination may be #NULL in which case no destination is set; this is appropriate when using D-Bus in a peer-to-peer context (no message bus). The interface may be #NULL, which means that if multiple methods with the given name exist it is undefined which one will be invoked.
+The path and method names may not be #NULL.
+Destination, path, interface, and method name can&rsquo;t contain any invalid characters (see the D-Bus specification).
+@param destination name that the message should be sent to or #NULL
+@param path object path the message should be sent to
+@param interface interface to invoke method on, or #NULL
+@param method method to invoke
+@returns a new DBusMessage, free with dbus_message_unref()</li>
+<li>dbus_bus_get():Connects to a bus daemon and registers the client with it. If a connection to the bus already exists, then that connection is returned. The caller of this function owns a reference to the bus.
+@param type bus type
+@param error address where an error can be returned.
+@returns a #DBusConnection with new ref</li>
+<li>dbus_bus_request_name():Asks the bus to assign the given name to this connection by invoking the RequestName method on the bus.
+First you should know that for each bus name, the bus stores a queue of connections that would like to own it. Only one owns it at a time - called the primary owner. If the primary owner releases the name or disconnects, then the next owner in the queue atomically takes over.
+So for example if you have an application org.freedesktop.TextEditor and multiple instances of it can be run, you can have all of them sitting in the queue. The first one to start up will receive messages sent to org.freedesktop.TextEditor, but if that one exits another will become the primary owner and receive messages.
+The queue means you don&rsquo;t need to manually watch for the current owner to disappear and then request the name again.
+@param connection the connection
+@param name the name to request
+@param flags flags
+@param error location to store the error
+@returns a result code, -1 if error is set
+给DBusConnection起名字(命名) &ndash; 两个相互通信的连接(connection)不能同名
+命名规则: xxx.xxx (zeng.xiaolong)</li>
+<li>dbus_bus_add_match():Adds a match rule to match messages going through the message bus. The &ldquo;rule&rdquo; argument is the string form of a match rule.
+@param connection connection to the message bus
+@param rule textual form of match rule
+@param error location to store any errors</li>
+<li>dbus_pending_call_block(): Block until the pending call is completed. The blocking is as with dbus_connection_send_with_reply_and_block(); it does not enter the main loop or process other messages, it simply waits for the reply in question.
+If the pending call is already completed, this function returns immediately.
+@todo when you start blocking, the timeout is reset, but it should really only use time remaining since the pending call was created. This requires storing timestamps instead of intervals in the timeout
+@param pending the pending call</li>
+<li>dbus_pending_call_steal_reply(): Gets the reply, or returns #NULL if none has been received yet. Ownership of the reply message passes to the caller. This function can only be called once per pending call, since the reply message is tranferred to the caller.
+@param pending the pending call
+@returns the reply message or #NULL.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+
+</div>
+
+  </main><div class="footer gradient-2">
+  <div class="container footer-container ">
+    <div class="row">
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        <div class="footer-title">网站地图</div>
+        <ul class="list-unstyled">
+            
+              
+                <li><a href="https://www.developmentscharles.cc/tags/">标签</a></li>
+              
+              
+                <li><a href="https://www.developmentscharles.cc/categories/">分类</a></li>
+              
+            
+            
+            
+            <li><a rel="alternate" type="application/rss&#43;xml" href="https://www.developmentscharles.cc/index.xml"><i class="fas fa-rss-square"></i> RSS订阅</a></li>
+            
+            
+            
+        </ul>
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">社群</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="https://github.com/shaform/hugo-theme-den/" rel="noopener" target="_blank">GitHub</a></li>
+          
+        </ul>
+        
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">友链</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="content/about.md" rel="noopener" target="_blank">关于我</a></li>
+          
+        </ul>
+        
+      </div> 
+      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <p class="pull-right text-right">
+          <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
+          <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
+          <small>
+            &copy; 
+            Charles Y
+            2022
+          </small>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

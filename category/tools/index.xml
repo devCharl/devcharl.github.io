@@ -16,5 +16,14 @@
       <description>vscode 正则表达式使用总结 空行删除：^\s*(?=\r?$)\n 可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→</description>
     </item>
     
+    <item>
+      <title>Vscode Learning Note</title>
+      <link>https://www.developmentscharles.cc/zh-cn/posts/vscode-learning-note/</link>
+      <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/posts/vscode-learning-note/</guid>
+      <description>vscode 正则表达式使用总结 空行删除：^\s*(?=\r?$)\n 可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→</description>
+    </item>
+    
   </channel>
 </rss>

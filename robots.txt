@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://www.developmentscharles.cc/sitemap.xml

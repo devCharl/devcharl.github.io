@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Den</title>
+    <title>Ens on Charles&#39; Personal Development Notes</title>
     <link>https://www.developmentscharles.cc/en/</link>
-    <description>Recent content on Den</description>
+    <description>Recent content in Ens on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 06 Mar 2018 16:01:23 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://www.developmentscharles.cc/en/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/about/</guid>
+      <description>Hugo is a static site engine written in Go.
+It makes use of a variety of open source projects including:
+Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
+    </item>
     
-    <atom:link href="https://www.developmentscharles.cc/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Den Theme Preview</title>
+      <link>https://www.developmentscharles.cc/en/posts/den-theme-preview/</link>
+      <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/den-theme-preview/</guid>
+      <description>&lt;p&gt;This is a simple preview for styles in Den.&lt;/p&gt;</description>
+    </item>
     
+    <item>
+      <title>Header Image</title>
+      <link>https://www.developmentscharles.cc/en/posts/header-image/</link>
+      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/header-image/</guid>
+      <description>This is a simple note.</description>
+    </item>
+    
+    <item>
+      <title>Note 2</title>
+      <link>https://www.developmentscharles.cc/en/posts/note-2/</link>
+      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/note-2/</guid>
+      <description>This is a simple note.</description>
+    </item>
+    
+    <item>
+      <title>Note 1</title>
+      <link>https://www.developmentscharles.cc/en/posts/note-1/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/note-1/</guid>
+      <description>This is a simple note.</description>
+    </item>
     
   </channel>
 </rss>

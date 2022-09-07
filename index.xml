@@ -12,11 +12,32 @@
     
     
     <item>
-      <title>关于</title>
-      <link>https://www.developmentscharles.cc/about/</link>
+      <title>About</title>
+      <link>https://www.developmentscharles.cc/en/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/about/</guid>
+      <guid>https://www.developmentscharles.cc/en/about/</guid>
+      <description>Hugo is a static site engine written in Go.
+It makes use of a variety of open source projects including:
+Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
+      <content:encoded><![CDATA[<p>Hugo is a static site engine written in Go.</p>
+<p>It makes use of a variety of open source projects including:</p>
+<ul>
+<li><a href="https://github.com/spf13/cobra">Cobra</a></li>
+<li><a href="https://github.com/spf13/viper">Viper</a></li>
+<li><a href="https://github.com/spf13/jWalterWeatherman">J Walter Weatherman</a></li>
+<li><a href="https://github.com/spf13/cast">Cast</a></li>
+</ul>
+<p>Learn more and contribute on <a href="https://github.com/gohugoio">GitHub</a>.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://www.developmentscharles.cc/zh-cn/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/about/</guid>
       <description>关于网站 个人博客，欢迎交流 关于我 咸鱼一枚 喜欢效率和极简，喜欢看电影、读书、旅行和健身 想在这短短的一生中体验这世间美好的一切 关于版权 本站所有的</description>
       <content:encoded><![CDATA[<h2 id="关于网站">关于网站</h2>
 <p><strong>个人博客，欢迎交流</strong></p>
@@ -199,6 +220,167 @@ If the pending call is already completed, this function returns immediately.
     </item>
     
     <item>
+      <title>Dbus learning notes 01</title>
+      <link>https://www.developmentscharles.cc/zh-cn/posts/dbus_learning_notes_01/</link>
+      <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/posts/dbus_learning_notes_01/</guid>
+      <description>Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，</description>
+      <content:encoded><![CDATA[<h1 id="dbus-学习笔记">Dbus 学习笔记</h1>
+<hr>
+<h2 id="基础概念">基础概念</h2>
+<hr>
+<ul>
+<li>
+<p>D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途</p>
+</li>
+<li>
+<p>D-Bus是三层架构的进程间通信系统，接口层+总线层+包装层</p>
+<ul>
+<li>接口层：接口层由函数库libdbus提供，进程可通过该库使用D-Bus的能力</li>
+<li>总线层：总线层实际上是由D-Bus总线守护进程提供的。它在Linux系统启动时运行，负责进程间的消息路由和传递，其中包括Linux内核和Linux桌面环境的消息传递</li>
+<li>包装层：包装层一系列基于特定应用程序框架的Wrapper库</li>
+</ul>
+</li>
+<li>
+<p>D-Bus具备自身的协议，协议基于二进制数据设计，与数据结构和编码方式无关</p>
+<ul>
+<li>libdbus/D-Bus总线守护进程，均不需要太大的系统开销</li>
+</ul>
+</li>
+<li>
+<p>总线是D-Bus的进程间通信机制，一个系统中通常存在多条总线，这些总线由D-Bus总线守护进程管理</p>
+<ul>
+<li>系统总线（System Bus），只有Linux内核、Linux桌面环境和权限较高的程序才能向该总线写入消息，以此保障系统安全性，防止有恶意进程假冒Linux发送消息</li>
+<li>会话总线（Session Buses）由普通进程创建，可同时存在多条。会话总线属于某个进程私有，它用于进程间传递消息</li>
+</ul>
+</li>
+<li>
+<p><strong>D-Bus 重要概念</strong></p>
+<ul>
+<li>对象：对象是封装后的匹配器与回调函数，它以对等（peer-to-peer）协议使每个消息都有一个源地址和一个目的地址。这些地址又称为对象路径，或者称之为总线名称。对象的接口是回调函数，它以类似C++的虚拟函数实现。当一个进程注册到某个总线时，都要创建相应的消息对象</li>
+<li>消息：D-Bus的消息分为信号（signals）、方法调用（method calls）、方法返回（method returns）和错误（errors）。信号是最基本的消息，注册的进程可简单地发送信号到总线上，其他进程通过总线读取消息。方法调用是通过总线传递 参数，执行另一个进程接口函数的机制，用于某个进程控制另一个进程。方法返回是注册的进程在收到相关信息后，自动做出反应的机制，由回调函数实现。错误是信号的一种，是注册进程错误处理机制之一</li>
+<li>服务：服务（Services）是进程注册的抽象。进程注册某个地址后，即可获得对应总线的服务。D-Bus提供了服务查询接口，进程可通过该接口查询某个服务是否存在。或者在服务结束时自动收到来自系统的消息</li>
+</ul>
+</li>
+<li>
+<p>建立服务的流程：</p>
+<ol>
+<li>建立dbus连接（dbus_bus_get()）</li>
+<li>为这个dbus连接(DbusConnection)起名（dbus_bus_request_name()），此名即为后续远程调用的服务名</li>
+<li>进入监听循环（dbus_connection_read_write()）</li>
+<li>循环中，从总线中取出信息（dbus_connection_pop_message()）</li>
+<li>通过比对信息中的方法接口名和方法名（dbus_message_is_method_call()）,如果一致，跳转到相应的处理中，从消息中取出远程调用的参数，并建立回传[1]结果的通路（reply_to_method_call()）</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>[1] 回传动作本身等同于一次不需要等待结果的远程调用。</p>
+</blockquote>
+<ul>
+<li>
+<p>发送信号的流程：</p>
+<ol>
+<li>建立dbus连接，并为这个连接起名，建立发送信号的通道</li>
+<li>注意在建立通道的函数中，需要我们填写该信号的接口名及信号名（dbus_message_new_signal()）</li>
+<li>将相关的参数压到对应的信号中去（dbus_message_iter_init_append(),dbus_message_iter_append_basic()）</li>
+<li>启动发送（dbus_connection_send(),dbus_connection_flush）</li>
+</ol>
+</li>
+<li>
+<p>进行远程调用的流程</p>
+<ol>
+<li>建立dbus连接，并为dbus连接命名</li>
+<li>申请一个远程调用通道（dbus_message_new_method_call()）,注意填写服务器名，及本次调用的接口名+方法名，压入本次调用的参数（dbus_message_iter_init_append(),dbus_message_iter_append_basic()）</li>
+<li>把真正要传的参数，往首地址里面送（送完之后一般都会判断是否越界）</li>
+<li>之后，启动发送调用并释放发送相关的消息结构（dbus_connection_send_with_reply()）,启动函数中带有一个句柄，之后阻塞等待句柄给我们带回总线上回传的信息，当句柄回传信息之后，我们从信息结构中分离出参数。（dbus_message_iter_init(),dbus_message_iter_next(),dbus_message_iter_get_arg_type(),dbus_message_iter_get_basic()）</li>
+</ol>
+</li>
+<li>
+<p>信号接收流程：</p>
+<ol>
+<li>建立dbus连接并为dbus连接起名，为要进行的消息循环添加匹配条件（就是通过信号名和信号接口名来进行匹配控制的）（dbus_bus_add_match()）。我们进入等待循环后，只需要对信号名，信号接口名进行判断就可以分别处理各种信号了</li>
+<li>函数使用：
+<ol>
+<li>dbus_connection_read_write(): As long as the connection is open, this function will block until it can read or write, then read or write, then return #TRUE.If the connection is closed, the function returns #FALSE.</li>
+<li>dbus_connection_pop_message():Returns the first-received message from the incoming message queue, removing it from the queue. The caller owns a reference to the returned message. If the queue is empty, returns #NULL.</li>
+<li>dbus_connection_send():Adds a message to the outgoing message queue. Does not block to write the message to the network; that happens asynchronously. To force the message to be written, call dbus_connection_flush(). Because this only queues the message, the only reason it can fail is lack of memory. Even if the connection is disconnected, no error will be returned.
+@param connection the connection.
+@param message the message to write.
+@param serial return location for message serial, or #NULL if you don&rsquo;t care
+@returns #TRUE on success.</li>
+<li>dbus_connection_send_with_reply():Queues a message to send, as with dbus_connection_send(), but also returns a #DBusPendingCall used to receive a reply to the message. If no reply is received in the given timeout_milliseconds, this function expires the pending reply and generates a synthetic error reply (generated in-process, not by the remote application) indicating that a timeout occurred
+#DBusPendingCall will see a reply message before any filters or registered object path handlers. See dbus_connection_dispatch() for details on when handlers are run.
+#DBusPendingCall will always see exactly one reply message, unless it&rsquo;s cancelled with dbus_pending_call_cancel().
+If #NULL is passed for the pending_return, the #DBusPendingCall will still be generated internally, and used to track the message reply timeout. This means a timeout error will occur if no reply arrives, unlike with dbus_connection_send().
+If -1 is passed for the timeout, a sane default timeout is used. -1 is typically the best value for the timeout for this reason, unless you want a very short or very long timeout. There is no way to avoid a timeout entirely, other than passing INT_MAX for the timeout to mean &ldquo;very long timeout.&rdquo; libdbus clamps an INT_MAX timeout down to a few hours timeout though.
+@warning if the connection is disconnected, the #DBusPendingCall will be set to #NULL, so be careful with this.
+@param connection the connection
+@param message the message to send
+@param pending_return return location for a #DBusPendingCall object, or #NULL if connection is disconnected
+@param timeout_milliseconds timeout in milliseconds or -1 for default
+@returns #FALSE if no memory, #TRUE otherwise</li>
+<li>dbus_message_is_signal():Checks whether the message is a signal with the given interface and member fields. If the message is not #DBUS_MESSAGE_TYPE_SIGNAL, or has a different interface or member field, returns #FALSE.</li>
+<li>dbus_message_iter_init():Initializes a #DBusMessageIter for reading the arguments of the message passed in.</li>
+<li>dbus_message_iter_next():Moves the iterator to the next field, if any. If there&rsquo;s no next field, returns #FALSE. If the iterator moves forward, returns #TRUE.</li>
+<li>dbus_message_iter_get_arg_type():Returns the argument type of the argument that the message iterator points to. If the iterator is at the end of the message, returns #DBUS_TYPE_INVALID</li>
+<li>dbus_message_iter_get_basic():Reads a basic-typed value from the message iterator. Basic types are the non-containers such as integer and string</li>
+<li>dbus_message_new_signal():Constructs a new message representing a signal emission. Returns #NULL if memory can&rsquo;t be allocated for the message. A signal is identified by its originating object path, interface, and the name of the signal.Path, interface, and signal name must all be valid (the D-Bus specification defines the syntax of these fields).
+@param path the path to the object emitting the signal
+@param interface the interface the signal is emitted from
+@param name name of the signal
+@returns a new DBusMessage, free with dbus_message_unref()</li>
+<li>dbus_message_iter_init_append():Initializes a #DBusMessageIter for appending arguments to the end of a message.
+@param message the message
+@param iter pointer to an iterator to initialize</li>
+<li>dbus_message_iter_append_basic():Appends a basic-typed value to the message. The basic types are the non-container types such as integer and string.
+@param iter the append iterator
+@param type the type of the value
+@param value the address of the value
+@returns #FALSE if not enough memory</li>
+<li>dbus_message_new_method_call():Constructs a new message to invoke a method on a remote object. Returns #NULL if memory can&rsquo;t be allocated for the message. The destination may be #NULL in which case no destination is set; this is appropriate when using D-Bus in a peer-to-peer context (no message bus). The interface may be #NULL, which means that if multiple methods with the given name exist it is undefined which one will be invoked.
+The path and method names may not be #NULL.
+Destination, path, interface, and method name can&rsquo;t contain any invalid characters (see the D-Bus specification).
+@param destination name that the message should be sent to or #NULL
+@param path object path the message should be sent to
+@param interface interface to invoke method on, or #NULL
+@param method method to invoke
+@returns a new DBusMessage, free with dbus_message_unref()</li>
+<li>dbus_bus_get():Connects to a bus daemon and registers the client with it. If a connection to the bus already exists, then that connection is returned. The caller of this function owns a reference to the bus.
+@param type bus type
+@param error address where an error can be returned.
+@returns a #DBusConnection with new ref</li>
+<li>dbus_bus_request_name():Asks the bus to assign the given name to this connection by invoking the RequestName method on the bus.
+First you should know that for each bus name, the bus stores a queue of connections that would like to own it. Only one owns it at a time - called the primary owner. If the primary owner releases the name or disconnects, then the next owner in the queue atomically takes over.
+So for example if you have an application org.freedesktop.TextEditor and multiple instances of it can be run, you can have all of them sitting in the queue. The first one to start up will receive messages sent to org.freedesktop.TextEditor, but if that one exits another will become the primary owner and receive messages.
+The queue means you don&rsquo;t need to manually watch for the current owner to disappear and then request the name again.
+@param connection the connection
+@param name the name to request
+@param flags flags
+@param error location to store the error
+@returns a result code, -1 if error is set
+给DBusConnection起名字(命名) &ndash; 两个相互通信的连接(connection)不能同名
+命名规则: xxx.xxx (zeng.xiaolong)</li>
+<li>dbus_bus_add_match():Adds a match rule to match messages going through the message bus. The &ldquo;rule&rdquo; argument is the string form of a match rule.
+@param connection connection to the message bus
+@param rule textual form of match rule
+@param error location to store any errors</li>
+<li>dbus_pending_call_block(): Block until the pending call is completed. The blocking is as with dbus_connection_send_with_reply_and_block(); it does not enter the main loop or process other messages, it simply waits for the reply in question.
+If the pending call is already completed, this function returns immediately.
+@todo when you start blocking, the timeout is reset, but it should really only use time remaining since the pending call was created. This requires storing timestamps instead of intervals in the timeout
+@param pending the pending call</li>
+<li>dbus_pending_call_steal_reply(): Gets the reply, or returns #NULL if none has been received yet. Ownership of the reply message passes to the caller. This function can only be called once per pending call, since the reply message is tranferred to the caller.
+@param pending the pending call
+@returns the reply message or #NULL.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+    <item>
       <title>Vscode Learning Note</title>
       <link>https://www.developmentscharles.cc/2022/08/24/vscode-learning-note/</link>
       <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
@@ -220,6 +402,180 @@ If the pending call is already completed, this function returns immediately.
     </item>
     
     <item>
+      <title>Vscode Learning Note</title>
+      <link>https://www.developmentscharles.cc/zh-cn/posts/vscode-learning-note/</link>
+      <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/posts/vscode-learning-note/</guid>
+      <description>vscode 正则表达式使用总结 空行删除：^\s*(?=\r?$)\n 可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→</description>
+      <content:encoded><![CDATA[<h1 id="vscode-正则表达式使用总结">vscode 正则表达式使用总结</h1>
+<ul>
+<li>空行删除：^\s*(?=\r?$)\n</li>
+<li>可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→Keyboard Shortcuts 打开</li>
+<li>当前行快速换行：Ctrl+Enter</li>
+<li>快速删除某一行：Shift+Delete或者Ctrl+Shift+K</li>
+<li>查找：Ctrl+F</li>
+<li>文件中查找：Ctrl+Shift+F</li>
+<li>替换：Ctrl+H</li>
+<li>文件中替换：Ctrl+Shift+H</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Den Theme Preview</title>
+      <link>https://www.developmentscharles.cc/en/posts/den-theme-preview/</link>
+      <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/den-theme-preview/</guid>
+      <description>&lt;p&gt;This is a simple preview for styles in Den.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>This is a simple preview for styles in Den.</p>
+<h2 id="header">Header</h2>
+<p>A paragraph is like this.</p>
+<p>A paragraph might be very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long.</p>
+<h3 id="headers">Headers</h3>
+<h4 id="headers-1">Headers</h4>
+<h2 id="code-blocks">Code blocks</h2>
+<pre><code>text code blocks
+text code blocks
+text code blocks
+text code blocks
+</code></pre>
+<h2 id="highlighted-code-blocks">Highlighted Code Blocks</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="blockquotes">Blockquotes</h2>
+<blockquote>
+<p>This is a blockquote with two paragraphs. This is first paragraph.</p>
+<p>This is second pragraph.</p>
+</blockquote>
+<h2 id="lists">Lists</h2>
+<ul>
+<li>Red</li>
+<li>Green</li>
+<li>Blue</li>
+</ul>
+<ol>
+<li>Red</li>
+<li>Green</li>
+<li>Blue
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C
+<ol>
+<li>D</li>
+<li>E</li>
+<li>F</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="task-list">Task List</h2>
+<ul>
+<li><input disabled="" type="checkbox"> a task list item</li>
+<li><input disabled="" type="checkbox"> list syntax <del>required</del></li>
+<li><input disabled="" type="checkbox"> normal <strong>formatting</strong></li>
+<li><input disabled="" type="checkbox"> incomplete</li>
+<li><input checked="" disabled="" type="checkbox"> completed</li>
+</ul>
+<h2 id="formatted-texts">Formatted Texts</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Markdown</th>
+<th>HTML tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Emphasis</em></td>
+<td>*Emphasis*</td>
+<td><code>&lt;em&gt;&lt;/em&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Strong</strong></td>
+<td>**Strong**</td>
+<td><code>&lt;strong&gt;&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td><code>code</code></td>
+<td>`code`</td>
+<td><code>&lt;code&gt;&lt;/code&gt;</code></td>
+</tr>
+<tr>
+<td><del>Strikethrough</del></td>
+<td>~~Strikethrough~~</td>
+<td><code>&lt;del&gt;&lt;/del</code></td>
+</tr>
+<tr>
+<td><strong>Underline</strong></td>
+<td>__underline__</td>
+<td><code>&lt;u&gt;&lt;/u&gt;</code></td>
+</tr>
+<tr>
+<td><!-- raw HTML omitted -->Key<!-- raw HTML omitted --></td>
+<td>&lt;kbd&gt;Key&lt;/kbd&gt;</td>
+<td><code>&lt;kbd&gt;&lt;/kbd&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tables">Tables</h2>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+</tr>
+</tbody>
+</table>
+<h2 id="footnotes">Footnotes</h2>
+<p>You can create footnotes like this<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<h2 id="horizontal-rules">Horizontal Rules</h2>
+<p>A rule.</p>
+<hr>
+<p>A rule.</p>
+<hr>
+<h2 id="links">Links</h2>
+<p>This is <a href="http://example.com/%22Title%22">an example</a> inline link.</p>
+<h2 id="images">Images</h2>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Octicons-globe.svg/240px-Octicons-globe.svg.png" alt="Globe"></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Here is the <em>text</em> of the <strong>footnote</strong>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Header Image</title>
+      <link>https://www.developmentscharles.cc/en/posts/header-image/</link>
+      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/header-image/</guid>
+      <description>This is a simple note.</description>
+      <content:encoded><![CDATA[<p>This is a simple note.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
       <title>標頭圖片</title>
       <link>https://www.developmentscharles.cc/2018/03/05/%E6%A8%99%E9%A0%AD%E5%9C%96%E7%89%87/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
@@ -227,6 +583,65 @@ If the pending call is already completed, this function returns immediately.
       <guid>https://www.developmentscharles.cc/2018/03/05/%E6%A8%99%E9%A0%AD%E5%9C%96%E7%89%87/</guid>
       <description>這是一個簡單的筆記。</description>
       <content:encoded><![CDATA[<p>這是一個簡單的筆記。</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>標頭圖片</title>
+      <link>https://www.developmentscharles.cc/zh-cn/posts/header-image/</link>
+      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/zh-cn/posts/header-image/</guid>
+      <description>這是一個簡單的筆記。</description>
+      <content:encoded><![CDATA[<p>這是一個簡單的筆記。</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Note 2</title>
+      <link>https://www.developmentscharles.cc/en/posts/note-2/</link>
+      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/note-2/</guid>
+      <description>This is a simple note.</description>
+      <content:encoded><![CDATA[<p>This is a simple note.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Note 1</title>
+      <link>https://www.developmentscharles.cc/en/posts/note-1/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/en/posts/note-1/</guid>
+      <description>This is a simple note.</description>
+      <content:encoded><![CDATA[<p>This is a simple note.</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://www.developmentscharles.cc/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      
+      <guid>https://www.developmentscharles.cc/about/</guid>
+      <description>关于网站 个人博客，欢迎交流 关于我 咸鱼一枚 喜欢效率和极简，喜欢看电影、读书、旅行和健身 想在这短短的一生中体验这世间美好的一切 关于版权 本站所有的</description>
+      <content:encoded><![CDATA[<h2 id="关于网站">关于网站</h2>
+<p><strong>个人博客，欢迎交流</strong></p>
+<h2 id="关于我">关于我</h2>
+<ul>
+<li>咸鱼一枚</li>
+<li>喜欢效率和极简，喜欢看电影、读书、旅行和健身</li>
+<li>想在这短短的一生中体验这世间美好的一切</li>
+</ul>
+<h2 id="关于版权">关于版权</h2>
+<p>本站所有的原创文章均受 <a href="https://creativecommons.org/licenses/by-nc/4.0/">创作共享 署名-非商业性 4.0 许可协议 / CC BY-NC 4.0</a> 保护。</p>
+<p>任何个人及媒体在转载本站原创内容（包含文字、自制图像、摄影作品）时请遵守以下版权要求：</p>
+<ul>
+<li>注明转载</li>
+<li>注明来源为本站首页网址 <a href="https://devcharl.github.io/">devcharl.github.io</a>，或所转内容在本站的完整网址</li>
+</ul>
+<p>本站图片部分来自互联网。 此类图片的原版权所有者可在任何时候、以任何理由要求本站停止使用有关图片，其中包括被本站编辑（比如加注中文说明）过的图片， 联系方式见本站首页。</p>
 ]]></content:encoded>
     </item>
     
