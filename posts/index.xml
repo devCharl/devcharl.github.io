@@ -25,14 +25,5 @@
       <description>vscode 正则表达式使用总结 空行删除：^\s*(?=\r?$)\n 可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→</description>
     </item>
     
-    <item>
-      <title>標頭圖片</title>
-      <link>https://www.developmentscharles.cc/2018/03/05/%E6%A8%99%E9%A0%AD%E5%9C%96%E7%89%87/</link>
-      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://www.developmentscharles.cc/2018/03/05/%E6%A8%99%E9%A0%AD%E5%9C%96%E7%89%87/</guid>
-      <description>這是一個簡單的筆記。</description>
-    </item>
-    
   </channel>
 </rss>
