@@ -1,57 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Ens on Charles&#39; Personal Development Notes</title>
+    <title>Charles&#39; Personal Development Notes</title>
     <link>https://devcharl.github.io/en/</link>
-    <description>Recent content in Ens on Charles&#39; Personal Development Notes</description>
+    <description>Recent content on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Tue, 06 Mar 2018 16:01:23 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    
+    <atom:link href="https://devcharl.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>About</title>
       <link>https://devcharl.github.io/en/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
       <guid>https://devcharl.github.io/en/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
-Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
-    </item>
-    
-    <item>
-      <title>Den Theme Preview</title>
-      <link>https://devcharl.github.io/en/posts/den-theme-preview/</link>
-      <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://devcharl.github.io/en/posts/den-theme-preview/</guid>
-      <description>&lt;p&gt;This is a simple preview for styles in Den.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Header Image</title>
-      <link>https://devcharl.github.io/en/posts/header-image/</link>
-      <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://devcharl.github.io/en/posts/header-image/</guid>
-      <description>This is a simple note.</description>
-    </item>
-    
-    <item>
-      <title>Note 2</title>
-      <link>https://devcharl.github.io/en/posts/note-2/</link>
-      <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://devcharl.github.io/en/posts/note-2/</guid>
-      <description>This is a simple note.</description>
-    </item>
-    
-    <item>
-      <title>Note 1</title>
-      <link>https://devcharl.github.io/en/posts/note-1/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://devcharl.github.io/en/posts/note-1/</guid>
-      <description>This is a simple note.</description>
+      <description>About This Site A personal blog for learning notes and development records.
+About Me Software developer Interested in efficiency, simplicity, movies, reading, travel, and fitness License Original articles on this site are licensed under CC BY-NC 4.0.</description>
+      <content:encoded><![CDATA[<h2 id="about-this-site">About This Site</h2>
+<p>A personal blog for learning notes and development records.</p>
+<h2 id="about-me">About Me</h2>
+<ul>
+<li>Software developer</li>
+<li>Interested in efficiency, simplicity, movies, reading, travel, and fitness</li>
+</ul>
+<h2 id="license">License</h2>
+<p>Original articles on this site are licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.</p>
+]]></content:encoded>
     </item>
     
   </channel>

@@ -23,11 +23,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-07T15:47:20+08:00" />
-<meta property="article:modified_time" content="2022-09-08T16:01:23+08:00" />
+<meta property="article:modified_time" content="2022-09-07T15:47:20+08:00" />
 
 <meta itemprop="name" content="Dbus learning notes 01">
 <meta itemprop="description" content="Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，"><meta itemprop="datePublished" content="2022-09-07T15:47:20+08:00" />
-<meta itemprop="dateModified" content="2022-09-08T16:01:23+08:00" />
+<meta itemprop="dateModified" content="2022-09-07T15:47:20+08:00" />
 <meta itemprop="wordCount" content="3298">
 <meta itemprop="keywords" content="dbus,linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Dbus learning notes 01"/>
@@ -66,13 +66,17 @@
         
           <li class="nav-item">
             
-              <a class="nav-link" href="https://devcharl.github.io/en/about/">About</a>
+              
+                <a class="nav-link" href="https://devcharl.github.io/en/about/">About</a>
+              
             
           </li>
         
           <li class="nav-item">
             
-              <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
+              
+                <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
+              
             
           </li>
         
@@ -90,7 +94,7 @@
         <p class="header-date">
         2022-09-07
           / 分类：
-          <a href="https://devcharl.github.io/category/dbus/">Dbus</a>
+          <a href="https://devcharl.github.io/category/dbus/">dbus</a>
         </p>
         
         <div class="header-underline"></div>
@@ -191,74 +195,22 @@
 <ol>
 <li>dbus_connection_read_write(): As long as the connection is open, this function will block until it can read or write, then read or write, then return #TRUE.If the connection is closed, the function returns #FALSE.</li>
 <li>dbus_connection_pop_message():Returns the first-received message from the incoming message queue, removing it from the queue. The caller owns a reference to the returned message. If the queue is empty, returns #NULL.</li>
-<li>dbus_connection_send():Adds a message to the outgoing message queue. Does not block to write the message to the network; that happens asynchronously. To force the message to be written, call dbus_connection_flush(). Because this only queues the message, the only reason it can fail is lack of memory. Even if the connection is disconnected, no error will be returned.
-@param connection the connection.
-@param message the message to write.
-@param serial return location for message serial, or #NULL if you don&rsquo;t care
-@returns #TRUE on success.</li>
-<li>dbus_connection_send_with_reply():Queues a message to send, as with dbus_connection_send(), but also returns a #DBusPendingCall used to receive a reply to the message. If no reply is received in the given timeout_milliseconds, this function expires the pending reply and generates a synthetic error reply (generated in-process, not by the remote application) indicating that a timeout occurred
-#DBusPendingCall will see a reply message before any filters or registered object path handlers. See dbus_connection_dispatch() for details on when handlers are run.
-#DBusPendingCall will always see exactly one reply message, unless it&rsquo;s cancelled with dbus_pending_call_cancel().
-If #NULL is passed for the pending_return, the #DBusPendingCall will still be generated internally, and used to track the message reply timeout. This means a timeout error will occur if no reply arrives, unlike with dbus_connection_send().
-If -1 is passed for the timeout, a sane default timeout is used. -1 is typically the best value for the timeout for this reason, unless you want a very short or very long timeout. There is no way to avoid a timeout entirely, other than passing INT_MAX for the timeout to mean &ldquo;very long timeout.&rdquo; libdbus clamps an INT_MAX timeout down to a few hours timeout though.
-@warning if the connection is disconnected, the #DBusPendingCall will be set to #NULL, so be careful with this.
-@param connection the connection
-@param message the message to send
-@param pending_return return location for a #DBusPendingCall object, or #NULL if connection is disconnected
-@param timeout_milliseconds timeout in milliseconds or -1 for default
-@returns #FALSE if no memory, #TRUE otherwise</li>
+<li>dbus_connection_send():Adds a message to the outgoing message queue. Does not block to write the message to the network; that happens asynchronously. To force the message to be written, call dbus_connection_flush(). Because this only queues the message, the only reason it can fail is lack of memory. Even if the connection is disconnected, no error will be returned. @param connection the connection. @param message the message to write. @param serial return location for message serial, or #NULL if you don&rsquo;t care @returns #TRUE on success.</li>
+<li>dbus_connection_send_with_reply():Queues a message to send, as with dbus_connection_send(), but also returns a #DBusPendingCall used to receive a reply to the message. If no reply is received in the given timeout_milliseconds, this function expires the pending reply and generates a synthetic error reply (generated in-process, not by the remote application) indicating that a timeout occurred #DBusPendingCall will see a reply message before any filters or registered object path handlers. See dbus_connection_dispatch() for details on when handlers are run. #DBusPendingCall will always see exactly one reply message, unless it&rsquo;s cancelled with dbus_pending_call_cancel(). If #NULL is passed for the pending_return, the #DBusPendingCall will still be generated internally, and used to track the message reply timeout. This means a timeout error will occur if no reply arrives, unlike with dbus_connection_send(). If -1 is passed for the timeout, a sane default timeout is used. -1 is typically the best value for the timeout for this reason, unless you want a very short or very long timeout. There is no way to avoid a timeout entirely, other than passing INT_MAX for the timeout to mean &ldquo;very long timeout.&rdquo; libdbus clamps an INT_MAX timeout down to a few hours timeout though. @warning if the connection is disconnected, the #DBusPendingCall will be set to #NULL, so be careful with this. @param connection the connection @param message the message to send @param pending_return return location for a #DBusPendingCall object, or #NULL if connection is disconnected @param timeout_milliseconds timeout in milliseconds or -1 for default @returns #FALSE if no memory, #TRUE otherwise</li>
 <li>dbus_message_is_signal():Checks whether the message is a signal with the given interface and member fields. If the message is not #DBUS_MESSAGE_TYPE_SIGNAL, or has a different interface or member field, returns #FALSE.</li>
 <li>dbus_message_iter_init():Initializes a #DBusMessageIter for reading the arguments of the message passed in.</li>
 <li>dbus_message_iter_next():Moves the iterator to the next field, if any. If there&rsquo;s no next field, returns #FALSE. If the iterator moves forward, returns #TRUE.</li>
 <li>dbus_message_iter_get_arg_type():Returns the argument type of the argument that the message iterator points to. If the iterator is at the end of the message, returns #DBUS_TYPE_INVALID</li>
 <li>dbus_message_iter_get_basic():Reads a basic-typed value from the message iterator. Basic types are the non-containers such as integer and string</li>
-<li>dbus_message_new_signal():Constructs a new message representing a signal emission. Returns #NULL if memory can&rsquo;t be allocated for the message. A signal is identified by its originating object path, interface, and the name of the signal.Path, interface, and signal name must all be valid (the D-Bus specification defines the syntax of these fields).
-@param path the path to the object emitting the signal
-@param interface the interface the signal is emitted from
-@param name name of the signal
-@returns a new DBusMessage, free with dbus_message_unref()</li>
-<li>dbus_message_iter_init_append():Initializes a #DBusMessageIter for appending arguments to the end of a message.
-@param message the message
-@param iter pointer to an iterator to initialize</li>
-<li>dbus_message_iter_append_basic():Appends a basic-typed value to the message. The basic types are the non-container types such as integer and string.
-@param iter the append iterator
-@param type the type of the value
-@param value the address of the value
-@returns #FALSE if not enough memory</li>
-<li>dbus_message_new_method_call():Constructs a new message to invoke a method on a remote object. Returns #NULL if memory can&rsquo;t be allocated for the message. The destination may be #NULL in which case no destination is set; this is appropriate when using D-Bus in a peer-to-peer context (no message bus). The interface may be #NULL, which means that if multiple methods with the given name exist it is undefined which one will be invoked.
-The path and method names may not be #NULL.
-Destination, path, interface, and method name can&rsquo;t contain any invalid characters (see the D-Bus specification).
-@param destination name that the message should be sent to or #NULL
-@param path object path the message should be sent to
-@param interface interface to invoke method on, or #NULL
-@param method method to invoke
-@returns a new DBusMessage, free with dbus_message_unref()</li>
-<li>dbus_bus_get():Connects to a bus daemon and registers the client with it. If a connection to the bus already exists, then that connection is returned. The caller of this function owns a reference to the bus.
-@param type bus type
-@param error address where an error can be returned.
-@returns a #DBusConnection with new ref</li>
-<li>dbus_bus_request_name():Asks the bus to assign the given name to this connection by invoking the RequestName method on the bus.
-First you should know that for each bus name, the bus stores a queue of connections that would like to own it. Only one owns it at a time - called the primary owner. If the primary owner releases the name or disconnects, then the next owner in the queue atomically takes over.
-So for example if you have an application org.freedesktop.TextEditor and multiple instances of it can be run, you can have all of them sitting in the queue. The first one to start up will receive messages sent to org.freedesktop.TextEditor, but if that one exits another will become the primary owner and receive messages.
-The queue means you don&rsquo;t need to manually watch for the current owner to disappear and then request the name again.
-@param connection the connection
-@param name the name to request
-@param flags flags
-@param error location to store the error
-@returns a result code, -1 if error is set
-给DBusConnection起名字(命名) &ndash; 两个相互通信的连接(connection)不能同名
-命名规则: xxx.xxx (zeng.xiaolong)</li>
-<li>dbus_bus_add_match():Adds a match rule to match messages going through the message bus. The &ldquo;rule&rdquo; argument is the string form of a match rule.
-@param connection connection to the message bus
-@param rule textual form of match rule
-@param error location to store any errors</li>
-<li>dbus_pending_call_block(): Block until the pending call is completed. The blocking is as with dbus_connection_send_with_reply_and_block(); it does not enter the main loop or process other messages, it simply waits for the reply in question.
-If the pending call is already completed, this function returns immediately.
-@todo when you start blocking, the timeout is reset, but it should really only use time remaining since the pending call was created. This requires storing timestamps instead of intervals in the timeout
-@param pending the pending call</li>
-<li>dbus_pending_call_steal_reply(): Gets the reply, or returns #NULL if none has been received yet. Ownership of the reply message passes to the caller. This function can only be called once per pending call, since the reply message is tranferred to the caller.
-@param pending the pending call
-@returns the reply message or #NULL.</li>
+<li>dbus_message_new_signal():Constructs a new message representing a signal emission. Returns #NULL if memory can&rsquo;t be allocated for the message. A signal is identified by its originating object path, interface, and the name of the signal.Path, interface, and signal name must all be valid (the D-Bus specification defines the syntax of these fields). @param path the path to the object emitting the signal @param interface the interface the signal is emitted from @param name name of the signal @returns a new DBusMessage, free with dbus_message_unref()</li>
+<li>dbus_message_iter_init_append():Initializes a #DBusMessageIter for appending arguments to the end of a message. @param message the message @param iter pointer to an iterator to initialize</li>
+<li>dbus_message_iter_append_basic():Appends a basic-typed value to the message. The basic types are the non-container types such as integer and string. @param iter the append iterator @param type the type of the value @param value the address of the value @returns #FALSE if not enough memory</li>
+<li>dbus_message_new_method_call():Constructs a new message to invoke a method on a remote object. Returns #NULL if memory can&rsquo;t be allocated for the message. The destination may be #NULL in which case no destination is set; this is appropriate when using D-Bus in a peer-to-peer context (no message bus). The interface may be #NULL, which means that if multiple methods with the given name exist it is undefined which one will be invoked. The path and method names may not be #NULL. Destination, path, interface, and method name can&rsquo;t contain any invalid characters (see the D-Bus specification). @param destination name that the message should be sent to or #NULL @param path object path the message should be sent to @param interface interface to invoke method on, or #NULL @param method method to invoke @returns a new DBusMessage, free with dbus_message_unref()</li>
+<li>dbus_bus_get():Connects to a bus daemon and registers the client with it. If a connection to the bus already exists, then that connection is returned. The caller of this function owns a reference to the bus. @param type bus type @param error address where an error can be returned. @returns a #DBusConnection with new ref</li>
+<li>dbus_bus_request_name():Asks the bus to assign the given name to this connection by invoking the RequestName method on the bus. First you should know that for each bus name, the bus stores a queue of connections that would like to own it. Only one owns it at a time - called the primary owner. If the primary owner releases the name or disconnects, then the next owner in the queue atomically takes over. So for example if you have an application org.freedesktop.TextEditor and multiple instances of it can be run, you can have all of them sitting in the queue. The first one to start up will receive messages sent to org.freedesktop.TextEditor, but if that one exits another will become the primary owner and receive messages. The queue means you don&rsquo;t need to manually watch for the current owner to disappear and then request the name again. @param connection the connection @param name the name to request @param flags flags @param error location to store the error @returns a result code, -1 if error is set 给DBusConnection起名字(命名) - 两个相互通信的连接(connection)不能同名 命名规则: xxx.xxx (zeng.xiaolong)</li>
+<li>dbus_bus_add_match():Adds a match rule to match messages going through the message bus. The &ldquo;rule&rdquo; argument is the string form of a match rule. @param connection connection to the message bus @param rule textual form of match rule @param error location to store any errors</li>
+<li>dbus_pending_call_block(): Block until the pending call is completed. The blocking is as with dbus_connection_send_with_reply_and_block(); it does not enter the main loop or process other messages, it simply waits for the reply in question. If the pending call is already completed, this function returns immediately. @todo when you start blocking, the timeout is reset, but it should really only use time remaining since the pending call was created. This requires storing timestamps instead of intervals in the timeout @param pending the pending call</li>
+<li>dbus_pending_call_steal_reply(): Gets the reply, or returns #NULL if none has been received yet. Ownership of the reply message passes to the caller. This function can only be called once per pending call, since the reply message is tranferred to the caller. @param pending the pending call @returns the reply message or #NULL.</li>
 </ol>
 </li>
 </ol>
@@ -303,7 +255,7 @@ If the pending call is already completed, this function returns immediately.
         <div class="footer-title">社群</div>
         <ul class="list-unstyled">
           
-          <li><a href="https://github.com/shaform/hugo-theme-den/" rel="noopener" target="_blank">GitHub</a></li>
+          <li><a href="https://github.com/devCharl/devcharl.github.io" rel="noopener" target="_blank">GitHub</a></li>
           
         </ul>
         
@@ -313,7 +265,7 @@ If the pending call is already completed, this function returns immediately.
         <div class="footer-title">友链</div>
         <ul class="list-unstyled">
           
-          <li><a href="content/about.md" rel="noopener" target="_blank">关于我</a></li>
+          <li><a href="about/" rel="noopener" target="_blank">关于我</a></li>
           
         </ul>
         
@@ -325,7 +277,9 @@ If the pending call is already completed, this function returns immediately.
           <small>
             &copy; 
             Charles Y
-            2022
+            
+              2022 -
+            2026
           </small>
           
         </p>
