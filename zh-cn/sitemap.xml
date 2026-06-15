@@ -23,6 +23,13 @@
   </url>
   
   <url>
+    <loc>https://devcharl.github.io/category/develop/</loc>
+    <lastmod>2026-06-15T10:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://devcharl.github.io/tag/gcc/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>

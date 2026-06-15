@@ -3,13 +3,12 @@
 <head>
   <meta name="generator" content="Hugo 0.101.0" />
   <meta charset="utf-8">
-  <title>VS Code 正则表达式与快捷键 · Charles&#39; Personal Development Notes</title>
+  <title>develop · Charles&#39; Personal Development Notes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F" />
-
+  <meta name="description" content="记录个人学习及成长。" />
   <meta name="keywords" content="personal, development" />
 
-<link rel="canonical" href="https://devcharl.github.io/2022/08/24/vscode-learning-note/" />
+<link rel="canonical" href="https://devcharl.github.io/category/develop/" />
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -17,21 +16,18 @@
 
 
 
+<link href="/category/develop/index.xml" rel="alternate" type="application/rss+xml" title="Charles&#39; Personal Development Notes" />
 
-<meta property="og:title" content="VS Code 正则表达式与快捷键" />
-<meta property="og:description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://devcharl.github.io/2022/08/24/vscode-learning-note/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-08-24T16:03:16+08:00" />
-<meta property="article:modified_time" content="2022-08-24T16:03:16+08:00" />
 
-<meta itemprop="name" content="VS Code 正则表达式与快捷键">
-<meta itemprop="description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F"><meta itemprop="datePublished" content="2022-08-24T16:03:16+08:00" />
-<meta itemprop="dateModified" content="2022-08-24T16:03:16+08:00" />
-<meta itemprop="wordCount" content="85">
-<meta itemprop="keywords" content="vscode,editor," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="VS Code 正则表达式与快捷键"/>
-<meta name="twitter:description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F"/>
+<meta property="og:title" content="develop" />
+<meta property="og:description" content="记录个人学习及成长。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://devcharl.github.io/category/develop/" />
+
+<meta itemprop="name" content="develop">
+<meta itemprop="description" content="记录个人学习及成长。"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="develop"/>
+<meta name="twitter:description" content="记录个人学习及成长。"/>
 </head>
 <body>
   
@@ -82,25 +78,13 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="header-content">
-        <h1 class="header-title">VS Code 正则表达式与快捷键</h1>
-        <p class="header-date">
-        2022-08-24
-          / 分类：
-          <a href="https://devcharl.github.io/category/notes/">notes</a>, 
-            <a href="https://devcharl.github.io/category/develop/">develop</a>
-        </p>
-        
+        <h1 class="header-title text-uppercase">
+          分类 : develop
+        </h1>
         <div class="header-underline"></div>
-        
-          <div class="clearfix"></div>
-          <p class="float-right header-tags">
-              <i class="fas fa-tags" aria-hidden="true"></i>
-              <a href="https://devcharl.github.io/tag/editor/">editor</a>, 
-                <a href="https://devcharl.github.io/tag/vscode/">vscode</a>
-          </p>
-        
-        
-
+        <p class="header-subtitle header-subtitle-homepage">
+        分类归档： "develop"
+        </p>
       </div>
     </div>
   </div>
@@ -108,73 +92,31 @@
 
   </div>
   <main>
-<div class="container content">
-  <article>
-  <h2 id="正则表达式">正则表达式</h2>
-<table>
-<thead>
-<tr>
-<th>用途</th>
-<th>表达式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>删除空行</td>
-<td><code>^\s*(?=\r?$)\n</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="常用快捷键">常用快捷键</h2>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>快捷键</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>打开键盘快捷键设置</td>
-<td><code>Ctrl+K Ctrl+S</code>，或 File → Preferences → Keyboard Shortcuts</td>
-</tr>
-<tr>
-<td>当前行快速换行</td>
-<td><code>Ctrl+Enter</code></td>
-</tr>
-<tr>
-<td>快速删除当前行</td>
-<td><code>Shift+Delete</code> 或 <code>Ctrl+Shift+K</code></td>
-</tr>
-<tr>
-<td>查找</td>
-<td><code>Ctrl+F</code></td>
-</tr>
-<tr>
-<td>文件中查找</td>
-<td><code>Ctrl+Shift+F</code></td>
-</tr>
-<tr>
-<td>替换</td>
-<td><code>Ctrl+H</code></td>
-</tr>
-<tr>
-<td>文件中替换</td>
-<td><code>Ctrl+Shift+H</code></td>
-</tr>
-</tbody>
-</table>
-
-  </article>
-
-  
-  
-    
-  
-  
-
-
+<div class="archive-container">
+    <div class="container content archive">
+      <h2>develop</h2>
+        <dl class="row">
+            <dt class="col-md-3">2026-06-15</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2026/06/15/makefile-learning-note/">Makefile/GCC编译选项 学习笔记</a></dd>
+            <dt class="col-md-3">2024-05-11</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2024/05/11/git-notes-summary/">Git 笔记总结</a></dd>
+            <dt class="col-md-3">2023-02-26</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2023/02/26/shell-learning-note/">Shell 脚本中各种符号意义详解</a></dd>
+            <dt class="col-md-3">2022-10-15</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2022/10/15/web-notes/">HTML / PHP 开发踩坑笔记</a></dd>
+            <dt class="col-md-3">2022-09-07</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/">D-Bus 学习笔记 01</a></dd>
+            <dt class="col-md-3">2022-08-24</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2022/08/24/vscode-learning-note/">VS Code 正则表达式与快捷键</a></dd>
+            <dt class="col-md-3">2020-04-17</dt>
+            <dd class="col-md-9"><a href="https://devcharl.github.io/2020/04/17/iperf3-learning-note/">Iperf3 网络性能测试工具</a></dd>
+            
+        </dl>
+    </div>
 </div>
+
+
+
 
   </main><div class="footer gradient-2">
   <div class="container footer-container ">
@@ -222,7 +164,7 @@
       </div> 
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <p class="pull-right text-right">
-          <small>语言：<a href="https://devcharl.github.io/2022/08/24/vscode-learning-note/" hreflang="zh-cn">中文</a> | <a href="https://devcharl.github.io/en/" hreflang="en">English</a></small><br/>
+          <small>语言：<a href="https://devcharl.github.io/category/develop/" hreflang="zh-cn">中文</a> | <a href="https://devcharl.github.io/en/" hreflang="en">English</a></small><br/>
           <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
           <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
           <small>
