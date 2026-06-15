@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta name="generator" content="Hugo 0.101.0" />
+  <meta charset="utf-8">
+  <title>Iperf3 网络性能测试工具 · Charles&#39; Personal Development Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。" />
+
+  <meta name="keywords" content="personal, development" />
+
+<link rel="canonical" href="https://devcharl.github.io/2020/04/17/iperf3-learning-note/" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://devcharl.github.io/css/den.css">
+
+
+
+
+<meta property="og:title" content="Iperf3 网络性能测试工具" />
+<meta property="og:description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devcharl.github.io/2020/04/17/iperf3-learning-note/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-04-17T16:03:16+08:00" />
+<meta property="article:modified_time" content="2020-04-17T16:03:16+08:00" />
+
+<meta itemprop="name" content="Iperf3 网络性能测试工具">
+<meta itemprop="description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"><meta itemprop="datePublished" content="2020-04-17T16:03:16+08:00" />
+<meta itemprop="dateModified" content="2020-04-17T16:03:16+08:00" />
+<meta itemprop="wordCount" content="4506">
+<meta itemprop="keywords" content="iperf,iperf3,network,linux,jperf," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Iperf3 网络性能测试工具"/>
+<meta name="twitter:description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"/>
+</head>
+<body>
+  
+  <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://devcharl.github.io/images/background.jpg'); background-position: center; background-size: cover;">
+  <div class="container">
+  <nav class="header-nav navbar navbar-expand-md navbar-dark light-dark">
+    <div class="header-logo navbar-brand">
+      
+        <a class="float-left" href="https://devcharl.github.io/">
+      
+        
+        <img class="mr20 header-logo-image" src="https://devcharl.github.io/images/globe.svg" alt="logo">
+        
+        
+          Charles' personal development notes
+         
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="nav-menu collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/category/notes/">笔记</a>
+              
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/en/about/">About</a>
+              
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
+              
+            
+          </li>
+        
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="container header-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="header-content">
+        <h1 class="header-title">Iperf3 网络性能测试工具</h1>
+        <p class="header-date">
+        2020-04-17
+          / 分类：
+          <a href="https://devcharl.github.io/category/notes/">notes</a>
+        </p>
+        
+        <div class="header-underline"></div>
+        
+          <div class="clearfix"></div>
+          <p class="float-right header-tags">
+              <i class="fas fa-tags" aria-hidden="true"></i>
+              <a href="https://devcharl.github.io/tag/iperf/">iperf</a>, 
+                <a href="https://devcharl.github.io/tag/iperf3/">iperf3</a>, 
+                <a href="https://devcharl.github.io/tag/jperf/">jperf</a>, 
+                <a href="https://devcharl.github.io/tag/linux/">linux</a>, 
+                <a href="https://devcharl.github.io/tag/network/">network</a>
+          </p>
+        
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+  <main>
+<div class="container content">
+  <article>
+  <p>网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络带宽利用率不高。要找到网络带宽利用率不高的原因，就需要对网络传输进行监控，此时就需要用到一些网络性能评估工具，而 Iperf 就是这样一款网络带宽测试工具。</p>
+<h2 id="iperf-简介">Iperf 简介</h2>
+<h3 id="什么是-iperf">什么是 iperf？</h3>
+<p>Iperf 是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具，可以用来测试网络节点间（也包括回环）TCP 或 UDP 连接的性能，包括带宽、抖动以及丢包率。其中抖动和丢包率适用于 UDP 测试，而带宽测试适用于 TCP 和 UDP。</p>
+<p>Iperf 是一款基于 TCP/IP 和 UDP/IP 的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p>
+<p>Iperf 是一款基于命令行模式的网络性能测试工具，是跨平台的，提供横跨 Windows、Linux、Mac 的全平台支持。iperf 全程使用内存作为发送/接收缓冲区，不受磁盘性能的影响，对于机器配置要求很低。不过由于是命令行工具，iperf 不支持输出测试图形。</p>
+<p>Iperf 可以测试 TCP 和 UDP 带宽质量，具有多种参数和 UDP 特性，可以用来测试一些网络设备如路由器、防火墙、交换机等的性能。</p>
+<h3 id="iperf-的功能">Iperf 的功能</h3>
+<p><strong>（1）TCP 方面</strong></p>
+<ul>
+<li>测量网络带宽</li>
+<li>报告 MSS/MTU 值的大小和观测值</li>
+<li>支持 TCP 窗口值通过套接字缓冲</li>
+<li>当 P 线程或 Win32 线程可用时，支持多线程。客户端与服务端支持同时多重连接</li>
+</ul>
+<p><strong>（2）UDP 方面</strong></p>
+<ul>
+<li>客户端可以创建指定带宽的 UDP 流</li>
+<li>测量丢包</li>
+<li>测量延迟</li>
+<li>支持多播</li>
+<li>当 P 线程可用时，支持多线程。客户端与服务端支持同时多重连接（不支持 Windows）</li>
+</ul>
+<p><strong>（3）其他方面</strong></p>
+<ul>
+<li>在适当的地方，选项中可以使用 K（kilo-）和 M（mega-）。例如 131072 字节可以用 128K 代替</li>
+<li>可以指定运行的总时间，甚至可以设置传输的数据总量</li>
+<li>在报告中，为数据选用最合适的单位</li>
+<li>服务器支持多重连接，而不是等待一个单线程测试</li>
+<li>在指定时间间隔重复显示网络带宽、波动和丢包情况</li>
+<li>服务器端可作为后台程序运行</li>
+<li>服务器端可作为 Windows 服务运行</li>
+<li>使用典型数据流来测试链接层压缩对于可用带宽的影响</li>
+</ul>
+<h2 id="iperf-的安装">Iperf 的安装</h2>
+<h3 id="iperf-的版本">iperf 的版本</h3>
+<p>Iperf 有两种版本，Windows 版和 Linux 版本。</p>
+<p><strong>（1）Unix/Linux 版</strong></p>
+<p>更新比较快，版本最新，目前最新的版本是 iperf3.0。</p>
+<p>Linux 版本下载地址：<a href="http://code.google.com/p/iperf/downloads/list">http://code.google.com/p/iperf/downloads/list</a></p>
+<p>为了测试的准确性，尽量使用 Linux 环境测试。</p>
+<p><strong>（2）Windows 版</strong></p>
+<p>Windows 版 iperf 叫 jperf，或者 xjperf，更新慢，目前最新版本为 1.7（打包在 jperf 中）。</p>
+<p>Windows 版本下载地址：<a href="http://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/">http://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/</a></p>
+<p>jperf 是在 iperf 基础上开发的图形界面程序，简化了复杂命令行参数的构造，而且还能保存测试结果，同时实时图形化显示结果。</p>
+<h3 id="windows-版-iperf-安装">Windows 版 iperf 安装</h3>
+<p>对于 Windows 版的 iperf，下载安装包后直接解压，然后将解压出来的 <code>iperf.exe</code> 和 <code>cygwin1.dll</code> 复制到 <code>%systemroot%</code> 目录即可。</p>
+<h3 id="linux-版-iperf-安装">Linux 版 iperf 安装</h3>
+<p><strong>（1）在线安装</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># CentOS</span>
+</span></span><span class="line"><span class="cl">yum install -y iperf3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Debian / Ubuntu</span>
+</span></span><span class="line"><span class="cl">apt-get install iperf3
+</span></span></code></pre></div><p><strong>（2）离线安装</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gunzip -c iperf-&lt;version&gt;.tar.gz <span class="p">|</span> tar -xvf -
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> iperf-&lt;version&gt;
+</span></span><span class="line"><span class="cl">./configure
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></div><h2 id="iperf-的使用">Iperf 的使用</h2>
+<h3 id="iperf-的工作模式">Iperf 的工作模式</h3>
+<p>Iperf 可以运行在任何 IP 网络上，包括本地以太网、接入因特网、Wi-Fi 网络等。在工作模式上，iperf 运行于服务器、客户端模式下，其服务器端主要用于监听到达的测试请求，而客户端主要用于发起测试连接会话，因此要使用 iperf 至少需要两台服务器，一台运行在服务器模式下，另一台运行在客户端模式下。</p>
+<p>在完成 iperf 安装后，执行 <code>iperf3 -h</code> 即可显示 iperf 的详细用法。iperf 的命令行选项共分为三类，分别是客户端与服务器端公用选项、服务器端专用选项和客户端专用选项。</p>
+<h3 id="iperf-常用参数测试够用">Iperf 常用参数（测试够用）</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s, --server</code></td>
+<td>iperf 服务器模式，默认启动的监听端口为 5201，如：<code>iperf -s</code></td>
+</tr>
+<tr>
+<td><code>-c, --client host</code></td>
+<td>iperf 客户端模式，host 是 server 端地址，如：<code>iperf -c 222.35.11.23</code></td>
+</tr>
+<tr>
+<td><code>-i, --interval</code></td>
+<td>指定每次报告之间的时间间隔，单位为秒，如：<code>iperf3 -c 192.168.12.168 -i 2</code></td>
+</tr>
+<tr>
+<td><code>-p, --port</code></td>
+<td>指定服务器端监听的端口或客户端所连接的端口，默认是 5001 端口</td>
+</tr>
+<tr>
+<td><code>-u, --udp</code></td>
+<td>表示采用 UDP 协议发送报文，不带该参数表示采用 TCP 协议</td>
+</tr>
+<tr>
+<td><code>-l, --len</code></td>
+<td>设置读写缓冲区的长度，单位为 Byte。TCP 方式默认为 8KB，UDP 方式默认为 1470 字节。通常测试 PPS 的时候该值为 16，测试 BPS 时该值为 1400</td>
+</tr>
+<tr>
+<td><code>-b, --bandwidth [K|M|G]</code></td>
+<td>指定 UDP 模式使用的带宽，单位 bits/sec，默认值是 1 Mbit/sec</td>
+</tr>
+<tr>
+<td><code>-t, --time</code></td>
+<td>指定数据传输的总时间，即在指定的时间内，重复发送指定长度的数据包。默认 10 秒</td>
+</tr>
+<tr>
+<td><code>-A</code></td>
+<td>CPU 亲和性，可以将具体的 iperf3 进程绑定对应编号的逻辑 CPU，避免 iperf 进程在不同的 CPU 间调度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="通用参数server-端和-client-端共用">通用参数（Server 端和 Client 端共用）</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f, --format [k|m|g|K|M|G]</code></td>
+<td>指定带宽输出单位，<code>[k|m|g|K|M|G]</code> 分别表示以 Kbits、Mbits、Gbits、KBytes、MBytes、GBytes 显示输出结果，默认 Mbits，如：<code>iperf3 -c 192.168.12.168 -f M</code></td>
+</tr>
+<tr>
+<td><code>-p, --port</code></td>
+<td>指定服务器端监听的端口或客户端所连接的端口，默认是 5001 端口</td>
+</tr>
+<tr>
+<td><code>-i, --interval</code></td>
+<td>指定每次报告之间的时间间隔，单位为秒，如：<code>iperf3 -c 192.168.12.168 -i 2</code></td>
+</tr>
+<tr>
+<td><code>-F</code></td>
+<td>指定文件作为数据流进行带宽测试，如：<code>iperf3 -c 192.168.12.168 -F web-ixdba.tar.gz</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-端专用参数">Server 端专用参数</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s, --server</code></td>
+<td>iperf 服务器模式，默认启动的监听端口为 5201，如：<code>iperf -s</code></td>
+</tr>
+<tr>
+<td><code>-c, --client host</code></td>
+<td>如果 iperf 运行在服务器模式，并且用 <code>-c</code> 参数指定一个主机，那么 iperf 将只接受指定主机的连接。此参数不能工作于 UDP 模式</td>
+</tr>
+<tr>
+<td><code>-D</code></td>
+<td>Unix 平台下将 Iperf 作为后台守护进程运行。在 Win32 平台下，Iperf 将作为服务运行</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td>卸载 Iperf 服务（仅用于 Windows）</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>重定向输出到指定文件（仅用于 Windows）</td>
+</tr>
+<tr>
+<td><code>-P, --parallel</code></td>
+<td>服务器关闭之前保持的连接数。默认是 0，这意味着永远接受连接</td>
+</tr>
+</tbody>
+</table>
+<h3 id="client-端专用参数">Client 端专用参数</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c, --client host</code></td>
+<td>iperf 客户端模式，host 是 server 端地址，如：<code>iperf -c 222.35.11.23</code></td>
+</tr>
+<tr>
+<td><code>-u, --udp</code></td>
+<td>表示采用 UDP 协议发送报文，不带该参数表示采用 TCP 协议</td>
+</tr>
+<tr>
+<td><code>-b, --bandwidth [K|M|G]</code></td>
+<td>指定 UDP 模式使用的带宽，单位 bits/sec，默认值是 1 Mbit/sec</td>
+</tr>
+<tr>
+<td><code>-t, --time</code></td>
+<td>指定数据传输的总时间，即在指定的时间内，重复发送指定长度的数据包。默认 10 秒</td>
+</tr>
+<tr>
+<td><code>-l, --len</code></td>
+<td>设置读写缓冲区的长度，单位为 Byte。TCP 默认为 8KB，UDP 默认为 1470 字节。通常测试 PPS 的时候该值为 16，测试 BPS 时该值为 1400</td>
+</tr>
+<tr>
+<td><code>-n, --num [K|M|G]</code></td>
+<td>指定传输数据包的字节数，如：<code>iperf3 -c 192.168.12.168 -n 100M</code></td>
+</tr>
+<tr>
+<td><code>-P, --parallel</code></td>
+<td>指定客户端与服务端之间使用的线程数。默认是 1 个线程。需要客户端与服务器端同时使用此参数</td>
+</tr>
+<tr>
+<td><code>-w, --window</code></td>
+<td>指定套接字缓冲区大小，在 TCP 方式下，此设置为 TCP 窗口的大小。在 UDP 方式下，此设置为接受 UDP 数据包的缓冲区大小，用来限制可以接收数据包的最大值</td>
+</tr>
+<tr>
+<td><code>-B, --bind</code></td>
+<td>用来绑定一个主机地址或接口，这个参数仅用于具有多个网络接口的主机。在 UDP 模式下，此参数用于绑定和加入一个多播组</td>
+</tr>
+<tr>
+<td><code>-M, --mss</code></td>
+<td>设置 TCP 最大信息段的值</td>
+</tr>
+<tr>
+<td><code>-N, --nodelay</code></td>
+<td>设置 TCP 无延时</td>
+</tr>
+<tr>
+<td><code>-V</code></td>
+<td>绑定一个 IPv6 地址</td>
+</tr>
+<tr>
+<td><code>-d, --dualtest</code></td>
+<td>运行双测试模式。将使服务器端反向连接到客户端，使用 <code>-L</code> 参数中指定的端口（或默认使用客户端连接到服务器端的端口）。使用参数 <code>-r</code> 以运行交互模式</td>
+</tr>
+<tr>
+<td><code>-L, --listenport</code></td>
+<td>指定服务端反向连接到客户端时使用的端口。默认使用客户端连接至服务端的端口</td>
+</tr>
+<tr>
+<td><code>-r, --tradeoff</code></td>
+<td>往复测试模式。当客户端到服务器端的测试结束时，服务器端反向连接至客户端。当客户端连接终止时，反向连接随即开始。如果需要同时进行双向测试，请尝试 <code>-d</code> 参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="其他参数">其他参数</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-h, --help</code></td>
+<td>显示命令行参考并退出</td>
+</tr>
+<tr>
+<td><code>-v, --version</code></td>
+<td>显示版本信息和编译信息并退出</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -h
+</span></span><span class="line"><span class="cl"><span class="c1"># Usage: iperf3 [-s|-c host] [options]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        iperf3 [-h|--help] [-v|--version]</span>
+</span></span></code></pre></div><h2 id="iperf-使用实例">Iperf 使用实例</h2>
+<h3 id="环境准备">环境准备</h3>
+<ul>
+<li>Server 端 IP 地址：192.168.0.120</li>
+<li>Client 端 IP 地址：192.168.0.121</li>
+</ul>
+<h3 id="测试-tcp-吞吐量">测试 TCP 吞吐量</h3>
+<p><strong>（1）Server 端开启 iperf 的服务器模式，指定 TCP 端口</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-server ~<span class="o">]</span><span class="c1"># iperf3 -s -i 1 -p 520</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Server listening on TCP port <span class="m">520</span>
+</span></span><span class="line"><span class="cl">TCP window size: 85.3 KByte <span class="o">(</span>default<span class="o">)</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span></code></pre></div><p><strong>（2）Client 端启动 iperf 的客户端模式，连接服务端</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-client ~<span class="o">]</span><span class="c1"># iperf -c 192.168.0.120 -i 1 -t 60 -p 520</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Client connecting to 192.168.0.120, TCP port <span class="m">520</span>
+</span></span><span class="line"><span class="cl">TCP window size: 45.0 KByte <span class="o">(</span>default<span class="o">)</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span> <span class="nb">local</span> 192.168.0.121 port <span class="m">50616</span> connected with 192.168.0.120 port <span class="m">520</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> ID<span class="o">]</span> Interval       Transfer     Bandwidth
+</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span>  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec
+</span></span></code></pre></div><p><strong>（3）Server 端监听结果</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Server listening on TCP port 5001
+</span></span><span class="line"><span class="cl">TCP window size: 85.3 KByte (default)
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">[  4] local 192.168.0.120 port 520 connected with 192.168.0.121 port 50616
+</span></span><span class="line"><span class="cl">[ ID] Interval       Transfer     Bandwidth
+</span></span><span class="line"><span class="cl">[  4]  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec
+</span></span></code></pre></div><p>输出字段说明：</p>
+<ul>
+<li><strong>Interval</strong>：时间间隔</li>
+<li><strong>Transfer</strong>：时间间隔里面传输的数据量</li>
+<li><strong>Bandwidth</strong>：时间间隔里的传输速率</li>
+</ul>
+<p><strong>（4）测试多线程 TCP 吞吐量</strong></p>
+<p>如果没有指定发送方式，iPerf 客户端只会使用单线程。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -c 192.168.0.120 -P <span class="m">30</span> -t <span class="m">60</span>
+</span></span></code></pre></div><p><strong>（5）进行上下行带宽测试（双向传输）</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -c 192.168.0.120 -d -t <span class="m">60</span>
+</span></span></code></pre></div><p><strong>（6）其他建议</strong></p>
+<ul>
+<li>建议在 Server 端执行 <code>sar</code> 命令来统计实际收到的包并作为实际结果：<code>sar -n DEV 1 320</code></li>
+<li>要停止 iperf3 服务进程，请按 <code>Ctrl+Z</code> 或 <code>Ctrl+C</code></li>
+</ul>
+<h3 id="测试-udp-吞吐量">测试 UDP 吞吐量</h3>
+<p>带宽测试通常采用 UDP 模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为 100Mbps，先用 <code>-b 100M</code> 进行测试，然后根据测试结果（包括实际带宽、时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。</p>
+<p><strong>（1）Server 端开启 iperf 的服务器模式，指定 UDP 端口</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-server ~<span class="o">]</span><span class="c1"># iperf3 -s -i 1 -p 521</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Server listening on port <span class="m">521</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span></code></pre></div><p><strong>（2）Client 端启动 iperf 的客户端模式，连接服务端</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-client ~<span class="o">]</span><span class="c1"># iperf3 -u -c 192.168.0.120 -b 100m -t 60 -p 521</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Client connecting to 192.168.0.120, port <span class="m">521</span>
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span> <span class="nb">local</span> 192.168.0.121 port <span class="m">50616</span> connected with 192.168.0.120 port <span class="m">521</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> ID<span class="o">]</span> Interval       Transfer     Bandwidth       TotalDatagrams
+</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span>  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec  <span class="m">82</span>
+</span></span></code></pre></div><p><strong>（3）Server 端监听结果</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Server listening on port 521
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">[  4] local 192.168.0.120 port 520 connected with 192.168.0.121 port 50616
+</span></span><span class="line"><span class="cl">[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+</span></span><span class="line"><span class="cl">[  4]  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec  0.007 ms  0/82 (0%)
+</span></span></code></pre></div><p>输出字段说明：</p>
+<ul>
+<li><strong>Jitter</strong>：抖动，在连续传输中的平滑平均值差</li>
+<li><strong>Lost</strong>：丢包数量</li>
+<li><strong>Total Datagrams</strong>：包数量</li>
+</ul>
+<p><strong>（4）测试多线程 UDP 吞吐量</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -u -c 192.168.1.1 -b 5M -P <span class="m">30</span> -t <span class="m">60</span>
+</span></span></code></pre></div><p><strong>（5）进行上下行带宽测试（双向传输）</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -u -c 192.168.1.1 -b 100M -d -t <span class="m">60</span>
+</span></span></code></pre></div><h2 id="jperf-介绍">Jperf 介绍</h2>
+<h3 id="jperf-简介">Jperf 简介</h3>
+<p>jperf 是基于 iperf 开发的图形界面程序，简化了复杂命令行参数的构造，而且还能够保存测试结果，同时实时图形化显示结果。JPerf 可以测试 TCP 和 UDP 带宽质量，可以测量最大 TCP 带宽，具有多种参数和 UDP 特性，可以报告带宽、延迟抖动和数据包丢失。</p>
+<h3 id="jperf20-运行环境">JPerf2.0 运行环境</h3>
+<ul>
+<li><strong>操作系统</strong>：Java 运行环境</li>
+<li><strong>网络要求</strong>：Jperf 可以在任何 IP 网络上运行，包括本地以太网、因特网接入连接和 Wi-Fi 网络</li>
+<li><strong>其他要求</strong>：JPerf 必须安装两个组件：JPerf 服务器和 JPerf 客户端</li>
+</ul>
+<h3 id="jperf20-页面介绍">JPerf2.0 页面介绍</h3>
+<p><img src="./images/jperf-main.png" alt="JPerf 主界面" title="JPerf Main"></p>
+<p><img src="./images/jperf-settings.png" alt="JPerf 设置界面" title="JPerf Settings"></p>
+<p><strong>（1）Iperf 命令行（无法直接输入）</strong></p>
+<p>服务端设置：</p>
+<ul>
+<li>监听端口：5001</li>
+<li>Client limit：客户端限制，仅允许指定客户端连接</li>
+<li>Num Connections：最大允许连接的数量，为 0 不限制</li>
+</ul>
+<p>客户端设置：</p>
+<ul>
+<li>服务器地址：10.0.115.82，端口：5001，并发流：1 个</li>
+</ul>
+<p><strong>（2）应用层设置</strong></p>
+<ul>
+<li>兼容旧版本（当 server 端和 client 端版本不一样时使用）</li>
+<li>设置测试模式：传输字节总量大小 15 Bytes 或者按传输时间总长度 15 秒</li>
+<li>同时进行双向传输测试</li>
+<li>单独进行双向传输测试，先测 c 到 s 的带宽</li>
+<li>指定需要传输的文件</li>
+<li>显示 TCP 最大 MTU 值</li>
+</ul>
+<p><strong>（3）传输层设置</strong></p>
+<p>TCP 协议：</p>
+<ul>
+<li>设置缓冲区大小</li>
+<li>指定 TCP 窗口大小</li>
+<li>设定 TCP 数据包的最大 MTU 值</li>
+<li>设定 TCP 不延时</li>
+</ul>
+<p>UDP 协议：</p>
+<ul>
+<li>设置 UDP 最大带宽</li>
+<li>设置 UDP 缓冲区</li>
+<li>UDP 包封装大小：默认 1470 byte</li>
+</ul>
+<p>IP 层设置：</p>
+<ul>
+<li>指定 TTL 值</li>
+<li>服务类型（Type of Service，ToS），大小范围从 0x10（最小延迟）到 0x2（最少费用）</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a href="https://help.aliyun.com/knowledge_detail/55757.html#HFXbx">《网络性能测试方法》</a> — 阿里云帮助文档</li>
+<li><a href="https://baike.baidu.com/item/iperf/11067694?fr=aladdin">《iperf - 百度百科》</a></li>
+<li><a href="https://www.cnblogs.com/klb561/p/9215952.html">《Linux 网络性能评估工具 iperf、CHARIOT 测试网络吞吐量》</a> — Konglingbin</li>
+<li><a href="https://man.linuxde.net/iperf">《Linux 命令大全 - iperf 命令》</a></li>
+<li><a href="http://www.veryhuo.com/a/view/159685.html">《网络性能测试工具 iPerf 功能与使用教程》</a></li>
+<li><a href="http://www.veryhuo.com/a/view/159704.html">《iPerf 图形化工具 Jperf 图文使用教程》</a></li>
+<li><a href="https://www.jianshu.com/p/15f888309c72">《使用 iPerf 进行网络吞吐量测试》</a> — 放开那个电扇</li>
+</ol>
+
+  </article>
+
+  
+  
+    
+  
+  
+
+
+</div>
+
+  </main><div class="footer gradient-2">
+  <div class="container footer-container ">
+    <div class="row">
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        <div class="footer-title">网站地图</div>
+        <ul class="list-unstyled">
+            
+              
+                <li><a href="https://devcharl.github.io/tags/">标签</a></li>
+              
+              
+                <li><a href="https://devcharl.github.io/categories/">分类</a></li>
+              
+            
+            
+            
+            <li><a rel="alternate" type="application/rss&#43;xml" href="https://devcharl.github.io/index.xml"><i class="fas fa-rss-square"></i> RSS订阅</a></li>
+            
+            
+            
+        </ul>
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">社群</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="https://github.com/devCharl/devcharl.github.io" rel="noopener" target="_blank">GitHub</a></li>
+          
+        </ul>
+        
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">友链</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="about/" rel="noopener" target="_blank">关于我</a></li>
+          
+        </ul>
+        
+      </div> 
+      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <p class="pull-right text-right">
+          <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
+          <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
+          <small>
+            &copy; 
+            Charles Y
+            
+              2022 -
+            2026
+          </small>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

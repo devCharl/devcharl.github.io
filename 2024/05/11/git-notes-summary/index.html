@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta name="generator" content="Hugo 0.101.0" />
+  <meta charset="utf-8">
+  <title>Git 笔记总结 · Charles&#39; Personal Development Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、git 客户端（本地仓库）的一些操作 1. 设置账户（需要和 GitHub 账户设置一致） git config --global user.name xxx git config --global user.email xxx@foxmail.com 2. 查看设置 git config --list 输出示例： user.name=xxx user.email=xxx@foxmail.com 3. 创建 git 本地仓库 git" />
+
+  <meta name="keywords" content="personal, development" />
+
+<link rel="canonical" href="https://devcharl.github.io/2024/05/11/git-notes-summary/" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://devcharl.github.io/css/den.css">
+
+
+
+
+<meta property="og:title" content="Git 笔记总结" />
+<meta property="og:description" content="一、git 客户端（本地仓库）的一些操作 1. 设置账户（需要和 GitHub 账户设置一致） git config --global user.name xxx git config --global user.email xxx@foxmail.com 2. 查看设置 git config --list 输出示例： user.name=xxx user.email=xxx@foxmail.com 3. 创建 git 本地仓库 git" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devcharl.github.io/2024/05/11/git-notes-summary/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-11T16:03:16+08:00" />
+<meta property="article:modified_time" content="2024-05-11T16:03:16+08:00" />
+
+<meta itemprop="name" content="Git 笔记总结">
+<meta itemprop="description" content="一、git 客户端（本地仓库）的一些操作 1. 设置账户（需要和 GitHub 账户设置一致） git config --global user.name xxx git config --global user.email xxx@foxmail.com 2. 查看设置 git config --list 输出示例： user.name=xxx user.email=xxx@foxmail.com 3. 创建 git 本地仓库 git"><meta itemprop="datePublished" content="2024-05-11T16:03:16+08:00" />
+<meta itemprop="dateModified" content="2024-05-11T16:03:16+08:00" />
+<meta itemprop="wordCount" content="5784">
+<meta itemprop="keywords" content="git,linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git 笔记总结"/>
+<meta name="twitter:description" content="一、git 客户端（本地仓库）的一些操作 1. 设置账户（需要和 GitHub 账户设置一致） git config --global user.name xxx git config --global user.email xxx@foxmail.com 2. 查看设置 git config --list 输出示例： user.name=xxx user.email=xxx@foxmail.com 3. 创建 git 本地仓库 git"/>
+</head>
+<body>
+  
+  <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://devcharl.github.io/images/background.jpg'); background-position: center; background-size: cover;">
+  <div class="container">
+  <nav class="header-nav navbar navbar-expand-md navbar-dark light-dark">
+    <div class="header-logo navbar-brand">
+      
+        <a class="float-left" href="https://devcharl.github.io/">
+      
+        
+        <img class="mr20 header-logo-image" src="https://devcharl.github.io/images/globe.svg" alt="logo">
+        
+        
+          Charles' personal development notes
+         
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="nav-menu collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/category/notes/">笔记</a>
+              
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/en/about/">About</a>
+              
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
+              
+            
+          </li>
+        
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="container header-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="header-content">
+        <h1 class="header-title">Git 笔记总结</h1>
+        <p class="header-date">
+        2024-05-11
+          / 分类：
+          <a href="https://devcharl.github.io/category/notes/">notes</a>
+        </p>
+        
+        <div class="header-underline"></div>
+        
+          <div class="clearfix"></div>
+          <p class="float-right header-tags">
+              <i class="fas fa-tags" aria-hidden="true"></i>
+              <a href="https://devcharl.github.io/tag/git/">git</a>, 
+                <a href="https://devcharl.github.io/tag/linux/">linux</a>
+          </p>
+        
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+  <main>
+<div class="container content">
+  <article>
+  <h2 id="一git-客户端本地仓库的一些操作">一、git 客户端（本地仓库）的一些操作</h2>
+<h3 id="1-设置账户需要和-github-账户设置一致">1. 设置账户（需要和 GitHub 账户设置一致）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global user.name xxx
+</span></span><span class="line"><span class="cl">git config --global user.email xxx@foxmail.com
+</span></span></code></pre></div><h3 id="2-查看设置">2. 查看设置</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --list
+</span></span></code></pre></div><p>输出示例：</p>
+<pre tabindex="0"><code>user.name=xxx
+user.email=xxx@foxmail.com
+</code></pre><h3 id="3-创建-git-本地仓库">3. 创建 git 本地仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init
+</span></span></code></pre></div><p>此时会出现提示：<code>Initialized empty Git repository in d://com/liu/.git</code></p>
+<h3 id="4-查看-git-状态">4. 查看 git 状态</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git status
+</span></span></code></pre></div><p>一般来说会显示需要提交的文件（uncommitted）和未追踪的文件（untracked）：</p>
+<ul>
+<li><strong>uncommitted</strong>：已有的，刚被修改尚未提交的</li>
+<li><strong>untracked</strong>：原先没有的，新建的</li>
+</ul>
+<h3 id="5-添加-git-文件到暂存区需要和版本库区分">5. 添加 git 文件到暂存区（需要和版本库区分）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add &lt;name&gt;
+</span></span></code></pre></div><h3 id="6-git-提交文件">6. git 提交文件</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git commit -m <span class="s2">&#34;add a function in test.java&#34;</span>
+</span></span></code></pre></div><p><code>-m</code> 表示注释，为提交时的说明，必须要有！</p>
+<blockquote>
+<p><code>git commit --amend</code> 可以继续修改本次 commit message</p>
+</blockquote>
+<h3 id="7-git-删除文件夹">7. git 删除文件（夹）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rm test.txt        <span class="c1"># 删除文件</span>
+</span></span><span class="line"><span class="cl">git rm -r filebook     <span class="c1"># 删除文件夹</span>
+</span></span></code></pre></div><p><code>git rm</code> 和直接删除的区别在于：<code>git rm</code> 会将此文件的操作记录删除，而直接删除仅仅是删除了物理文件，没有删除和此文件相关的记录。<code>git rm</code> 后会在版本库产生区别（有操作日志），而直接删除没有。</p>
+<p>可以用下面两种操作在版本库中删除文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rm test.txt
+</span></span><span class="line"><span class="cl">git commit -m <span class="s1">&#39;delete a file&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">rm test.txt
+</span></span><span class="line"><span class="cl">git commit -am <span class="s1">&#39;delete a file&#39;</span>
+</span></span></code></pre></div><p>注意：命令 <code>git rm</code> 用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</p>
+<h3 id="8-git-操作日志">8. git 操作日志</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --decorate --graph --oneline --all   <span class="c1"># 显示当前及之前的版本号</span>
+</span></span><span class="line"><span class="cl">git log --pretty<span class="o">=</span>oneline                     <span class="c1"># 将版本历史显示为一行，历史版本号全部显示</span>
+</span></span><span class="line"><span class="cl">git log --pretty<span class="o">=</span>oneline --abbrev-commit     <span class="c1"># 将版本历史显示为一行，历史版本号部分显示</span>
+</span></span><span class="line"><span class="cl">git log --graph                              <span class="c1"># 查看分支合并图</span>
+</span></span></code></pre></div><h3 id="9-版本回退">9. 版本回退</h3>
+<p>执行版本退回后，本地工作区的内容会自动和回退到的版本库版本的内容保持同步：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard HEAD^              <span class="c1"># 回退到上一个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD^^             <span class="c1"># 回退到上上个版本，以此类推，一次提交即为一个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard e9efa77            <span class="c1"># 回退到 e9efa77 版本</span>
+</span></span></code></pre></div><h3 id="10-git-还原操作">10. git 还原操作</h3>
+<p>丢弃工作区的操作，但不会丢失暂存区的操作（<code>add</code> 操作能将更改添加到暂存区），实际上就是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以「一键还原」：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -- readme.txt
+</span></span></code></pre></div><h3 id="11-git-暂存区撤销操作">11. git 暂存区撤销操作</h3>
+<p>工作区修改了文件，而且执行了 <code>add</code>，但还没执行 <code>commit</code>，暂存区还是可以撤销的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset HEAD readme.txt
+</span></span></code></pre></div><p>备注：<code>git reset</code> 命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用 <code>HEAD</code> 时，表示最新的版本。</p>
+<h2 id="二与-githubgitee-协同使用git-代码托管服务器">二、与 GitHub/Gitee 协同使用（git 代码托管服务器）</h2>
+<p>和 GitHub 相比，码云（Gitee）也提供免费的 Git 仓库。此外，还集成了代码质量检测、项目演示等功能。对于团队协作开发，码云还提供了项目管理、代码托管、文档管理的服务，5 人以下小团队免费。</p>
+<h3 id="1-配置远程仓库免密登录">1. 配置远程仓库免密登录</h3>
+<p>（1）在用户主目录下，看看有没有 <code>.ssh</code> 目录，如果有，再看看这个目录下有没有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> 这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开 Shell（Windows 下打开 Git Bash），创建 SSH Key：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t rsa -C <span class="s2">&#34;xxx@foxmail.com&#34;</span>
+</span></span></code></pre></div><p>备注：一路回车，执行生成 <code>id_rsa</code> 私钥和 <code>id_rsa.pub</code> 公钥，Windows 用户在 git bash 中输入上述指令。</p>
+<p>（2）获得 key 的内容，复制下来，添加到 GitHub 的 SSH key 中：</p>
+<ul>
+<li>Windows 位置：<code>C:\Users\用户名\.ssh\id_rsa.pub</code></li>
+<li>Linux 位置：<code>cat ~/.ssh/id_rsa.pub</code></li>
+</ul>
+<p>（3）验证 key，根据提示输入 yes，添加为信任主机：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh -T git@github.com
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
+</span></span><span class="line"><span class="cl">ssh -T git@git.oschina.net
+</span></span></code></pre></div><h3 id="2-添加远程仓库">2. 添加远程仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote add origin https://github.com/xxx/LearnGit.git   <span class="c1"># https 方式</span>
+</span></span><span class="line"><span class="cl">git remote add origin git@github.com:xxx/LearnGit.git        <span class="c1"># ssh 方式</span>
+</span></span></code></pre></div><p>此处可以为 https 地址也可以是 ssh 地址，<code>origin</code> 为设置的远程仓库的别名，强烈建议使用 ssh 方式，因为 https 方式每次都要输入用户名和密码。</p>
+<p>如果需要修改传输协议：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote rm &lt;远程主机名&gt;                              <span class="c1"># 删除远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote add &lt;远程主机名&gt; &lt;仓库地址&gt;                  <span class="c1"># 设置传输方式和目标远程仓库</span>
+</span></span><span class="line"><span class="cl">git push -u &lt;远程主机名&gt; &lt;本地分支名&gt;
+</span></span></code></pre></div><h4 id="码云的添加远程仓库方法">码云的添加远程仓库方法</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote add origin git@gitee.com:xxx/LearnGit.git
+</span></span></code></pre></div><p>如果 <code>git remote add</code> 失败，并报错：<code>fatal: remote origin already exists.</code></p>
+<p>说明本地库已经关联了一个名叫 <code>origin</code> 的远程库，此时，可以先用 <code>git remote -v</code> 查看远程库信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">origin  git@github.com:xxx/LearnGit.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  git@github.com:xxx/LearnGit.git <span class="o">(</span>push<span class="o">)</span>
+</span></span></code></pre></div><p>表示本地库已经关联了 GitHub 上的 <code>origin</code> 远程库，需要先删除已有的 GitHub 库：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote remove origin
+</span></span></code></pre></div><p>再关联码云的远程库（注意路径中需要填写正确的用户名）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote add gitee git@gitee.com:xxx/LearnGit.git
+</span></span></code></pre></div><p>因为 git 本身是分布式版本控制系统，可以同步到另外一个远程库，当然也可以同步到另外两个远程库，所以一个本地库可以既关联 GitHub，又关联码云！</p>
+<p>使用多个远程库时，要注意 git 给远程库起的默认名称是 <code>origin</code>，如果有多个远程库，我们需要用不同的名称来标识不同的远程库。仍然以 learngit 本地库为例，先删除已关联的名为 <code>origin</code> 的远程库：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote rm origin
+</span></span><span class="line"><span class="cl">git remote add github git@github.com:xxx/LearnGit.git
+</span></span><span class="line"><span class="cl">git remote add gitee git@gitee.com:xxx/LearnGit.git
+</span></span></code></pre></div><p>注意，远程库的名称分别叫 <code>github</code> 和 <code>gitee</code>，不叫 <code>origin</code> 了。</p>
+<p>现在，我们用 <code>git remote -v</code> 查看远程库信息，可以看到两个远程库：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gitee   git@gitee.com:xxx/LearnGit.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">gitee   git@gitee.com:xxx/LearnGit.git <span class="o">(</span>push<span class="o">)</span>
+</span></span><span class="line"><span class="cl">github  git@github.com:xxx/LearnGit.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">github  git@github.com:xxx/LearnGit.git <span class="o">(</span>push<span class="o">)</span>
+</span></span></code></pre></div><p>如果要推送到 GitHub，使用命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push github master
+</span></span></code></pre></div><p>如果要推送到码云，使用命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push gitee master
+</span></span></code></pre></div><p>这样一来，本地库就可以同时与多个远程库互相同步。</p>
+<h3 id="3-查看远程仓库及传输协议">3. 查看远程仓库及传输协议</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote
+</span></span><span class="line"><span class="cl">git remote -v    <span class="c1"># 查看名称和详细地址</span>
+</span></span></code></pre></div><h3 id="4-删除远程仓库">4. 删除远程仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote remove &lt;远程主机名&gt;
+</span></span></code></pre></div><h3 id="5-推送本地分支到远程仓库">5. 推送本地分支到远程仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;
+</span></span></code></pre></div><p>如果省略远程分支名，则表示将本地分支推送与之存在「追踪关系」的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push origin &lt;本地分支名&gt;
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span></code></pre></div><p>如果当前分支与多个主机存在追踪关系，则可以使用 <code>-u</code> 选项指定一个默认主机，这样以后就可以不加任何参数使用 <code>git push</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push -u &lt;远程主机名&gt; &lt;本地分支名&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 例如：</span>
+</span></span><span class="line"><span class="cl">git push -u origin master
+</span></span></code></pre></div><h3 id="6-将远程仓库克隆为本地仓库">6. 将远程仓库克隆为本地仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone git@github.com:xxx/LearnGit.git
+</span></span></code></pre></div><p>注意：</p>
+<ol>
+<li>不能使用别名</li>
+<li>默认情况下，从远程 clone 到本地的库只能看到 <code>master</code> 分支，如果要将远程的分支同步到本地：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b &lt;本地分支名&gt; &lt;远程主机名&gt;/&lt;远程分支名&gt;
+</span></span></code></pre></div><p>前提是远程 <code>&lt;远程主机名&gt;</code> 必须存在名为 <code>&lt;远程分支名&gt;</code> 的分支，而且 <code>&lt;本地分支名&gt;</code> 和 <code>&lt;远程分支名&gt;</code> 最好一致。</p>
+<h3 id="7-本地仓库更新">7. 本地仓库更新</h3>
+<p>将远程存储库中的更改合并到当前分支中。在默认模式下，<code>git pull</code> 是 <code>git fetch</code> 后跟 <code>git merge FETCH_HEAD</code> 的缩写。更准确地说，<code>git pull</code> 使用给定的参数运行 <code>git fetch</code>，并调用 <code>git merge</code> 将检索到的分支头合并到当前分支中。使用 <code>--rebase</code>，它运行 <code>git rebase</code> 而不是 <code>git merge</code>。</p>
+<p>以下是一些示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
+</span></span></code></pre></div><p>比如，要取回 <code>origin</code> 主机的 <code>next</code> 分支，与本地的 <code>master</code> 分支合并，需要写成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull origin next:master
+</span></span></code></pre></div><p>如果远程分支（<code>next</code>）要与当前分支合并，则冒号后面的部分可以省略：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull origin next
+</span></span></code></pre></div><p>上面命令表示，取回 <code>origin/next</code> 分支，再与当前分支合并。实质上，这等同于先做 <code>git fetch</code>，再执行 <code>git merge</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch origin
+</span></span><span class="line"><span class="cl">git merge origin/next
+</span></span></code></pre></div><p>在某些场合，Git 会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在 <code>git clone</code> 的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的 <code>master</code> 分支自动「追踪」<code>origin/master</code> 分支。Git 也允许手动建立追踪关系：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch --set-upstream-to<span class="o">=</span>&lt;远程主机名&gt;/&lt;远程分支名&gt; &lt;本地分支名&gt;
+</span></span></code></pre></div><p>比如 <code>git branch --set-upstream-to=origin/next master</code>，指定 <code>master</code> 分支追踪 <code>origin/next</code> 分支。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull origin    <span class="c1"># 本地当前分支自动与对应的 origin 主机「追踪分支」进行合并</span>
+</span></span><span class="line"><span class="cl">git pull           <span class="c1"># 当前分支自动与唯一一个追踪分支进行合并</span>
+</span></span><span class="line"><span class="cl">git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
+</span></span></code></pre></div><p>如果合并需要采用 rebase 模式，可以使用 <code>--rebase</code> 选项。</p>
+<h4 id="git-fetch-和-git-pull-的区别">git fetch 和 git pull 的区别</h4>
+<p>（1）<code>git fetch</code>：相当于是从远程获取最新版本到本地，不会自动合并。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch origin master
+</span></span><span class="line"><span class="cl">git log -p master..origin/master
+</span></span><span class="line"><span class="cl">git merge origin/master
+</span></span></code></pre></div><p>以上命令的含义：</p>
+<ol>
+<li>首先从远程的 <code>origin</code> 的 <code>master</code> 主分支下载最新的版本到 <code>origin/master</code> 分支上</li>
+<li>然后比较本地的 <code>master</code> 分支和 <code>origin/master</code> 分支的差别</li>
+<li>最后进行合并</li>
+</ol>
+<p>上述过程其实可以用以下更清晰的方式来进行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch origin master:tmp
+</span></span><span class="line"><span class="cl">git diff tmp
+</span></span><span class="line"><span class="cl">git merge tmp
+</span></span></code></pre></div><p>（2）<code>git pull</code>：相当于是从远程获取最新版本并 merge 到本地。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull origin master
+</span></span></code></pre></div><p>上述命令其实相当于 <code>git fetch</code> 和 <code>git merge</code>。在实际使用中，<code>git fetch</code> 更安全一些，因为在 merge 前，可以查看更新情况，然后再决定是否合并。</p>
+<h3 id="8-查看分支">8. 查看分支</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch
+</span></span></code></pre></div><h3 id="9-创建分支">9. 创建分支</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch &lt;name&gt;
+</span></span></code></pre></div><h3 id="10-创建并切换到分支">10. 创建并切换到分支</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b &lt;name&gt;
+</span></span></code></pre></div><p>备注：<code>git checkout</code> 命令加上 <code>-b</code> 参数表示创建并切换，相当于以下两条命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch &lt;name&gt;
+</span></span><span class="line"><span class="cl">git checkout &lt;name&gt;
+</span></span></code></pre></div><h3 id="11-切换分支">11. 切换分支</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout &lt;name&gt;
+</span></span></code></pre></div><p>切换分支后，在 git bash 中显示为绿色。</p>
+<h3 id="12-删除分支">12. 删除分支</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch -d &lt;name&gt;
+</span></span></code></pre></div><p>如果分支没有合并，删除分支就表示会丢失修改，此时 git 无法使用 <code>-d</code> 删除，可使用 <code>-D</code> 强行删除：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch -D &lt;name&gt;
+</span></span></code></pre></div><h3 id="13-合并分支">13. 合并分支</h3>
+<p>git 合并默认使用 Fast forward 模式，一旦删除分支，会丢掉分支信息，也就看不出来曾经做过合并：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git merge &lt;name&gt;
+</span></span></code></pre></div><p>基于当前分支，合并另外一个分支，前提需要保证分支之间不冲突。</p>
+<p>如果强制禁用 Fast forward 模式，即普通模式，Git 就会在 merge 时生成一个新的 commit：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git merge --no-ff -m <span class="s2">&#34;there is a comment&#34;</span> &lt;name&gt;
+</span></span></code></pre></div><p>因为本次合并要创建一个新的 commit，所以加上 <code>-m</code> 参数，把 commit 描述写进去。工作中，肯定需要不管有没有分支被删除，都要从分支历史上查看所有的历史分支信息，所以要使用普通模式合并。</p>
+<h3 id="14-创建-tag">14. 创建 tag</h3>
+<p>（1）默认在 HEAD 版本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag &lt;tagname&gt;
+</span></span></code></pre></div><p>（2）对指定的 commit 版本创建 tag，需要先找到历史 commit 的 id：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --pretty<span class="o">=</span>oneline --abbrev-commit
+</span></span><span class="line"><span class="cl">git tag &lt;tagname&gt; &lt;commitid&gt;
+</span></span></code></pre></div><p>（3）创建带有说明的 tag，用 <code>-a</code> 指定标签名，<code>-m</code> 指定说明文字：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag -a &lt;tagname&gt; -m <span class="s2">&#34;there is a tag description&#34;</span> <span class="o">[</span>&lt;commitid&gt;<span class="o">]</span>
+</span></span></code></pre></div><p>（4）通过 <code>-s</code> 用私钥签名一个标签，签名采用 PGP 签名：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag -s &lt;tagname&gt; -m <span class="s2">&#34;there is a tag description&#34;</span> <span class="o">[</span>&lt;commitid&gt;<span class="o">]</span>
+</span></span></code></pre></div><p>必须首先安装 gpg（GnuPG），如果没有找到 gpg，或者没有 gpg 密钥对，就会报错，参考 GnuPG 帮助文档配置 Key。</p>
+<h3 id="15-查看-tag">15. 查看 tag</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag    <span class="c1"># 显示的 tag 不是按时间顺序排列，而是按字母顺序排列</span>
+</span></span></code></pre></div><p>如果想查看 tag 和 commit 的对应关系：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --pretty<span class="o">=</span>oneline --abbrev-commit
+</span></span></code></pre></div><p>如果想查看 tag 的详细情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git show &lt;tagname&gt;
+</span></span></code></pre></div><h3 id="16-删除-tag">16. 删除 tag</h3>
+<p>创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag -d &lt;tagname&gt;
+</span></span></code></pre></div><p>如果标签已经推送到远程，要删除远程标签就麻烦一点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag -d &lt;tagname&gt;
+</span></span><span class="line"><span class="cl">git push origin :refs/tags/&lt;tagname&gt;
+</span></span></code></pre></div><h3 id="17-推送标签至远程">17. 推送标签至远程</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push origin &lt;tagname&gt;
+</span></span></code></pre></div><p>或者，一次性推送全部尚未推送到远程的本地标签：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push origin --tags
+</span></span></code></pre></div><h3 id="18-现场的保存与恢复">18. 现场的保存与恢复</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git stash        <span class="c1"># 将目前的工作现场保存</span>
+</span></span><span class="line"><span class="cl">git stash list   <span class="c1"># 查看所有保存的工作现场</span>
+</span></span></code></pre></div><p>工作现场还在，Git 把 stash 内容存在某个地方了，但是需要恢复一下，有两个办法：</p>
+<ol>
+<li>用 <code>git stash apply stash@{0}</code> 恢复，但是恢复后，stash 内容并不删除，你需要用 <code>git stash drop stash@{0}</code> 来删除</li>
+<li>用 <code>git stash pop</code>，恢复的同时把 stash 内容也删了，这种方式省时省力</li>
+</ol>
+<p>注意点：</p>
+<ol>
+<li>如果在分支下新建文件，而尚未执行 <code>add</code> 操作，stash 无法将新文件纳入保存的现场，因为 stash 只对被修改的被追踪的文件和暂存的变更有效，对于新文件必须先执行 <code>add</code></li>
+<li>如果修改分支下的已被追踪的文件，不管有没有对修改的文件进行 <code>add</code> 操作，如果执行 stash，所有修改会被纳入保存的现场，而文件会恢复成修改前的状态。恢复现场后，文件又呈现被修改后的状态。特别的是，如果修改的文件在 stash 前已经被 <code>add</code> 了，恢复现场后，暂存区的内容就会清空，相当于这个文件从未被 <code>add</code> 一样</li>
+</ol>
+<h3 id="19-设置-git-ui-颜色">19. 设置 Git UI 颜色</h3>
+<p>让 Git 显示颜色，会让命令输出看起来更醒目：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global color.ui <span class="nb">true</span>
+</span></span></code></pre></div><h3 id="20-忽略特殊文件">20. 忽略特殊文件</h3>
+<p>（1）在 Git 工作区的根目录下创建一个特殊的 <code>.gitignore</code> 文件，然后把要忽略的文件名填进去，Git 就会自动忽略这些文件。不需要从头写 <code>.gitignore</code> 文件，GitHub 已经为我们准备了各种配置文件，只需要组合一下就可以使用了。所有配置文件可以直接在线浏览：<a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a></p>
+<p>忽略文件的原则是：</p>
+<ul>
+<li>忽略操作系统自动生成的文件，比如缩略图等</li>
+<li>忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如 Java 编译产生的 <code>.class</code> 文件</li>
+<li>忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件</li>
+</ul>
+<p>比如一个完整的 <code>.gitignore</code> 文件，内容如下：</p>
+<pre tabindex="0"><code class="language-gitignore" data-lang="gitignore"># Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+</code></pre><p>（2）把 <code>.gitignore</code> 也提交到 Git：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .gitignore
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;there is a description&#34;</span>
+</span></span></code></pre></div><p>就完成了！当然检验 <code>.gitignore</code> 的标准是 <code>git status</code> 命令是不是显示 <code>working tree clean</code>。</p>
+<p>使用 Windows 的注意：如果在资源管理器里新建一个 <code>.gitignore</code> 文件，系统会非常弱智地提示必须输入文件名，但是在文本编辑器里「保存」或者「另存为」就可以把文件保存为 <code>.gitignore</code> 了。</p>
+<p>（3）如果确实想要添加已经被 <code>.gitignore</code> 忽略的文件，可以用 <code>-f</code> 强制添加到 Git：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add -f test.class
+</span></span></code></pre></div><p>（4）怀疑 <code>.gitignore</code> 写的有问题，需要查找哪个规则写错了，可以用 <code>git check-ignore</code> 命令检查：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git check-ignore -v App.class
+</span></span><span class="line"><span class="cl"><span class="c1"># .gitignore:3:*.class    App.class</span>
+</span></span></code></pre></div><p>表示 <code>.gitignore</code> 的第 3 行规则忽略了 <code>App.class</code> 这个文件，于是我们就可以知道应该修订哪个规则。</p>
+<h3 id="21-为命令配置别名">21. 为命令配置别名</h3>
+<p>（1）命令可以简写，用 <code>git st</code> 表示 <code>git status</code>，再比如用 <code>co</code> 表示 <code>checkout</code>、<code>ci</code> 表示 <code>commit</code>、<code>br</code> 表示 <code>branch</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global alias.co checkout
+</span></span><span class="line"><span class="cl">git config --global alias.ci commit
+</span></span><span class="line"><span class="cl">git config --global alias.br branch
+</span></span></code></pre></div><p>以后提交就可以简写成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git ci -m <span class="s2">&#34;there is a description&#34;</span>
+</span></span></code></pre></div><p><code>--global</code> 参数是全局参数，也就是这些命令在这台电脑的所有 Git 仓库下都有用。</p>
+<p>（2）命令 <code>git reset HEAD &lt;filename&gt;</code> 可以撤销暂存区的修改（unstage），重新放回工作区。既然是一个 unstage 操作，就可以配置一个 unstage 别名：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global alias.unstage <span class="s1">&#39;reset HEAD&#39;</span>
+</span></span><span class="line"><span class="cl">git unstage test.py    <span class="c1"># 等价于 git reset HEAD test.py</span>
+</span></span></code></pre></div><p>（3）配置一个 <code>git last</code>，让其显示最后一次提交信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global alias.last <span class="s1">&#39;log -1&#39;</span>
+</span></span></code></pre></div><p>这样，用 <code>git last</code> 就能显示最近一次的提交：</p>
+<pre tabindex="0"><code>Author: xxx &lt;xxx@foxmail.com&gt;
+Date:   Mon Apr 23 13:52:44 2018 +0800
+
+    add git ignore list
+</code></pre><p>（4）还可以把 <code>lg</code> 配置成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global alias.lg <span class="s2">&#34;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&#34;</span>
+</span></span></code></pre></div><p>来看看 <code>git lg</code> 的效果。</p>
+<h3 id="22-修改配置文件">22. 修改配置文件</h3>
+<p>配置 Git 的时候，加上 <code>--global</code> 是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。</p>
+<p>每个仓库的 Git 配置文件都放在 <code>.git/config</code> 文件中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat .git/config
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[core]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">repositoryformatversion</span> <span class="o">=</span> <span class="s">0
+</span></span></span><span class="line"><span class="cl"><span class="s">    filemode = false
+</span></span></span><span class="line"><span class="cl"><span class="s">    bare = false
+</span></span></span><span class="line"><span class="cl"><span class="s">    logallrefupdates = true
+</span></span></span><span class="line"><span class="cl"><span class="s">    symlinks = false
+</span></span></span><span class="line"><span class="cl"><span class="s">    ignorecase = true</span>
+</span></span><span class="line"><span class="cl"><span class="k">[branch &#34;master&#34;]</span>
+</span></span><span class="line"><span class="cl"><span class="k">[branch &#34;dev&#34;]</span>
+</span></span><span class="line"><span class="cl"><span class="k">[remote &#34;github&#34;]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">url</span> <span class="o">=</span> <span class="s">git@github.com:xxx/LearnGit.git
+</span></span></span><span class="line"><span class="cl"><span class="s">    fetch = +refs/heads/*:refs/remotes/github/*</span>
+</span></span><span class="line"><span class="cl"><span class="k">[remote &#34;gitee&#34;]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">url</span> <span class="o">=</span> <span class="s">git@gitee.com:xxx/LearnGit.git
+</span></span></span><span class="line"><span class="cl"><span class="s">    fetch = +refs/heads/*:refs/remotes/gitee/*</span>
+</span></span></code></pre></div><p>而当前用户的 Git 配置文件放在用户主目录下的一个隐藏文件 <code>.gitconfig</code> 中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[user]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">name</span> <span class="o">=</span> <span class="s">xxx
+</span></span></span><span class="line"><span class="cl"><span class="s">    email = xxx@foxmail.com</span>
+</span></span><span class="line"><span class="cl"><span class="k">[gpg]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">program</span> <span class="o">=</span> <span class="s">C:\\Program Files (x86)\\gnupg\\bin\\gpg.exe</span>
+</span></span><span class="line"><span class="cl"><span class="k">[color]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">ui</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="k">[alias]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">co</span> <span class="o">=</span> <span class="s">checkout
+</span></span></span><span class="line"><span class="cl"><span class="s">    ci = commit
+</span></span></span><span class="line"><span class="cl"><span class="s">    br = branch
+</span></span></span><span class="line"><span class="cl"><span class="s">    last = log -1
+</span></span></span><span class="line"><span class="cl"><span class="s">    lg = log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit</span>
+</span></span></code></pre></div><p>别名就在 <code>[alias]</code> 后面，要删除别名，直接把对应的行删掉即可。配置别名也可以直接修改这个文件，如果改错了，可以删掉文件重新通过命令配置。</p>
+<h2 id="三多人协作的工作模式">三、多人协作的工作模式</h2>
+<p>通常如下：</p>
+<ol>
+<li>首先将远程仓库克隆为本地仓库：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone git@github.com:xxx/LearnGit.git
+</span></span></code></pre></div><ol start="2">
+<li>在本地创建和远程分支对应的分支：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b &lt;本地分支名&gt; origin/&lt;远程分支名&gt;
+</span></span></code></pre></div><p>本地和远程分支的名称最好一致。</p>
+<ol start="3">
+<li>在本地分支完成任务后，可以试图用 <code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;</code> 推送自己的修改</li>
+<li>如果推送失败，则表明远程分支比本地更新，需要先用 <code>git pull</code> 试图合并</li>
+<li>如果 pull 失败并提示「no tracking information」，则说明本地分支和远程分支的链接关系没有创建，用命令 <code>git branch --set-upstream-to=&lt;远程主机名&gt;/&lt;远程分支名&gt; &lt;本地分支名&gt;</code> 创建链接</li>
+<li>如果合并有冲突，则解决冲突，并在本地提交（<code>add</code> =&gt; <code>commit</code>）</li>
+<li>没有冲突或者解决掉冲突后，再用 <code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;</code> 推送就能成功</li>
+</ol>
+
+  </article>
+
+  
+  
+    
+  
+  
+
+
+</div>
+
+  </main><div class="footer gradient-2">
+  <div class="container footer-container ">
+    <div class="row">
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        <div class="footer-title">网站地图</div>
+        <ul class="list-unstyled">
+            
+              
+                <li><a href="https://devcharl.github.io/tags/">标签</a></li>
+              
+              
+                <li><a href="https://devcharl.github.io/categories/">分类</a></li>
+              
+            
+            
+            
+            <li><a rel="alternate" type="application/rss&#43;xml" href="https://devcharl.github.io/index.xml"><i class="fas fa-rss-square"></i> RSS订阅</a></li>
+            
+            
+            
+        </ul>
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">社群</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="https://github.com/devCharl/devcharl.github.io" rel="noopener" target="_blank">GitHub</a></li>
+          
+        </ul>
+        
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">友链</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="about/" rel="noopener" target="_blank">关于我</a></li>
+          
+        </ul>
+        
+      </div> 
+      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <p class="pull-right text-right">
+          <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
+          <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
+          <small>
+            &copy; 
+            Charles Y
+            
+              2022 -
+            2026
+          </small>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

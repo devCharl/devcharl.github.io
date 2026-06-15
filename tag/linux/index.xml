@@ -6,14 +6,41 @@
     <description>Recent content in linux on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tag/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 May 2024 16:03:16 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tag/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Dbus learning notes 01</title>
+      <title>Git 笔记总结</title>
+      <link>https://devcharl.github.io/2024/05/11/git-notes-summary/</link>
+      <pubDate>Sat, 11 May 2024 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/2024/05/11/git-notes-summary/</guid>
+      <description>一、git 客户端（本地仓库）的一些操作 1. 设置账户（需要和 GitHub 账户设置一致） git config --global user.name xxx git config --global user.email xxx@foxmail.com 2. 查看设置 git config --list 输出示例： user.name=xxx user.email=xxx@foxmail.com 3. 创建 git 本地仓库 git</description>
+    </item>
+    
+    <item>
+      <title>Shell 脚本中各种符号意义详解</title>
+      <link>https://devcharl.github.io/2023/02/26/shell-learning-note/</link>
+      <pubDate>Sun, 26 Feb 2023 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/2023/02/26/shell-learning-note/</guid>
+      <description>概述 Shell 中有两类字符：普通字符、元字符。 1. 普通字符 在 Shell 中除了本身的字面意思外没有其他特殊意义，即普通纯文本。 2. 元字符 是 Shell 的保留字符，在 Shell 中有着</description>
+    </item>
+    
+    <item>
+      <title>D-Bus 学习笔记 01</title>
       <link>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
       <guid>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</guid>
-      <description>Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，</description>
+      <description>基础概念 D-Bus 是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus 是三层架构的进程间通信系统：接口层 + 总线层 + 包装层 接口</description>
+    </item>
+    
+    <item>
+      <title>Iperf3 网络性能测试工具</title>
+      <link>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</link>
+      <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</guid>
+      <description>网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络</description>
     </item>
     
   </channel>

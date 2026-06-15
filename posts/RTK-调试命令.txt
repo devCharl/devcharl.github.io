@@ -1,0 +1,258 @@
+﻿----------------------------中间件sftp服务器------------------------------------
+42.236.3.115:22
+用户名：raisecom
+密码：jmGSgt1trwwcF35l
+---------------------------------------功控平台---------------------------------------
+平台地址：http://42.236.3.114/user/login
+登陆账号：raisecom
+登陆密码：@cw47#%Q%vmL5PGi
+
+dbus接口测试：
+08107A11289D
+2_INTERNET_R_VID_1002
+
+mib all |grep -i dbus
+mib set GPON_PLOAM_PASSWD
+----------------------------------------ufwmg status-----------------------------------------
+lxc-info -n ufw -P /opt/cu/framework\r\p
+----------------------------------------------------关闭强弹---------------------------------------------------
+mib set PROVINCE_NO_POPUP_REG_PAGE 1
+mib set CWMP_CONFIGURABLE 1
+mib commit cs now
+------------------------------------------恢复出厂----------------------------------------------------
+flash default cs now
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Restore
+rm -rf /opt/cu/apps/*
+reboot
+中间件重启
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Pause uint32:"0"
+切换
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Switch
+------------------------------------------省份配置-------------------------------------------------
+flash set CU_SRVMGT_PROVINCE BEJ
+reboot
+-------------------------------------------------产测---------------------------------------------
+厂商 flash set HW_CWMP_MANUFACTURER RAISECOM
+硬件版本 flash set HW_HWVER U.00
+设备型号 flash set HW_CWMP_PRODUCTCLASS "ISCOM HT8654T"
+设备序列号 flash set HW_SERIAL_NO RCMG12345678
+flash set GPON_SN RCMG12345678
+--------------------------------------------------修改端口映射关系--------------------------------------------
+mib get PORT_REMAPPING
+mib set PORT_REMAPPING
+mib commit hs now
+reboot
+-------------------------------------------------reg_server---------------------------------------------------- 
+debug开启：
+mib set MIB_DBUS_PROXY_DEBUG 6
+
+--------------------------------------------------capi接口测试-----------------------------------------------------
+api_setWLANRadioFrequencyWidth 的fail：
+mib set CU_DBUS_TEST_START 1
+
+10G GPON 查看pon生成的规则：
+cat /proc/rtk_tr142/wan_info
+-----------------------------------------------------omci log-----------------------------------------------
+ mib set OMCI_LOGFILE 7
+ mib set OMCI_LOGFILE_MASK 4294967295
+ mib commit cs now
+ reboot -f
+ LOG:  /tmp/omcilog.par和/tmp/omcilog
+ 
+ diag rt_gpon get onu-state
+ diag rt_gpon show tcont
+ diag rt_gpon show us-flow 
+ diag rt_gpon show ds-flow
+ cat  /proc/omci/wanInfo 
+ cat  /proc/omci/vgf
+ cat  /proc/rtk_tr142/wan_info 
+ omcicli dump conn
+ omcicli mib get all 
+ omcicli dump avltree
+ omcicli dump qmap 
+ omcicli get loidauth
+---------------------------------------------------ufwmg---------------------------------------------------
+ufwmg service
+ufwmg -v
+opkg info libhguapi
+opkg info hpsrv
+opkg info uappd
+查看ufw框架为runing状态即为启动：
+lxc-info -n ufw -P /opt/cu/framework
+
+中间件查询日志：
+cat hgutmp/ufwsrv.log 
+
+镜像升级后，加载新的ufwmg需要先清除/opt/cu/apps/*
+
+插件管理模块（hpsrv）、APP 服务模块（uappd）、业务 API（libhguapi）
+
+暂停 framework 
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Pause uint32:"10"
+获取备份分区
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.igd1.Properties.Get string:"com.cuc.ufw1.framework" string:"BackupMTD"
+切换活动分区信息
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Switch
+重新启动中间件
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Pause uint32:"0"
+中间件版本读取：
+dbus-send --system --type=method_call --print-reply --reply-timeout=200 --dest=com.cuc.ufw1  /com/cuc/ufw1 com.ctc.igd1.Properties.GetAll string:'com.cuc.ufw1.framework'
+中间件恢复出厂：
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Restore
+
+获取平台地址和注册状态
+dbus-send --system --print-reply --dest=com.cuc.uappd1 /com/cuc/uappd1 com.cuc.uappd1.GetStatus
+Srvip：平台 IP 地址 port：平台端口
+status：0-NotConnect 未连接；1-Connecting 正在尝试连接；2-Registing 注册中； 3-Heartbeating 心跳保活中； 4-Heartbeated 等待下次心跳中；5-RegisterError 注册失败
+
+testrapp插件为超级用户权限，遍历DeviceInfo和PONInfo接口
+testuapp测试插件为普通用户权限插件，具有遍历DeviceInfo接口的权限
+testuapp插件运行效果：遍历DeviceInfo接口正常，遍历PONInfo接口报错
+dbus_*.tar：DBUS库，请按照规范将该库集成到系统对应目录
+
+功控平台URL及port：
+URL: testcngw.smartont.net  port：7686
+提供测试版本时请将url/port预置到固件版本中
+对应的dbus接口及属性为com.cuc.igd1.MngPlatInfo，MgtURL、MgtPort
+
+查看dbus接口之PON：
+gdbus introspect -y -d com.cuc.igd1 -o /com/cuc/igd1/Info/PON –r
+查看dbus接口之Device：
+gdbus introspect -y -d com.cuc.igd1 -o /com/cuc/igd1/Info/Device –r
+查看dbus接口之MngPlat：
+gdbus introspect -y -d com.cuc.igd1 -o /com/cuc/igd1/Info/MngPlat –r
+
+建立/opt/apps/tt，并通过tftp将插件拷贝至该目录下
+#mkdir /opt/apps/tt	
+#cd /opt/apps/tt
+#tftp -g <tftp_server_ip> -r <ipkFileName>
+插件安装
+#cu_pkg.sh Install <ipkFileName>
+插件信息查询
+#cu_pkg.sh List
+插件运行
+#cu_pkg.sh Run <pluginName>
+插件运行状态查询
+#cu_pkg.sh stat <pluginName>
+插件停止
+#cu_pkg.sh Stop <pluginName>
+插件运行状态查询
+#cu_pkg.sh stat <pluginName>
+插件卸载
+#cu_pkg.sh Uninstall <pluginName> 
+
+平台相关信息读取：
+# dbus-send --system --print-reply --dest=com.cuc.igd1 /com/cuc/igd1/Info/MngPla
+t org.freedesktop.DBus.Introspectable.Introspect
+# dbus-send --system --type=method_call --print-reply --reply-timeout=200 --dest=com.cuc.igd1 /com/cuc/igd1/Info/MngPlat com.cuc.igd1.Properties.GetAll string:'com.cuc.igd1.MngPlatInfo'
+
+SpeedTestTry:
+设置多个属性
+gdbus call --method com.cuc.igd1.Properties.SetValues com.cuc.igd1.SpeedTestTry "{ \"TestMode\":<\"DownloadMode\">,\"DownloadURL\":<\"http://172.16.136.90/cloudclient_CC2.1_CT_CA8277_R2796_ca8277.ipk\">,\"DiagnosticsState\":<\"Requested\">}" --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Network/SpeedTestTry
+设置单个属性：
+dbus-send --system --type=method_call --print-reply --dest=com.cuc.igd1 /com/cuc/igd1/Network/SpeedTestTry com.cuc.igd1.Properties.Set string:'com.cuc.igd1.SpeedTestTry' string:'DownloadURL' variant:string:'http://172.16.136.90/cloudclient_CC2.1_CT_CA8277_R2796_ca8277.ipk'
+dbus-send --system --type=method_call --print-reply --dest=com.cuc.igd1 /com/cuc/igd1/Network/SpeedTestTry com.cuc.igd1.Properties.Set string:'com.cuc.igd1.SpeedTestTry' string:'TestMode' variant:string:'DownloadMode'
+dbus-send --system --type=method_call --print-reply --dest=com.cuc.igd1 /com/cuc/igd1/Network/SpeedTestTry com.cuc.igd1.Properties.Set string:'com.cuc.igd1.SpeedTestTry' string:'DiagnosticsState' variant:string:'Requested'
+查看所有属性：
+dbus-send --system --type=method_call --print-reply --dest=com.cuc.igd1  /com/cuc/igd1/Network/SpeedTestTry com.cuc.igd1.Properties.GetAll string:'com.cuc.igd1.SpeedTestTry'
+查看接口方法：
+gdbus introspect -y -d "com.cuc.igd1" -o /com/cuc/igd1/Network/SpeedTestTry
+dbus-send --system --print-reply --dest=com.cuc.igd1  /com/cuc/igd1/Network/SpeedTestTry org.freedesktop.DBus.Introspectable.Introspect
+
+IPPingDiagnostics:
+gdbus call --method com.cuc.igd1.IPPingDiagnostics.StartIPPingDiagnostics 1 www.baidu.com 4 10000 56 0 --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Diagnostics/IPPing
+测试完成有信号输出
+
+TraceRouteDiagnostics：
+gdbus call --method com.cuc.igd1.TraceRouteDiagnostics.StartTraceRouteDiagnostics 1 www.baidu.com 3 5000 38 0 30 --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Diagnostics/TraceRoute
+dbus-send --system --type=method_call --print-reply --dest=com.cuc.igd1 /com/cuc/igd1/Diagnostics/TraceRoute com.cuc.igd1.TraceRouteDiagnostics.StartTraceRouteDiagnostics uint32:'1' string:'www.baidu.com' uint32:'3' uint32:'5000' uint32:'38' uint32:'0' uint32:'30'
+查看接口方法
+dbus-send --system --print-reply --dest=com.cuc.igd1  /com/cuc/igd1/Diagnostics/TraceRoute org.freedesktop.DBus.Introspectable.Introspect
+
+测试插件dmipsapp是性能测试插件，dmips安装后，到此目录cd /opt/apps/dmipsapp/files
+执行./dmipsapp ，结果后显示都telnet上
+附件是新的测试性能的的插件，修改将执行结果保存到文件
+文件路径为(智能框架下的路径) /opt/apps/dmipsapp/dmipsapp/rootfs/dmips.log
+rtk dmips dmipsapp_V01.01.0003_mips_r0-20190508.ipk 结果文件/opt/apps/dmipsapp/dmipsapp/rootfs/dmips.log
+mtk coremark coremark_V01.01.0003_mips_r0.ipk 结果文件/opt/apps/coremark/coremark/rootfs/coremark.log
+
+开启镜像命令
+RTK.0> port get status port all 
+Port Status Speed    Duplex TX_FC RX_FC
+---- ------ -----    ------ ----- -----
+0    Up     1000M    Full   Dis   Dis  
+1    Down   10M      Half   En    En   
+2    Down   10M      Half   En    En   
+3    Down   10M      Half   En    En   
+5    Up     1000M    Full   Dis   Dis  
+8    Down   10M      Half   En    En   
+RTK.0> mirror init
+RTK.0> mirror set mirroring-port 0 mirrored-port 5 rx-mirror tx-mirror 
+RTK.0> mirror dump                                                     
+
+ Monitor port: 0
+ Mirroring TX portmask: 5
+ Mirroring RX portmask: 5
+
+ Mirror Egress Mode: All packets
+RTK.0> 
+---------------------------------------------------------------------------------------------------------
+平台注册Register阶段返回-2的原因及解决方案
+出现原因：
+平台保存的信息跟中间件本地的信息不一致导致的，根本原因是网关的信息有变更，如mac/gponsn变更、PON类型变更（同一台设备信息变更，或者复用相同信息）
+解决方案（使设备重新0 boot注册登录平台）如下：
+方案1：在网关侧执行中间件的恢复出厂
+dbus-send --system --print-reply --dest=com.cuc.ufw1 /com/cuc/ufw1 com.cuc.ufw1.framework.Restore
+方案2：在中间件侧执行
+1）uci set uappd.global.status=0
+2）uci commit
+3）ps杀掉uappd进程
+
+--------------------------------------------------gpio--------------------------------------------------------
+语音点灯命令
+led_ctrl 0 0 0
+led_ctrl 0 0 1
+
+----------------------------------------------------bob校准信息保存--------------------------------------------
+bob手动校准后，保存命令是什么？ 我这边找到的指令都是存在eeprom，我们没有eeprom，现在需要直接保存到flash。
+rtkbosa [-b|--backup] <filename>
+sdk一般存/var/config/rtkbosa_k.bin
+----------------------------------------------------voip--------------------------------
+设置RFC2833 payload是97
+flash voip set VOIP.PORT[0].DTMF_RFC2833_PAYLOAD_TYPE xxx
+配置完去语音设置页面点一下应用,重新注册一下
+----------------------------------------------------WMM--------------------------------
+ 【WMM】
+ 1. 执行下面命令三次，创建3个object
+ gdbus call --method com.cuc.igd1.ObjectManager.AddObject --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Transfer/WMMConfiguration
+ 
+ 2. 设置相关WMMConfiguration实例
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMConfiguration WMMEnable "<true>"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/1
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMConfiguration WMMEnable "<true>"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/2
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMConfiguration WMMEnable "<true>"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/3
+ 
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMConfiguration WMMSupportedSSID "<\"SSID1\">"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/1
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMConfiguration WMMSupportedSSID "<\"SSID2\">"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/2
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMConfiguration WMMSupportedSSID "<\"SSID3\">"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/3
+ 
+ 3. 增加三个wmm service实例
+ gdbus call --method com.cuc.igd1.ObjectManager.AddObject --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet
+ gdbus call --method com.cuc.igd1.ObjectManager.AddObject --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet
+ gdbus call --method com.cuc.igd1.ObjectManager.AddObject --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet
+ 
+ 先新增加IPSET，例如
+ gdbus call --method com.cuc.igd1.IPSet.AddIPSet "[('IPSet1', 1, 1, 'hash:ip', 1, ['192.168.1.0/24'])]" --system --dest "com.cuc.igd1" --object-path /com/cuc/igd1/Firewall/IPSet
+ 
+  配置WMMConfiguration/1实例，2，3类似gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMServiceIPSet ACLevel "<\"AC_VO\">"  -y -d com.cuc.igd1 -o  /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet/1
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMServiceIPSet TargetIP "<\"IPSet1\">"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet/1
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMServiceIPSet TargetPort "<\"IPSet2\">"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet/1
+ gdbus call -m com.cuc.igd1.Properties.Set com.cuc.igd1.WMMServiceIPSet SourceIP "<\"IPSet3\">"  -y -d com.cuc.igd1 -o /com/cuc/igd1/Transfer/WMMConfiguration/1/WMMServiceIPSet/1
+------------------------------------查rssi协商速率---------------------------------------------------------------
+gdbus call -m com.cuc.igd1.ObjectManager.GetManagedObjects -y -d com.cuc.igd1
+-o /com/cuc/igd1/Config/LANHosts
+
+---------------------------------------无线灯--------------------------------------------------------------------
+# echo 0 > /proc/wlan0/led
+# echo 2 > /proc/wlan0/led
+-----------------------------------------------------语音log开关--------------------------------------------------
+echo c > /var/run/solar_control.fif

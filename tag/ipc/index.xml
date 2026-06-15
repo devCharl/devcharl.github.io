@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ipc on Charles&#39; Personal Development Notes</title>
+    <link>https://devcharl.github.io/tag/ipc/</link>
+    <description>Recent content in ipc on Charles&#39; Personal Development Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tag/ipc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>D-Bus 学习笔记 01</title>
+      <link>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</link>
+      <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</guid>
+      <description>基础概念 D-Bus 是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus 是三层架构的进程间通信系统：接口层 + 总线层 + 包装层 接口</description>
+    </item>
+    
+  </channel>
+</rss>

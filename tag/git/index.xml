@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on Charles&#39; Personal Development Notes</title>
+    <link>https://devcharl.github.io/tag/git/</link>
+    <description>Recent content in git on Charles&#39; Personal Development Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 11 May 2024 16:03:16 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tag/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git 笔记总结</title>
+      <link>https://devcharl.github.io/2024/05/11/git-notes-summary/</link>
+      <pubDate>Sat, 11 May 2024 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/2024/05/11/git-notes-summary/</guid>
+      <description>一、git 客户端（本地仓库）的一些操作 1. 设置账户（需要和 GitHub 账户设置一致） git config --global user.name xxx git config --global user.email xxx@foxmail.com 2. 查看设置 git config --list 输出示例： user.name=xxx user.email=xxx@foxmail.com 3. 创建 git 本地仓库 git</description>
+    </item>
+    
+  </channel>
+</rss>

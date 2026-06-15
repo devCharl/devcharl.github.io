@@ -6,7 +6,79 @@
     <description>Recent content in Tags on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 May 2024 16:03:16 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git</title>
+      <link>https://devcharl.github.io/tag/git/</link>
+      <pubDate>Sat, 11 May 2024 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://devcharl.github.io/tag/linux/</link>
+      <pubDate>Sat, 11 May 2024 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bash</title>
+      <link>https://devcharl.github.io/tag/bash/</link>
+      <pubDate>Sun, 26 Feb 2023 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>https://devcharl.github.io/tag/shell/</link>
+      <pubDate>Sun, 26 Feb 2023 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html</title>
+      <link>https://devcharl.github.io/tag/html/</link>
+      <pubDate>Sat, 15 Oct 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://devcharl.github.io/tag/javascript/</link>
+      <pubDate>Sat, 15 Oct 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>php</title>
+      <link>https://devcharl.github.io/tag/php/</link>
+      <pubDate>Sat, 15 Oct 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://devcharl.github.io/tag/web/</link>
+      <pubDate>Sat, 15 Oct 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/web/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>dbus</title>
       <link>https://devcharl.github.io/tag/dbus/</link>
@@ -17,11 +89,65 @@
     </item>
     
     <item>
-      <title>linux</title>
-      <link>https://devcharl.github.io/tag/linux/</link>
+      <title>ipc</title>
+      <link>https://devcharl.github.io/tag/ipc/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
-      <guid>https://devcharl.github.io/tag/linux/</guid>
+      <guid>https://devcharl.github.io/tag/ipc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>editor</title>
+      <link>https://devcharl.github.io/tag/editor/</link>
+      <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/editor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vscode</title>
+      <link>https://devcharl.github.io/tag/vscode/</link>
+      <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/vscode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iperf</title>
+      <link>https://devcharl.github.io/tag/iperf/</link>
+      <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/iperf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iperf3</title>
+      <link>https://devcharl.github.io/tag/iperf3/</link>
+      <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/iperf3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jperf</title>
+      <link>https://devcharl.github.io/tag/jperf/</link>
+      <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/jperf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>network</title>
+      <link>https://devcharl.github.io/tag/network/</link>
+      <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/tag/network/</guid>
       <description></description>
     </item>
     
