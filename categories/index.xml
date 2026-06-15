@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Charles&#39; Personal Development Notes</title>
-    <link>https://www.developmentscharles.cc/categories/</link>
+    <link>https://devcharl.github.io/categories/</link>
     <description>Recent content in Categories on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Dbus</title>
-      <link>https://www.developmentscharles.cc/category/dbus/</link>
+      <link>https://devcharl.github.io/category/dbus/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/category/dbus/</guid>
+      <guid>https://devcharl.github.io/category/dbus/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>https://www.developmentscharles.cc/category/tools/</link>
+      <link>https://devcharl.github.io/category/tools/</link>
       <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/category/tools/</guid>
+      <guid>https://devcharl.github.io/category/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Notes</title>
-      <link>https://www.developmentscharles.cc/category/notes/</link>
+      <link>https://devcharl.github.io/category/notes/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/category/notes/</guid>
+      <guid>https://devcharl.github.io/category/notes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Demos</title>
-      <link>https://www.developmentscharles.cc/category/demos/</link>
+      <link>https://devcharl.github.io/category/demos/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/category/demos/</guid>
+      <guid>https://devcharl.github.io/category/demos/</guid>
       <description></description>
     </item>
     

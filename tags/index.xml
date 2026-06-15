@@ -2,71 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Charles&#39; Personal Development Notes</title>
-    <link>https://www.developmentscharles.cc/tags/</link>
+    <link>https://devcharl.github.io/tags/</link>
     <description>Recent content in Tags on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>dbus</title>
-      <link>https://www.developmentscharles.cc/tag/dbus/</link>
+      <link>https://devcharl.github.io/tag/dbus/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/dbus/</guid>
+      <guid>https://devcharl.github.io/tag/dbus/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://www.developmentscharles.cc/tag/linux/</link>
+      <link>https://devcharl.github.io/tag/linux/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/linux/</guid>
+      <guid>https://devcharl.github.io/tag/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>preview</title>
-      <link>https://www.developmentscharles.cc/tag/preview/</link>
+      <link>https://devcharl.github.io/tag/preview/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/preview/</guid>
+      <guid>https://devcharl.github.io/tag/preview/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shortcodes</title>
-      <link>https://www.developmentscharles.cc/tag/shortcodes/</link>
+      <link>https://devcharl.github.io/tag/shortcodes/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/shortcodes/</guid>
+      <guid>https://devcharl.github.io/tag/shortcodes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tutorial</title>
-      <link>https://www.developmentscharles.cc/tag/tutorial/</link>
+      <link>https://devcharl.github.io/tag/tutorial/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/tutorial/</guid>
+      <guid>https://devcharl.github.io/tag/tutorial/</guid>
       <description></description>
     </item>
     
     <item>
       <title>images</title>
-      <link>https://www.developmentscharles.cc/tag/images/</link>
+      <link>https://devcharl.github.io/tag/images/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/images/</guid>
+      <guid>https://devcharl.github.io/tag/images/</guid>
       <description></description>
     </item>
     
     <item>
       <title>notes</title>
-      <link>https://www.developmentscharles.cc/tag/notes/</link>
+      <link>https://devcharl.github.io/tag/notes/</link>
       <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/tag/notes/</guid>
+      <guid>https://devcharl.github.io/tag/notes/</guid>
       <description></description>
     </item>
     

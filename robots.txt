@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://www.developmentscharles.cc/sitemap.xml
+Sitemap: https://devcharl.github.io/sitemap.xml

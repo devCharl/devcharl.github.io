@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Charles&#39; Personal Development Notes</title>
-    <link>https://www.developmentscharles.cc/</link>
+    <link>https://devcharl.github.io/</link>
     <description>Recent content on Charles&#39; Personal Development Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 07 Sep 2022 15:47:20 +0800</lastBuildDate>
     
-    <atom:link href="https://www.developmentscharles.cc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://devcharl.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://www.developmentscharles.cc/en/about/</link>
+      <link>https://devcharl.github.io/en/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/about/</guid>
+      <guid>https://devcharl.github.io/en/about/</guid>
       <description>Hugo is a static site engine written in Go.
 It makes use of a variety of open source projects including:
 Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
@@ -34,10 +34,10 @@ Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</descr
     
     <item>
       <title>关于</title>
-      <link>https://www.developmentscharles.cc/zh-cn/about/</link>
+      <link>https://devcharl.github.io/zh-cn/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/zh-cn/about/</guid>
+      <guid>https://devcharl.github.io/zh-cn/about/</guid>
       <description>关于网站 个人博客，欢迎交流 关于我 咸鱼一枚 喜欢效率和极简，喜欢看电影、读书、旅行和健身 想在这短短的一生中体验这世间美好的一切 关于版权 本站所有的</description>
       <content:encoded><![CDATA[<h2 id="关于网站">关于网站</h2>
 <p><strong>个人博客，欢迎交流</strong></p>
@@ -60,10 +60,10 @@ Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</descr
     
     <item>
       <title>Dbus learning notes 01</title>
-      <link>https://www.developmentscharles.cc/2022/09/07/dbus-learning-notes-01/</link>
+      <link>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/2022/09/07/dbus-learning-notes-01/</guid>
+      <guid>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</guid>
       <description>Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，</description>
       <content:encoded><![CDATA[<h1 id="dbus-学习笔记">Dbus 学习笔记</h1>
 <hr>
@@ -221,10 +221,10 @@ If the pending call is already completed, this function returns immediately.
     
     <item>
       <title>Dbus learning notes 01</title>
-      <link>https://www.developmentscharles.cc/zh-cn/posts/dbus_learning_notes_01/</link>
+      <link>https://devcharl.github.io/zh-cn/posts/dbus_learning_notes_01/</link>
       <pubDate>Wed, 07 Sep 2022 15:47:20 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/zh-cn/posts/dbus_learning_notes_01/</guid>
+      <guid>https://devcharl.github.io/zh-cn/posts/dbus_learning_notes_01/</guid>
       <description>Dbus 学习笔记 基础概念 D-Bus是一个消息总线系统，其功能已涵盖进程间通信的所有需求，并具备一些特殊的用途 D-Bus是三层架构的进程间通信系统，</description>
       <content:encoded><![CDATA[<h1 id="dbus-学习笔记">Dbus 学习笔记</h1>
 <hr>
@@ -382,10 +382,10 @@ If the pending call is already completed, this function returns immediately.
     
     <item>
       <title>Vscode Learning Note</title>
-      <link>https://www.developmentscharles.cc/2022/08/24/vscode-learning-note/</link>
+      <link>https://devcharl.github.io/2022/08/24/vscode-learning-note/</link>
       <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/2022/08/24/vscode-learning-note/</guid>
+      <guid>https://devcharl.github.io/2022/08/24/vscode-learning-note/</guid>
       <description>vscode 正则表达式使用总结 空行删除：^\s*(?=\r?$)\n 可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→</description>
       <content:encoded><![CDATA[<h1 id="vscode-正则表达式使用总结">vscode 正则表达式使用总结</h1>
 <ul>
@@ -403,10 +403,10 @@ If the pending call is already completed, this function returns immediately.
     
     <item>
       <title>Vscode Learning Note</title>
-      <link>https://www.developmentscharles.cc/zh-cn/posts/vscode-learning-note/</link>
+      <link>https://devcharl.github.io/zh-cn/posts/vscode-learning-note/</link>
       <pubDate>Wed, 24 Aug 2022 16:03:16 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/zh-cn/posts/vscode-learning-note/</guid>
+      <guid>https://devcharl.github.io/zh-cn/posts/vscode-learning-note/</guid>
       <description>vscode 正则表达式使用总结 空行删除：^\s*(?=\r?$)\n 可通过Ctrl+K Ctrl+S快速打开，或者通过File→Preferences→</description>
       <content:encoded><![CDATA[<h1 id="vscode-正则表达式使用总结">vscode 正则表达式使用总结</h1>
 <ul>
@@ -424,10 +424,10 @@ If the pending call is already completed, this function returns immediately.
     
     <item>
       <title>Den Theme Preview</title>
-      <link>https://www.developmentscharles.cc/en/posts/den-theme-preview/</link>
+      <link>https://devcharl.github.io/en/posts/den-theme-preview/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/posts/den-theme-preview/</guid>
+      <guid>https://devcharl.github.io/en/posts/den-theme-preview/</guid>
       <description>&lt;p&gt;This is a simple preview for styles in Den.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<p>This is a simple preview for styles in Den.</p>
 <h2 id="header">Header</h2>
@@ -566,10 +566,10 @@ text code blocks
     
     <item>
       <title>Header Image</title>
-      <link>https://www.developmentscharles.cc/en/posts/header-image/</link>
+      <link>https://devcharl.github.io/en/posts/header-image/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/posts/header-image/</guid>
+      <guid>https://devcharl.github.io/en/posts/header-image/</guid>
       <description>This is a simple note.</description>
       <content:encoded><![CDATA[<p>This is a simple note.</p>
 ]]></content:encoded>
@@ -577,10 +577,10 @@ text code blocks
     
     <item>
       <title>標頭圖片</title>
-      <link>https://www.developmentscharles.cc/zh-cn/posts/header-image/</link>
+      <link>https://devcharl.github.io/zh-cn/posts/header-image/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/zh-cn/posts/header-image/</guid>
+      <guid>https://devcharl.github.io/zh-cn/posts/header-image/</guid>
       <description>這是一個簡單的筆記。</description>
       <content:encoded><![CDATA[<p>這是一個簡單的筆記。</p>
 ]]></content:encoded>
@@ -588,10 +588,10 @@ text code blocks
     
     <item>
       <title>Note 2</title>
-      <link>https://www.developmentscharles.cc/en/posts/note-2/</link>
+      <link>https://devcharl.github.io/en/posts/note-2/</link>
       <pubDate>Sun, 04 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/posts/note-2/</guid>
+      <guid>https://devcharl.github.io/en/posts/note-2/</guid>
       <description>This is a simple note.</description>
       <content:encoded><![CDATA[<p>This is a simple note.</p>
 ]]></content:encoded>
@@ -599,10 +599,10 @@ text code blocks
     
     <item>
       <title>Note 1</title>
-      <link>https://www.developmentscharles.cc/en/posts/note-1/</link>
+      <link>https://devcharl.github.io/en/posts/note-1/</link>
       <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/posts/note-1/</guid>
+      <guid>https://devcharl.github.io/en/posts/note-1/</guid>
       <description>This is a simple note.</description>
       <content:encoded><![CDATA[<p>This is a simple note.</p>
 ]]></content:encoded>
@@ -610,10 +610,10 @@ text code blocks
     
     <item>
       <title>关于</title>
-      <link>https://www.developmentscharles.cc/about/</link>
+      <link>https://devcharl.github.io/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/about/</guid>
+      <guid>https://devcharl.github.io/about/</guid>
       <description>关于网站 个人博客，欢迎交流 关于我 咸鱼一枚 喜欢效率和极简，喜欢看电影、读书、旅行和健身 想在这短短的一生中体验这世间美好的一切 关于版权 本站所有的</description>
       <content:encoded><![CDATA[<h2 id="关于网站">关于网站</h2>
 <p><strong>个人博客，欢迎交流</strong></p>

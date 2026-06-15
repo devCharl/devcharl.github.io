@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Den</title>
-    <link>https://www.developmentscharles.cc/en/categories/</link>
+    <link>https://devcharl.github.io/en/categories/</link>
     <description>Recent content in Categories on Den</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 06 Mar 2018 16:01:23 +0800</lastBuildDate><atom:link href="https://www.developmentscharles.cc/en/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Mar 2018 16:01:23 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Notes</title>
-      <link>https://www.developmentscharles.cc/en/category/notes/</link>
+      <link>https://devcharl.github.io/en/category/notes/</link>
       <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/category/notes/</guid>
+      <guid>https://devcharl.github.io/en/category/notes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Demos</title>
-      <link>https://www.developmentscharles.cc/en/category/demos/</link>
+      <link>https://devcharl.github.io/en/category/demos/</link>
       <pubDate>Mon, 05 Mar 2018 16:01:23 +0800</pubDate>
       
-      <guid>https://www.developmentscharles.cc/en/category/demos/</guid>
+      <guid>https://devcharl.github.io/en/category/demos/</guid>
       <description></description>
     </item>
     
