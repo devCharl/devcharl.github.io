@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta name="generator" content="Hugo 0.101.0" />
+  <meta charset="utf-8">
+  <title>Makefile/GCC编译选项 学习笔记 · Charles&#39; Personal Development Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Makefile 基本语法、GCC 编译与安全选项、Sanitizer 代码追踪、动态库 rpath、GDB 调试及常见构建错误排查。" />
+
+  <meta name="keywords" content="personal, development" />
+
+<link rel="canonical" href="https://devcharl.github.io/2026/06/15/makefile-learning-note/" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://devcharl.github.io/css/den.css">
+
+
+
+
+<meta property="og:title" content="Makefile/GCC编译选项 学习笔记" />
+<meta property="og:description" content="Makefile 基本语法、GCC 编译与安全选项、Sanitizer 代码追踪、动态库 rpath、GDB 调试及常见构建错误排查。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devcharl.github.io/2026/06/15/makefile-learning-note/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-06-15T10:00:00+08:00" />
+<meta property="article:modified_time" content="2026-06-15T10:00:00+08:00" />
+
+<meta itemprop="name" content="Makefile/GCC编译选项 学习笔记">
+<meta itemprop="description" content="Makefile 基本语法、GCC 编译与安全选项、Sanitizer 代码追踪、动态库 rpath、GDB 调试及常见构建错误排查。"><meta itemprop="datePublished" content="2026-06-15T10:00:00+08:00" />
+<meta itemprop="dateModified" content="2026-06-15T10:00:00+08:00" />
+<meta itemprop="wordCount" content="4380">
+<meta itemprop="keywords" content="makefile,linux,gcc,build," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Makefile/GCC编译选项 学习笔记"/>
+<meta name="twitter:description" content="Makefile 基本语法、GCC 编译与安全选项、Sanitizer 代码追踪、动态库 rpath、GDB 调试及常见构建错误排查。"/>
+</head>
+<body>
+  
+  <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://devcharl.github.io/images/background.jpg'); background-position: center; background-size: cover;">
+  <div class="container">
+  <nav class="header-nav navbar navbar-expand-md navbar-dark light-dark">
+    <div class="header-logo navbar-brand">
+      
+        <a class="float-left" href="https://devcharl.github.io/">
+      
+        
+        <img class="mr20 header-logo-image" src="https://devcharl.github.io/images/globe.svg" alt="logo">
+        
+        
+          Charles' personal development notes
+         
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="nav-menu collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/category/notes/">笔记</a>
+              
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              
+                <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
+              
+            
+          </li>
+        
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="container header-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="header-content">
+        <h1 class="header-title">Makefile/GCC编译选项 学习笔记</h1>
+        <p class="header-date">
+        2026-06-15
+          / 分类：
+          <a href="https://devcharl.github.io/category/notes/">notes</a>
+        </p>
+        
+        <div class="header-underline"></div>
+        
+          <div class="clearfix"></div>
+          <p class="float-right header-tags">
+              <i class="fas fa-tags" aria-hidden="true"></i>
+              <a href="https://devcharl.github.io/tag/build/">build</a>, 
+                <a href="https://devcharl.github.io/tag/gcc/">gcc</a>, 
+                <a href="https://devcharl.github.io/tag/linux/">linux</a>, 
+                <a href="https://devcharl.github.io/tag/makefile/">makefile</a>
+          </p>
+        
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+  <main>
+<div class="container content">
+  <article>
+  <h2 id="概述">概述</h2>
+<p>Makefile 是 GNU make 使用的构建脚本，通过定义目标（target）、依赖（prerequisites）和命令（command）来描述如何从源文件生成目标文件。本文整理 Makefile 语法要点、GCC 常用选项及常见错误。</p>
+<h2 id="makefile-基本结构">Makefile 基本结构</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">target</span><span class="o">:</span> <span class="n">prerequisites</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">command</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target</code></td>
+<td>目标，可以是文件或伪目标</td>
+</tr>
+<tr>
+<td><code>prerequisites</code></td>
+<td>执行 target 所需的文件或其他目标</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>make 需要执行的 shell 命令，<strong>必须以 Tab 开头</strong></td>
+</tr>
+</tbody>
+</table>
+<p>当 prerequisites 中有一个或多个文件比 target 新时，command 定义的命令会被重新执行。</p>
+<h2 id="make-命令行选项">make 命令行选项</h2>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make -C dir</code></td>
+<td>切换到目录 <code>dir</code> 下执行 make</td>
+</tr>
+<tr>
+<td><code>make -f file</code></td>
+<td>指定 Makefile 文件（默认查找 <code>Makefile</code> / <code>makefile</code>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gcc-常用编译选项">GCC 常用编译选项</h2>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-o</code></td>
+<td>指定输出文件名</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td>编译生成 <code>.o</code> 目标文件，不进行链接</td>
+</tr>
+<tr>
+<td><code>-I</code></td>
+<td>指定头文件（include）搜索路径</td>
+</tr>
+<tr>
+<td><code>-O</code></td>
+<td>优化选项</td>
+</tr>
+<tr>
+<td><code>-Wall</code></td>
+<td>开启常见警告</td>
+</tr>
+<tr>
+<td><code>-Werror</code></td>
+<td>将所有警告视为错误，遇到警告即停止编译</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>指定链接库的搜索目录</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>指定链接库名称，一般与 <code>-L</code> 成对使用</td>
+</tr>
+<tr>
+<td><code>-fPIC</code></td>
+<td>生成位置无关代码，共享库通常需要此选项</td>
+</tr>
+<tr>
+<td><code>-E</code></td>
+<td>仅做预处理</td>
+</tr>
+<tr>
+<td><code>-g</code></td>
+<td>生成调试信息</td>
+</tr>
+<tr>
+<td><code>-shared</code></td>
+<td>生成共享库</td>
+</tr>
+<tr>
+<td><code>-std=gnu11</code></td>
+<td>指定 C 语言标准（如 <code>c11</code>、<code>gnu99</code>）</td>
+</tr>
+<tr>
+<td><code>-pthread</code></td>
+<td>编译与链接时启用 POSIX 线程支持</td>
+</tr>
+<tr>
+<td><code>-static</code></td>
+<td>静态链接（不依赖运行时 <code>.so</code>）</td>
+</tr>
+<tr>
+<td><code>-MMD -MP</code></td>
+<td>生成依赖文件（<code>.d</code>），供 Makefile 自动追踪头文件变更</td>
+</tr>
+</tbody>
+</table>
+<h3 id="安全编译选项">安全编译选项</h3>
+<p>现代 GCC 提供多种选项，可在编译/链接阶段降低缓冲区溢出、ROP 等攻击风险。以下选项分<strong>编译阶段</strong>（<code>CFLAGS</code>/<code>CXXFLAGS</code>）和<strong>链接阶段</strong>（<code>LDFLAGS</code>）。</p>
+<h4 id="栈保护stack-protector">栈保护（Stack Protector）</h4>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-fstack-protector</code></td>
+<td>为有栈帧的函数插入 canary，检测栈溢出</td>
+</tr>
+<tr>
+<td><code>-fstack-protector-strong</code></td>
+<td>保护范围更广（含数组、局部变量地址等），<strong>推荐</strong></td>
+</tr>
+<tr>
+<td><code>-fstack-protector-all</code></td>
+<td>保护所有函数，开销最大</td>
+</tr>
+</tbody>
+</table>
+<h4 id="地址空间布局随机化pie">地址空间布局随机化（PIE）</h4>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>阶段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-fPIE</code></td>
+<td>编译</td>
+<td>生成位置无关的目标代码</td>
+</tr>
+<tr>
+<td><code>-pie</code></td>
+<td>链接</td>
+<td>生成 PIE 可执行文件，配合 ASLR 随机化加载地址</td>
+</tr>
+</tbody>
+</table>
+<p>共享库本身已用 <code>-fPIC</code>；可执行文件需 <code>-fPIE</code> + <code>-pie</code> 才能启用 PIE。</p>
+<h4 id="运行时强化fortify_source">运行时强化（FORTIFY_SOURCE）</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CFLAGS</span> <span class="o">+=</span> -O2 -D_FORTIFY_SOURCE<span class="o">=</span><span class="m">2</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>宏</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_FORTIFY_SOURCE=1</code></td>
+<td>轻量检查，需 <code>-O1</code> 及以上</td>
+</tr>
+<tr>
+<td><code>_FORTIFY_SOURCE=2</code></td>
+<td>更严格（如 <code>memcpy</code> 长度校验），需 <code>-O1</code> 及以上，<strong>推荐</strong></td>
+</tr>
+</tbody>
+</table>
+<p>对 glibc 中部分字符串/内存函数做编译期与运行时边界检查，需配合优化级别使用。</p>
+<h4 id="链接器安全选项">链接器安全选项</h4>
+<p>通过 <code>-Wl,</code> 传递给 ld：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-Wl,-z,relro</code></td>
+<td>启用 RELRO，将 GOT 等重定位段设为只读</td>
+</tr>
+<tr>
+<td><code>-Wl,-z,now</code></td>
+<td>立即绑定（BIND_NOW），与 <code>relro</code> 合用称 <strong>Full RELRO</strong>，防止 GOT 覆写</td>
+</tr>
+<tr>
+<td><code>-Wl,-z,noexecstack</code></td>
+<td>标记栈不可执行（NX）</td>
+</tr>
+<tr>
+<td><code>-Wl,-z,defs</code></td>
+<td>共享库链接时，若有未定义符号则报错</td>
+</tr>
+<tr>
+<td><code>-Wl,--as-needed</code></td>
+<td>仅链接实际引用的库，减少多余依赖</td>
+</tr>
+</tbody>
+</table>
+<h4 id="警告与代码质量">警告与代码质量</h4>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-Wall -Wextra</code></td>
+<td>开启更多警告</td>
+</tr>
+<tr>
+<td><code>-Wformat -Wformat-security</code></td>
+<td>检查 <code>printf</code> 类格式字符串，防止格式串漏洞</td>
+</tr>
+<tr>
+<td><code>-Werror=format-security</code></td>
+<td>将格式安全警告视为错误</td>
+</tr>
+<tr>
+<td><code>-fno-omit-frame-pointer</code></td>
+<td>保留帧指针，便于 backtrace（略增开销）</td>
+</tr>
+<tr>
+<td><code>-fvisibility=hidden</code></td>
+<td>默认隐藏符号，仅导出需对外接口（共享库常用）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="推荐组合示例">推荐组合示例</h4>
+<p><strong>可执行文件（Release + 安全加固）：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CFLAGS</span>  <span class="o">+=</span> -O2 -pipe -Wall -Wextra <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>           -fstack-protector-strong <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>           -D_FORTIFY_SOURCE<span class="o">=</span><span class="m">2</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>           -fPIE
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -pie <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>           -Wl,-z,relro -Wl,-z,now <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>           -Wl,-z,noexecstack
+</span></span></code></pre></div><p><strong>共享库：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CFLAGS</span>  <span class="o">+=</span> -O2 -fPIC -fstack-protector-strong -D_FORTIFY_SOURCE<span class="o">=</span><span class="m">2</span> -fvisibility<span class="o">=</span>hidden
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -shared -Wl,-z,defs
+</span></span></code></pre></div><p><strong>调试构建</strong>时通常关闭 <code>-D_FORTIFY_SOURCE</code> 或降低优化，并保留 <code>-g</code>；发布前再启用完整安全选项。</p>
+<p>查看二进制是否启用 PIE / RELRO 等：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">checksec --file<span class="o">=</span>./main          <span class="c1"># 需安装 checksec</span>
+</span></span><span class="line"><span class="cl">readelf -h ./main <span class="p">|</span> grep Type   <span class="c1"># Type: DYN 表示 PIE</span>
+</span></span><span class="line"><span class="cl">readelf -l ./main <span class="p">|</span> grep GNU_RELRO
+</span></span></code></pre></div><h3 id="编译示例">编译示例</h3>
+<p>只编译不链接（生成 <code>.o</code>）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -c -fPIC add.c
+</span></span></code></pre></div><p>生成共享库：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -shared -fPIC -o libadd.so add.o
+</span></span></code></pre></div><h2 id="动态库链接与-rpath">动态库链接与 rpath</h2>
+<p>链接可执行文件或共享库时，除了 <code>-L</code>（指定<strong>链接阶段</strong>搜索目录）和 <code>-l</code>（指定库名）外，还需要考虑<strong>运行时</strong>如何找到 <code>.so</code> 文件。</p>
+<h3 id="库搜索路径概览">库搜索路径概览</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>作用阶段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-L dir</code></td>
+<td>链接时</td>
+<td>告诉链接器去哪里找 <code>libxxx.so</code> 或 <code>libxxx.a</code></td>
+</tr>
+<tr>
+<td><code>-lxxx</code></td>
+<td>链接时</td>
+<td>链接名为 <code>libxxx.so</code> / <code>libxxx.a</code> 的库</td>
+</tr>
+<tr>
+<td><code>-Wl,-rpath,dir</code></td>
+<td>运行时</td>
+<td>将路径写入可执行文件/库的 ELF，运行时动态链接器按此搜索</td>
+</tr>
+<tr>
+<td><code>-Wl,-rpath-link,dir</code></td>
+<td>链接时</td>
+<td>仅链接阶段有效，解析<strong>间接依赖</strong>的 <code>.so</code>，不写入 ELF</td>
+</tr>
+<tr>
+<td><code>LD_LIBRARY_PATH</code></td>
+<td>运行时</td>
+<td>环境变量，临时指定额外搜索路径</td>
+</tr>
+<tr>
+<td><code>/etc/ld.so.conf</code> + <code>ldconfig</code></td>
+<td>运行时</td>
+<td>系统级配置，更新 <code>/etc/ld.so.cache</code></td>
+</tr>
+</tbody>
+</table>
+<p>运行时搜索顺序（简化）大致为：<code>RPATH/RUNPATH</code> → <code>LD_LIBRARY_PATH</code> → <code>/etc/ld.so.cache</code> → 默认目录（如 <code>/lib</code>、<code>/usr/lib</code>）。</p>
+<h3 id="rpath-与-runpath">rpath 与 runpath</h3>
+<p>通过 <code>-Wl,-rpath,DIR</code> 可将目录嵌入 ELF 的 <code>DT_RPATH</code> 或 <code>DT_RUNPATH</code> 字段：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -o main main.o -L./lib -ladd -Wl,-rpath,/opt/myapp/lib
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>常见写法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DT_RPATH</code></td>
+<td><code>-Wl,-rpath,DIR</code>（旧行为）</td>
+<td>优先级较高，可能覆盖 <code>LD_LIBRARY_PATH</code></td>
+</tr>
+<tr>
+<td><code>DT_RUNPATH</code></td>
+<td>同上，配合 <code>--enable-new-dtags</code></td>
+<td>较新的默认行为，优先级低于 <code>LD_LIBRARY_PATH</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 写入 DT_RUNPATH（推荐，便于开发时用 LD_LIBRARY_PATH 覆盖）</span>
+</span></span><span class="line"><span class="cl">gcc -o main main.o -L./lib -ladd <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -Wl,--enable-new-dtags -Wl,-rpath,/opt/myapp/lib
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制写入 DT_RPATH（旧行为）</span>
+</span></span><span class="line"><span class="cl">gcc -o main main.o -L./lib -ladd <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -Wl,--disable-new-dtags -Wl,-rpath,/opt/myapp/lib
+</span></span></code></pre></div><h3 id="使用-origin-指定相对路径">使用 <code>$ORIGIN</code> 指定相对路径</h3>
+<p>部署时库与可执行文件在同一目录树内时，可用 <code>$ORIGIN</code> 表示「可执行文件所在目录」：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -o bin/main main.o -L./lib -ladd <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -Wl,-rpath,<span class="s1">&#39;$ORIGIN/../lib&#39;</span>
+</span></span></code></pre></div><p>Makefile 中注意对 <code>$</code> 转义：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -Wl,-rpath,<span class="s1">&#39;$$ORIGIN/../lib&#39;</span>
+</span></span></code></pre></div><h3 id="rpath-link链接间接依赖">rpath-link（链接间接依赖）</h3>
+<p>链接 <code>main</code> 时若依赖 <code>libA.so</code>，而 <code>libA.so</code> 又依赖同目录下的 <code>libB.so</code>，链接器在链接阶段可能找不到 <code>libB.so</code>。此时用 <code>-rpath-link</code> 仅帮助<strong>完成链接</strong>，路径不会写入最终 ELF：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -o main main.o -L./lib -lA <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -Wl,-rpath-link,./lib
+</span></span></code></pre></div><h3 id="查看已嵌入的路径">查看已嵌入的路径</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">readelf -d main <span class="p">|</span> grep -E <span class="s1">&#39;RPATH|RUNPATH&#39;</span>
+</span></span><span class="line"><span class="cl">ldd main
+</span></span></code></pre></div><h3 id="makefile-示例">Makefile 示例</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">LIB_DIR</span> <span class="o">:=</span> <span class="k">$(</span>CURDIR<span class="k">)</span>/lib
+</span></span><span class="line"><span class="cl"><span class="nv">INSTALL_LIB</span> <span class="o">:=</span> /opt/myapp/lib
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span>  <span class="o">+=</span> -I<span class="k">$(</span>LIB_DIR<span class="k">)</span>/../include
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">+=</span> -L<span class="k">$(</span>LIB_DIR<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LDLIBS</span>  <span class="o">+=</span> -ladd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 开发阶段：相对路径，便于本地运行
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">LDFLAGS</span> <span class="o">+=</span> -Wl,--enable-new-dtags -Wl,-rpath,<span class="s1">&#39;$$ORIGIN/../lib&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 或安装阶段：绝对路径
+</span></span></span><span class="line"><span class="cl"><span class="c"># LDFLAGS += -Wl,-rpath,$(INSTALL_LIB)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">main</span><span class="o">:</span> <span class="n">main</span>.<span class="n">o</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -o <span class="nv">$@</span> $^ <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span>
+</span></span></code></pre></div><h3 id="常见问题">常见问题</h3>
+<p><strong><code>error while loading shared libraries: libxxx.so: cannot open shared object file</code></strong></p>
+<ul>
+<li>链接时缺少 <code>-L</code> 或 <code>-l</code></li>
+<li>运行时找不到 <code>.so</code>：设置 <code>LD_LIBRARY_PATH</code>、配置 rpath，或将库安装到系统路径并执行 <code>ldconfig</code></li>
+</ul>
+<p><strong>开发环境与部署环境路径不一致</strong></p>
+<ul>
+<li>开发机用 <code>LD_LIBRARY_PATH=./lib ./main</code> 快速验证</li>
+<li>发布时用 <code>-Wl,-rpath,'$ORIGIN/../lib'</code> 或安装到固定目录并写入 rpath</li>
+</ul>
+<p><strong>与「DSO missing from command line」的区别</strong></p>
+<ul>
+<li>rpath 解决的是<strong>运行时找不到库文件</strong></li>
+<li>DSO missing 是<strong>链接时</strong>未声明对某个 <code>.so</code> 的依赖，需补 <code>-l</code> 选项</li>
+</ul>
+<h2 id="makefile-内置变量">Makefile 内置变量</h2>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$@</code></td>
+<td>当前规则的目标（target）</td>
+</tr>
+<tr>
+<td><code>$&lt;</code></td>
+<td>依赖中的第一个文件</td>
+</tr>
+<tr>
+<td><code>$^</code></td>
+<td>依赖中的所有文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="赋值与宏定义">赋值与宏定义</h2>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:=</code></td>
+<td>立即赋值，覆盖之前的值</td>
+</tr>
+<tr>
+<td><code>?=</code></td>
+<td>若变量未被赋值，则赋予默认值</td>
+</tr>
+<tr>
+<td><code>+=</code></td>
+<td>追加赋值</td>
+</tr>
+</tbody>
+</table>
+<p>在 CFLAGS 中定义宏：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CFLAGS</span> <span class="o">+=</span> -D_CBB
+</span></span></code></pre></div><h2 id="makefile-函数">Makefile 函数</h2>
+<h3 id="subst-from-to-text"><code>$(subst FROM, TO, TEXT)</code></h3>
+<p>将字符串 <code>TEXT</code> 中的子串 <code>FROM</code> 替换为 <code>TO</code>。</p>
+<h3 id="word-n-text"><code>$(word N, TEXT)</code></h3>
+<p>取字符串 <code>TEXT</code> 中第 <code>N</code> 个单词（从 1 开始）。</p>
+<ul>
+<li><code>N = 0</code> 会报错</li>
+<li><code>N</code> 大于单词总数时返回空字符串</li>
+</ul>
+<h2 id="多文件链接">多文件链接</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">main-objs</span> <span class="o">:=</span> a.o b.o c.o
+</span></span></code></pre></div><p>将 <code>a.c</code>、<code>b.c</code>、<code>c.c</code> 编译后链接生成 <code>main</code>。</p>
+<h2 id="内核模块相关变量">内核模块相关变量</h2>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj-m</code></td>
+<td>编译为可加载的内核模块</td>
+</tr>
+<tr>
+<td><code>obj-y</code></td>
+<td>编译进内核</td>
+</tr>
+<tr>
+<td><code>obj-n</code></td>
+<td>不编译</td>
+</tr>
+</tbody>
+</table>
+<h2 id="include-指令">include 指令</h2>
+<p><code>include</code> 与 C/C++ 的 <code>#include</code> 类似，make 启动时会读取 include 指定的其他 Makefile 并展开到当前文件。</p>
+<p>搜索顺序：</p>
+<ol>
+<li>当前目录</li>
+<li>命令行 <code>-I</code> / <code>--include-dir</code> 指定的目录</li>
+<li><code>&lt;prefix&gt;/include</code>（如 <code>/usr/local/include</code>、<code>/usr/include</code>）</li>
+</ol>
+<p>若找不到文件，make 默认会报 warning；全部读取完成后会重试，仍失败则 fatal error。</p>
+<p>使用 <code>-include</code>（或 <code>sinclude</code>）可在文件缺失时不报错、继续执行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="err">-include</span> <span class="err">other.mk</span>
+</span></span></code></pre></div><p>仅当无法完成最终目标重建（必需目标找不到规则）时才会 fatal error 并退出。</p>
+<h2 id="调试与分析工具">调试与分析工具</h2>
+<h3 id="sanitizer-与代码追踪">Sanitizer 与代码追踪</h3>
+<p>GCC / Clang 提供 <strong>Sanitizer</strong>（<code>-fsanitize=*</code>），在编译期插入检测代码，<strong>运行时</strong>自动报告内存错误、未定义行为、数据竞争等问题，并打印带源码行号的调用栈。适合开发阶段替代「反复 GDB + core」的排查方式。</p>
+<blockquote>
+<p>Sanitizer 会显著增加内存/CPU 开销，<strong>仅用于 Debug 构建</strong>，不要带入 Release 发布包。</p>
+</blockquote>
+<h4 id="通用用法">通用用法</h4>
+<p>编译与链接需<strong>同时使用</strong>相同的 <code>-fsanitize</code> 选项，并建议加 <code>-g</code>、<code>-fno-omit-frame-pointer</code> 以获得清晰 backtrace：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># Makefile 中常见写法：单独 debug / sanitize 目标
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">SAN_FLAGS</span> <span class="o">:=</span> -fsanitize<span class="o">=</span>address -fno-omit-frame-pointer -g -O1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">debug</span><span class="o">:</span> <span class="n">CFLAGS</span> += <span class="k">$(</span><span class="nv">SAN_FLAGS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">debug</span><span class="o">:</span> <span class="n">LDFLAGS</span> += <span class="k">$(</span><span class="nv">SAN_FLAGS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">debug</span><span class="o">:</span> <span class="n">main</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-g</code></td>
+<td>保留调试符号，报告可显示文件名与行号</td>
+</tr>
+<tr>
+<td><code>-O0</code> / <code>-O1</code> / <code>-Og</code></td>
+<td>Sanitizer 推荐 <code>-O1</code> 或 <code>-Og</code>；过高优化可能误报或影响检测</td>
+</tr>
+<tr>
+<td><code>-fno-omit-frame-pointer</code></td>
+<td>保留帧指针，backtrace 更完整</td>
+</tr>
+<tr>
+<td><code>-fsanitize-recover=...</code></td>
+<td>部分 UBSan 类错误检测到后继续运行（默认 UBSan 直接 abort）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="addresssanitizerasan">AddressSanitizer（ASan）</h4>
+<p>检测<strong>堆/栈/全局缓冲区溢出</strong>、use-after-free、double-free 等内存错误。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -g -O1 -fsanitize<span class="o">=</span>address -fno-omit-frame-pointer -o main main.c
+</span></span><span class="line"><span class="cl">./main
+</span></span></code></pre></div><p>典型输出会指出错误类型、读写地址、分配/释放栈（allocation stack）及发生位置。</p>
+<p>常用环境变量：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">ASAN_OPTIONS</span><span class="o">=</span><span class="nv">halt_on_error</span><span class="o">=</span>1:abort_on_error<span class="o">=</span>1:detect_leaks<span class="o">=</span>1:symbolize<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>halt_on_error=1</code></td>
+<td>遇到第一个错误即停止</td>
+</tr>
+<tr>
+<td><code>detect_leaks=1</code></td>
+<td>启用 LeakSanitizer（默认随 ASan 开启）</td>
+</tr>
+<tr>
+<td><code>symbolize=1</code></td>
+<td>将地址解析为函数名（需 <code>llvm-symbolizer</code> 或在 PATH 中）</td>
+</tr>
+<tr>
+<td><code>log_path=/tmp/asan</code></td>
+<td>将报告写入文件</td>
+</tr>
+</tbody>
+</table>
+<h4 id="undefinedbehaviorsanitizerubsan">UndefinedBehaviorSanitizer（UBSan）</h4>
+<p>检测 C/C++ <strong>未定义行为</strong>：整数溢出、空指针解引用、越界枚举、对齐错误等。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -g -O1 -fsanitize<span class="o">=</span>undefined -o main main.c
+</span></span></code></pre></div><p>可只启用部分检查：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-fsanitize<span class="o">=</span>signed-integer-overflow,null,alignment,bounds
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">UBSAN_OPTIONS</span><span class="o">=</span><span class="nv">print_stacktrace</span><span class="o">=</span>1:halt_on_error<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></div><h4 id="threadsanitizertsan">ThreadSanitizer（TSan）</h4>
+<p>检测<strong>数据竞争</strong>（data race）与部分死锁相关场景，适用于多线程程序。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -g -O1 -fsanitize<span class="o">=</span>thread -o main main.c -pthread
+</span></span></code></pre></div><blockquote>
+<p>TSan 与 ASan <strong>不能同时</strong>启用。TSan 内存开销约为原程序的 5～10 倍。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">TSAN_OPTIONS</span><span class="o">=</span><span class="nv">halt_on_error</span><span class="o">=</span>1:history_size<span class="o">=</span><span class="m">7</span>
+</span></span></code></pre></div><h4 id="leaksanitizerlsan">LeakSanitizer（LSan）</h4>
+<p>检测<strong>内存泄漏</strong>，通常随 ASan 自动启用，也可单独使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -g -O1 -fsanitize<span class="o">=</span>leak -o main main.c
+</span></span></code></pre></div><p>程序退出时汇总未释放的分配及分配调用栈。</p>
+<h4 id="其他-sanitizer了解">其他 Sanitizer（了解）</h4>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-fsanitize=memory</code></td>
+<td>MSan</td>
+<td>检测未初始化内存读取；GCC 支持有限，Clang 更常用</td>
+</tr>
+<tr>
+<td><code>-fsanitize=hwaddress</code></td>
+<td>HWASan</td>
+<td>硬件辅助 ASan，多见于 ARM64</td>
+</tr>
+<tr>
+<td><code>-fsanitize=pointer-compare</code> / <code>pointer-subtract</code></td>
+<td>—</td>
+<td>非法指针对比/减法</td>
+</tr>
+</tbody>
+</table>
+<h4 id="sanitizer-对照">Sanitizer 对照</h4>
+<table>
+<thead>
+<tr>
+<th>Sanitizer</th>
+<th>主要检测</th>
+<th>典型场景</th>
+<th>可否与 ASan 同开</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASan</td>
+<td>内存越界、UAF</td>
+<td>通用 C/C++ 调试</td>
+<td>—</td>
+</tr>
+<tr>
+<td>UBSan</td>
+<td>未定义行为</td>
+<td>算术/类型/对齐问题</td>
+<td>可以</td>
+</tr>
+<tr>
+<td>TSan</td>
+<td>数据竞争</td>
+<td>多线程</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LSan</td>
+<td>内存泄漏</td>
+<td>退出时泄漏汇总</td>
+<td>随 ASan 默认开启</td>
+</tr>
+</tbody>
+</table>
+<h4 id="makefile-示例debug--sanitize-目标">Makefile 示例：Debug / Sanitize 目标</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CC</span>      <span class="o">:=</span> gcc
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span>  <span class="o">:=</span> -Wall -Wextra -std<span class="o">=</span>gnu11
+</span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">:=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">main</span><span class="o">:</span> <span class="n">main</span>.<span class="n">o</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> $^
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 常规调试（GDB）
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">debug</span><span class="o">:</span> <span class="n">CFLAGS</span>  += -<span class="n">g</span> -<span class="n">Og</span>
+</span></span><span class="line"><span class="cl"><span class="nf">debug</span><span class="o">:</span> <span class="n">LDFLAGS</span> += -<span class="n">g</span>
+</span></span><span class="line"><span class="cl"><span class="nf">debug</span><span class="o">:</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># ASan 构建
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">asan</span><span class="o">:</span> <span class="n">CFLAGS</span>  += -<span class="n">g</span> -<span class="n">O</span>1 -<span class="n">fsanitize</span>=<span class="n">address</span> -<span class="n">fno</span>-<span class="n">omit</span>-<span class="n">frame</span>-<span class="n">pointer</span>
+</span></span><span class="line"><span class="cl"><span class="nf">asan</span><span class="o">:</span> <span class="n">LDFLAGS</span> += -<span class="n">fsanitize</span>=<span class="n">address</span>
+</span></span><span class="line"><span class="cl"><span class="nf">asan</span><span class="o">:</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># UBSan 构建
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">ubsan</span><span class="o">:</span> <span class="n">CFLAGS</span>  += -<span class="n">g</span> -<span class="n">O</span>1 -<span class="n">fsanitize</span>=<span class="n">undefined</span> -<span class="n">fno</span>-<span class="n">omit</span>-<span class="n">frame</span>-<span class="n">pointer</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ubsan</span><span class="o">:</span> <span class="n">LDFLAGS</span> += -<span class="n">fsanitize</span>=<span class="n">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ubsan</span><span class="o">:</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># TSan 构建（多线程）
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">tsan</span><span class="o">:</span> <span class="n">CFLAGS</span>  += -<span class="n">g</span> -<span class="n">O</span>1 -<span class="n">fsanitize</span>=<span class="n">thread</span> -<span class="n">fno</span>-<span class="n">omit</span>-<span class="n">frame</span>-<span class="n">pointer</span>
+</span></span><span class="line"><span class="cl"><span class="nf">tsan</span><span class="o">:</span> <span class="n">LDFLAGS</span> += -<span class="n">fsanitize</span>=<span class="n">thread</span> -<span class="n">pthread</span>
+</span></span><span class="line"><span class="cl"><span class="nf">tsan</span><span class="o">:</span> <span class="n">main</span>
+</span></span></code></pre></div><p>运行示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make asan
+</span></span><span class="line"><span class="cl"><span class="nv">ASAN_OPTIONS</span><span class="o">=</span><span class="nv">symbolize</span><span class="o">=</span>1:halt_on_error<span class="o">=</span><span class="m">1</span> ./main
+</span></span></code></pre></div><h4 id="其他编译期追踪手段">其他编译期追踪手段</h4>
+<table>
+<thead>
+<tr>
+<th>选项 / 工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-pg</code></td>
+<td>插入 gprof 性能分析探针，运行后 <code>gprof</code> 查看热点</td>
+</tr>
+<tr>
+<td><code>-fprofile-arcs -ftest-coverage</code> + <code>gcov</code></td>
+<td>代码覆盖率统计</td>
+</tr>
+<tr>
+<td><code>-finstrument-functions</code></td>
+<td>在每个函数入口/出口插入钩子，自定义追踪逻辑</td>
+</tr>
+<tr>
+<td><code>-fsanitize=address</code> + GDB</td>
+<td>ASan 报错后可在 <code>abort</code> 前附加 GDB：<code>ASAN_OPTIONS=abort_on_error=0 ./main</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="gdb">GDB</h3>
+<h4 id="编译选项">编译选项</h4>
+<table>
+<thead>
+<tr>
+<th>命令/选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-g</code></td>
+<td>编译时加入调试信息（使用 GDB 分析 core 或源码调试时需要）</td>
+</tr>
+<tr>
+<td><code>strip</code></td>
+<td>去除可执行文件中的调试信息，减小体积，但会无法调试</td>
+</tr>
+</tbody>
+</table>
+<h4 id="使用-core-dump-定位崩溃">使用 core dump 定位崩溃</h4>
+<p>进程异常退出时，内核可将内存镜像写入 core 文件，再用 GDB 结合可执行文件分析调用栈。完整流程如下。</p>
+<p><strong>1. 开启内核编译选项</strong></p>
+<p>通过 <code>menuconfig</code> 开启 ELF core dump 支持：</p>
+<pre tabindex="0"><code>General setup
+  └── Configure standard kernel features (for small systems)
+        └── Enable ELF core dumps
+</code></pre><p>也可直接在内核配置文件中启用对应选项，然后<strong>重新编译内核</strong>，并<strong>重新编译待调试的应用</strong>（需带 <code>-g</code>）。</p>
+<p><strong>2. 启动后配置运行环境</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">ulimit</span> -c unlimited
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/tmp/core-%e-%p&#34;</span> &gt; /proc/sys/kernel/core_pattern
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ulimit -c unlimited</code></td>
+<td>取消 core 文件大小限制</td>
+</tr>
+<tr>
+<td><code>core_pattern</code></td>
+<td>指定 core 文件路径与命名格式；<code>%e</code> 为可执行文件名，<code>%p</code> 为进程 PID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. 启动待调试进程</strong></p>
+<p>以 <code>mapd</code> 为例：先结束已有进程，将二进制复制到可写目录后手动启动：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">killall mapd
+</span></span><span class="line"><span class="cl">cp /userfs/bin/mapd /tmp/
+</span></span><span class="line"><span class="cl">/tmp/mapd -G /etc/wts_bss_info_config <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>          -I /etc/mapd_cfg.txt <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>          -O /etc/mapd_strng.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>          -c client_db.txt &gt; /dev/console <span class="p">&amp;</span>
+</span></span></code></pre></div><p><strong>4. 复现问题并确认 core 文件</strong></p>
+<p>复现崩溃后，用 <code>ps</code> 确认进程已退出。若配置正确，<code>/tmp/</code> 下应出现类似 <code>core-mapd-12345</code> 的 core 文件。</p>
+<p><strong>5. 启动 GDB 分析</strong></p>
+<p>将 GDB 传到设备（嵌入式环境常用 TFTP）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /tmp/
+</span></span><span class="line"><span class="cl">tftp -gr gdb 192.168.1.xx
+</span></span><span class="line"><span class="cl">chmod +x gdb
+</span></span><span class="line"><span class="cl">./gdb mapd /tmp/core-mapd-12345
+</span></span></code></pre></div><p><strong>6. 查看 backtrace</strong></p>
+<pre tabindex="0"><code class="language-gdb" data-lang="gdb">(gdb) bt
+</code></pre><p><code>bt</code>（backtrace）会打印崩溃时的函数调用栈，据此定位出错代码路径。常用补充命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bt full</code></td>
+<td>显示调用栈及局部变量</td>
+</tr>
+<tr>
+<td><code>frame N</code></td>
+<td>切换到第 N 帧</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>查看当前帧附近源码</td>
+</tr>
+<tr>
+<td><code>info registers</code></td>
+<td>查看寄存器状态</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>分析 core 时，GDB 使用的可执行文件应与生成 core 时的版本一致（同一编译产物），否则符号和行号可能对不上。</p>
+</blockquote>
+<h3 id="objdump">objdump</h3>
+<p>反汇编与分析目标文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">objdump -t file    <span class="c1"># 显示符号表</span>
+</span></span></code></pre></div><h3 id="readelf">readelf</h3>
+<p>查看 ELF 文件结构：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">readelf -d file    <span class="c1"># 显示动态段信息</span>
+</span></span></code></pre></div><h2 id="常见错误">常见错误</h2>
+<h3 id="missing-separator">missing separator</h3>
+<p>Makefile 中的命令必须以 <strong>Tab</strong> 开头，不能用空格。</p>
+<h3 id="skipping-incompatible">skipping incompatible</h3>
+<p>链接库时，库文件与当前平台/架构不匹配（例如 32 位库链接 64 位程序）。</p>
+<h3 id="dso-missing-from-command-line">DSO missing from command line</h3>
+<p>动态库依赖未显式链接。例如：</p>
+<pre tabindex="0"><code>libA.so ---ld---&gt; libB.so
+main    ---ld---&gt; libA.so
+</code></pre><p>若 <code>main</code> 调用了 <code>libB.so</code> 中的函数，但链接时只写了 <code>-lA</code>、没有 <code>-lB</code>，就会报此错。生成 <code>main</code> 时需要显式加上 <code>-lB</code>（或 <code>-lB -lA</code> 等完整依赖）。</p>
+
+  </article>
+
+  
+  
+    
+  
+  
+
+
+</div>
+
+  </main><div class="footer gradient-2">
+  <div class="container footer-container ">
+    <div class="row">
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        <div class="footer-title">网站地图</div>
+        <ul class="list-unstyled">
+            
+              
+                <li><a href="https://devcharl.github.io/tags/">标签</a></li>
+              
+              
+                <li><a href="https://devcharl.github.io/categories/">分类</a></li>
+              
+            
+            
+            
+            <li><a rel="alternate" type="application/rss&#43;xml" href="https://devcharl.github.io/index.xml"><i class="fas fa-rss-square"></i> RSS订阅</a></li>
+            
+            
+            
+        </ul>
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">社群</div>
+        <ul class="list-unstyled">
+          
+          <li><a href="https://github.com/devCharl/devcharl.github.io" rel="noopener" target="_blank">GitHub</a></li>
+          
+        </ul>
+        
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="footer-title">友链</div>
+        <ul class="list-unstyled">
+          
+          
+          <li><a href="https://devcharl.github.io/about/">关于我</a></li>
+          
+          
+        </ul>
+        
+      </div> 
+      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <p class="pull-right text-right">
+          <small>语言：<a href="https://devcharl.github.io/2026/06/15/makefile-learning-note/" hreflang="zh-cn">中文</a> | <a href="https://devcharl.github.io/en/" hreflang="en">English</a></small><br/>
+          <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
+          <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
+          <small>
+            &copy; 
+            Charles Y
+            
+              2022 -
+            2026
+          </small>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

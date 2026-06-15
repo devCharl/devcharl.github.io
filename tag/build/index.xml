@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>build on Charles&#39; Personal Development Notes</title>
+    <link>https://devcharl.github.io/tag/build/</link>
+    <description>Recent content in build on Charles&#39; Personal Development Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 15 Jun 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tag/build/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Makefile/GCC编译选项 学习笔记</title>
+      <link>https://devcharl.github.io/2026/06/15/makefile-learning-note/</link>
+      <pubDate>Mon, 15 Jun 2026 10:00:00 +0800</pubDate>
+      
+      <guid>https://devcharl.github.io/2026/06/15/makefile-learning-note/</guid>
+      <description>概述 Makefile 是 GNU make 使用的构建脚本，通过定义目标（target）、依赖（prerequisites）和命令（command）来描述如何从源文件生成目</description>
+    </item>
+    
+  </channel>
+</rss>
