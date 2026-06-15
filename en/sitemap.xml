@@ -1,29 +1,30 @@
-<?xml-stylesheet type="text/xsl" href="https://devcharl.github.io/sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devcharl.github.io/en/about/</loc>
     <lastmod>2017-08-20T21:38:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/about/"/>
   </url>
-  
-  <url>
-    <loc>https://devcharl.github.io/en/categories/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
   <url>
     <loc>https://devcharl.github.io/en/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2017-08-20T21:38:52+08:00</lastmod>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/"/>
   </url>
-  
+  <url>
+    <loc>https://devcharl.github.io/en/categories/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/categories/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/categories/"/>
+  </url>
+  <url>
+    <loc>https://devcharl.github.io/en/collections/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/collections/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/collections/"/>
+  </url>
   <url>
     <loc>https://devcharl.github.io/en/tags/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/tags/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/tags/"/>
   </url>
-  
 </urlset>

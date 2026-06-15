@@ -1,249 +1,156 @@
-<?xml-stylesheet type="text/xsl" href="https://devcharl.github.io/sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://devcharl.github.io/</loc>
+    <lastmod>2026-06-15T18:00:00+08:00</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/"/>
+  </url>
+  <url>
+    <loc>https://devcharl.github.io/search/</loc>
+    <lastmod>2026-06-15T18:00:00+08:00</lastmod>
+  </url>
   <url>
     <loc>https://devcharl.github.io/tag/build/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/categories/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/categories/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/categories/"/>
   </url>
-  
-  <url>
-    <loc>https://devcharl.github.io/</loc>
-    <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://devcharl.github.io/category/develop/</loc>
-    <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/gcc/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/linux/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/makefile/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2026/06/15/makefile-learning-note/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
-  <url>
-    <loc>https://devcharl.github.io/category/notes/</loc>
-    <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
   <url>
     <loc>https://devcharl.github.io/posts/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tags/</loc>
     <lastmod>2026-06-15T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/tags/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/tags/"/>
   </url>
-  
+  <url>
+    <loc>https://devcharl.github.io/category/develop/</loc>
+    <lastmod>2026-06-15T10:00:00+08:00</lastmod>
+  </url>
   <url>
     <loc>https://devcharl.github.io/tag/git/</loc>
     <lastmod>2024-05-11T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2024/05/11/git-notes-summary/</loc>
     <lastmod>2024-05-11T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/bash/</loc>
     <lastmod>2023-02-26T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/shell/</loc>
     <lastmod>2023-02-26T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2023/02/26/shell-learning-note/</loc>
     <lastmod>2023-02-26T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/html/</loc>
     <lastmod>2022-10-15T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2022/10/15/web-notes/</loc>
     <lastmod>2022-10-15T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/javascript/</loc>
     <lastmod>2022-10-15T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/php/</loc>
     <lastmod>2022-10-15T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/web/</loc>
     <lastmod>2022-10-15T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/</loc>
     <lastmod>2022-09-07T15:47:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/dbus/</loc>
     <lastmod>2022-09-07T15:47:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/ipc/</loc>
     <lastmod>2022-09-07T15:47:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/editor/</loc>
     <lastmod>2022-08-24T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2022/08/24/vscode-learning-note/</loc>
     <lastmod>2022-08-24T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/vscode/</loc>
     <lastmod>2022-08-24T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/iperf/</loc>
     <lastmod>2020-04-17T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/iperf3/</loc>
     <lastmod>2020-04-17T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</loc>
     <lastmod>2020-04-17T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/jperf/</loc>
     <lastmod>2020-04-17T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/tag/network/</loc>
     <lastmod>2020-04-17T16:03:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/en/about/</loc>
     <lastmod>2017-08-20T21:38:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/en/</loc>
     <lastmod>2017-08-20T21:38:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
-  
   <url>
     <loc>https://devcharl.github.io/about/</loc>
     <lastmod>2017-08-20T21:38:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/about/"/>
   </url>
-  
+  <url>
+    <loc>https://devcharl.github.io/collections/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devcharl.github.io/en/collections/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://devcharl.github.io/collections/"/>
+  </url>
 </urlset>

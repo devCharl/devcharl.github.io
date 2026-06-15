@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>iperf on Charles&#39; Personal Development Notes</title>
+    <title>Iperf - 标签 - Charles&#39; Personal Development Notes</title>
     <link>https://devcharl.github.io/tag/iperf/</link>
-    <description>Recent content in iperf on Charles&#39; Personal Development Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>记录个人学习及成长。</description>
+    <generator>Hugo 0.163.1 &amp; FixIt v0.4.5</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 17 Apr 2020 16:03:16 +0800</lastBuildDate><atom:link href="https://devcharl.github.io/tag/iperf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Apr 2020 16:03:16 +0800</lastBuildDate>
+    <atom:link href="https://devcharl.github.io/tag/iperf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Iperf3 网络性能测试工具</title>
       <link>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</link>
       <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
-      
       <guid>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</guid>
-      <description>网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络</description>
+      <category domain="https://devcharl.github.io/category/develop/">开发</category>
+      <description>&lt;p&gt;网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络带宽利用率不高。要找到网络带宽利用率不高的原因，就需要对网络传输进行监控，此时就需要用到一些网络性能评估工具，而 Iperf 就是这样一款网络带宽测试工具。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

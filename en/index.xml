@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Charles&#39; Personal Development Notes</title>
     <link>https://devcharl.github.io/en/</link>
-    <description>Recent content on Charles&#39; Personal Development Notes</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>记录个人学习及成长。</description>
+    <generator>Hugo 0.163.1 &amp; FixIt v0.4.5</generator>
     <language>en</language>
-    
+    <lastBuildDate></lastBuildDate>
     <atom:link href="https://devcharl.github.io/en/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>About</title>
-      <link>https://devcharl.github.io/en/about/</link>
-      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
-      
-      <guid>https://devcharl.github.io/en/about/</guid>
-      <description>About This Site A personal blog for learning notes and development records.
-About Me Software developer Interested in efficiency, simplicity, movies, reading, travel, and fitness License Original articles on this site are licensed under CC BY-NC 4.0.</description>
-      <content:encoded><![CDATA[<h2 id="about-this-site">About This Site</h2>
-<p>A personal blog for learning notes and development records.</p>
-<h2 id="about-me">About Me</h2>
-<ul>
-<li>Software developer</li>
-<li>Interested in efficiency, simplicity, movies, reading, travel, and fitness</li>
-</ul>
-<h2 id="license">License</h2>
-<p>Original articles on this site are licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.</p>
-]]></content:encoded>
-    </item>
-    
   </channel>
 </rss>

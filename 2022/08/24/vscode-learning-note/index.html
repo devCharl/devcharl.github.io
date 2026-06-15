@@ -1,246 +1,241 @@
 <!DOCTYPE html>
-<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
-<head>
-  <meta name="generator" content="Hugo 0.101.0" />
-  <meta charset="utf-8">
-  <title>VS Code 正则表达式与快捷键 · Charles&#39; Personal Development Notes</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>VS Code 正则表达式与快捷键 - Charles&#39; Personal Development Notes</title><meta name="author" content="Charles Y">
+<meta name="description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F 文件中查找 Ctrl&#43;Shift&#43;F 替换 Ctrl&#43;H 文件中替换 Ctrl&#43;Shift&#43;H "><meta name="keywords" content='vscode, editor'>
+	<meta itemprop="name" content="VS Code 正则表达式与快捷键">
+	<meta itemprop="description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F 文件中查找 Ctrl&#43;Shift&#43;F 替换 Ctrl&#43;H 文件中替换 Ctrl&#43;Shift&#43;H">
+	<meta itemprop="datePublished" content="2022-08-24T16:03:16+08:00">
+	<meta itemprop="dateModified" content="2022-08-24T16:03:16+08:00">
+	<meta itemprop="wordCount" content="85">
+	<meta itemprop="keywords" content="Vscode,Editor"><meta property="og:url" content="https://devcharl.github.io/2022/08/24/vscode-learning-note/">
+	<meta property="og:site_name" content="Charles&#39; Personal Development Notes">
+	<meta property="og:title" content="VS Code 正则表达式与快捷键">
+	<meta property="og:description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F 文件中查找 Ctrl&#43;Shift&#43;F 替换 Ctrl&#43;H 文件中替换 Ctrl&#43;Shift&#43;H">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2022-08-24T16:03:16+08:00">
+		<meta property="article:modified_time" content="2022-08-24T16:03:16+08:00">
+		<meta property="article:tag" content="Vscode">
+		<meta property="article:tag" content="Editor">
 
-  <meta name="keywords" content="personal, development" />
-
-<link rel="canonical" href="https://devcharl.github.io/2022/08/24/vscode-learning-note/" />
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://devcharl.github.io/css/den.css">
-
-
-
-
-<meta property="og:title" content="VS Code 正则表达式与快捷键" />
-<meta property="og:description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://devcharl.github.io/2022/08/24/vscode-learning-note/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-08-24T16:03:16+08:00" />
-<meta property="article:modified_time" content="2022-08-24T16:03:16+08:00" />
-
-<meta itemprop="name" content="VS Code 正则表达式与快捷键">
-<meta itemprop="description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F"><meta itemprop="datePublished" content="2022-08-24T16:03:16+08:00" />
-<meta itemprop="dateModified" content="2022-08-24T16:03:16+08:00" />
-<meta itemprop="wordCount" content="85">
-<meta itemprop="keywords" content="vscode,editor," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="VS Code 正则表达式与快捷键"/>
-<meta name="twitter:description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F"/>
-</head>
-<body>
-  
-  <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://devcharl.github.io/images/background.jpg'); background-position: center; background-size: cover;">
-  <div class="container">
-  <nav class="header-nav navbar navbar-expand-md navbar-dark light-dark">
-    <div class="header-logo navbar-brand">
-      
-        <a class="float-left" href="https://devcharl.github.io/">
-      
-        
-        <img class="mr20 header-logo-image" src="https://devcharl.github.io/images/globe.svg" alt="logo">
-        
-        
-          Charles' personal development notes
-         
-      </a>
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="VS Code 正则表达式与快捷键">
+	<meta name="twitter:description" content="正则表达式 用途 表达式 删除空行 ^\s*(?=\r?$)\n 常用快捷键 操作 快捷键 打开键盘快捷键设置 Ctrl&#43;K Ctrl&#43;S，或 File → Preferences → Keyboard Shortcuts 当前行快速换行 Ctrl&#43;Enter 快速删除当前行 Shift&#43;Delete 或 Ctrl&#43;Shift&#43;K 查找 Ctrl&#43;F 文件中查找 Ctrl&#43;Shift&#43;F 替换 Ctrl&#43;H 文件中替换 Ctrl&#43;Shift&#43;H">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://devcharl.github.io/2022/08/24/vscode-learning-note/" title="VS Code 正则表达式与快捷键 - Charles&#39; Personal Development Notes" /><link rel="prev" type="text/html" href="https://devcharl.github.io/2020/04/17/iperf3-learning-note/" title="Iperf3 网络性能测试工具" /><link rel="next" type="text/html" href="https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/" title="D-Bus 学习笔记 01" /><link rel="alternate" type="text/markdown" href="https://devcharl.github.io/2022/08/24/vscode-learning-note/index.md" title="VS Code 正则表达式与快捷键 - Charles' Personal Development Notes"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "VS Code 正则表达式与快捷键",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/devcharl.github.io\/2022\/08\/24\/vscode-learning-note\/"
+    },"genre": "posts","keywords": "vscode, editor","wordcount":  85 ,
+    "url": "https:\/\/devcharl.github.io\/2022\/08\/24\/vscode-learning-note\/","datePublished": "2022-08-24T16:03:16+08:00","dateModified": "2022-08-24T16:03:16+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Charles Y"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="Charles&#39; Personal Development Notes"><span class="header-title-text">Charles&#39; Notes</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/category/develop/"><i class="fa-solid fa-book fa-sm" aria-hidden="true"></i> 开发</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> 归档</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> 关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
+            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="Charles&#39; Personal Development Notes"><span class="header-title-text">Charles&#39; Notes</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="nav-menu collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        
-          <li class="nav-item">
-            
-              
-                <a class="nav-link" href="https://devcharl.github.io/category/notes/">笔记</a>
-              
-            
-          </li>
-        
-          <li class="nav-item">
-            
-              
-                <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
-              
-            
-          </li>
-        
-        
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/category/develop/"><i class="fa-solid fa-book fa-sm" aria-hidden="true"></i> 开发</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> 归档</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> 关于</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
+              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              <select id="language-select" class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+            </span></li>
       </ul>
-    </div>
-  </nav>
-</div>
-
-<div class="container header-wrapper">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="header-content">
-        <h1 class="header-title">VS Code 正则表达式与快捷键</h1>
-        <p class="header-date">
-        2022-08-24
-          / 分类：
-          <a href="https://devcharl.github.io/category/notes/">notes</a>, 
-            <a href="https://devcharl.github.io/category/develop/">develop</a>
-        </p>
-        
-        <div class="header-underline"></div>
-        
-          <div class="clearfix"></div>
-          <p class="float-right header-tags">
-              <i class="fas fa-tags" aria-hidden="true"></i>
-              <a href="https://devcharl.github.io/tag/editor/">editor</a>, 
-                <a href="https://devcharl.github.io/tag/vscode/">vscode</a>
-          </p>
-        
-        
-
-      </div>
-    </div>
+    </nav>
   </div>
-</div>
-
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
   </div>
-  <main>
-<div class="container content">
-  <article>
-  <h2 id="正则表达式">正则表达式</h2>
-<table>
-<thead>
-<tr>
-<th>用途</th>
-<th>表达式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>删除空行</td>
-<td><code>^\s*(?=\r?$)\n</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="常用快捷键">常用快捷键</h2>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>快捷键</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>打开键盘快捷键设置</td>
-<td><code>Ctrl+K Ctrl+S</code>，或 File → Preferences → Keyboard Shortcuts</td>
-</tr>
-<tr>
-<td>当前行快速换行</td>
-<td><code>Ctrl+Enter</code></td>
-</tr>
-<tr>
-<td>快速删除当前行</td>
-<td><code>Shift+Delete</code> 或 <code>Ctrl+Shift+K</code></td>
-</tr>
-<tr>
-<td>查找</td>
-<td><code>Ctrl+F</code></td>
-</tr>
-<tr>
-<td>文件中查找</td>
-<td><code>Ctrl+Shift+F</code></td>
-</tr>
-<tr>
-<td>替换</td>
-<td><code>Ctrl+H</code></td>
-</tr>
-<tr>
-<td>文件中替换</td>
-<td><code>Ctrl+Shift+H</code></td>
-</tr>
-</tbody>
-</table>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
 
-  </article>
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>VS Code 正则表达式与快捷键</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/devCharl/devcharl.github.io" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Charles Y</a></span><span class="post-included-in">&nbsp;收录于 <a href="/category/develop/" class="post-category" title="分类 - 开发"><i class="fa-regular fa-folder" aria-hidden="true"></i> 开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-24 16:03:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-08-24">2022-08-24</time></span>&nbsp;<span title="85 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 100 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#正则表达式">正则表达式</a></li>
+    <li><a href="#常用快捷键">常用快捷键</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 class="heading-element" id="正则表达式"><span>正则表达式</span>
+  <a href="#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>用途</th>
+            <th>表达式</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>删除空行</td>
+            <td><code>^\s*(?=\r?$)\n</code></td>
+        </tr>
+    </tbody>
+  </table>
+</div><h2 class="heading-element" id="常用快捷键"><span>常用快捷键</span>
+  <a href="#%e5%b8%b8%e7%94%a8%e5%bf%ab%e6%8d%b7%e9%94%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>操作</th>
+            <th>快捷键</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>打开键盘快捷键设置</td>
+            <td><code>Ctrl+K Ctrl+S</code>，或 File → Preferences → Keyboard Shortcuts</td>
+        </tr>
+        <tr>
+            <td>当前行快速换行</td>
+            <td><code>Ctrl+Enter</code></td>
+        </tr>
+        <tr>
+            <td>快速删除当前行</td>
+            <td><code>Shift+Delete</code> 或 <code>Ctrl+Shift+K</code></td>
+        </tr>
+        <tr>
+            <td>查找</td>
+            <td><code>Ctrl+F</code></td>
+        </tr>
+        <tr>
+            <td>文件中查找</td>
+            <td><code>Ctrl+Shift+F</code></td>
+        </tr>
+        <tr>
+            <td>替换</td>
+            <td><code>Ctrl+H</code></td>
+        </tr>
+        <tr>
+            <td>文件中替换</td>
+            <td><code>Ctrl+Shift+H</code></td>
+        </tr>
+    </tbody>
+  </table>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2022-08-24 16:03:16">更新于 2022-08-24&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/2022/08/24/vscode-learning-note/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://devcharl.github.io/2022/08/24/vscode-learning-note/" data-title="VS Code 正则表达式与快捷键" data-hashtags="vscode,editor"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://devcharl.github.io/2022/08/24/vscode-learning-note/" data-hashtag="vscode"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://devcharl.github.io/2022/08/24/vscode-learning-note/" data-title="VS Code 正则表达式与快捷键"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
 
-  
-  
-    
-  
-  
-
-
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tag/vscode/" class="post-tag" title="标签 - Vscode">Vscode</a><a href="/tag/editor/" class="post-tag" title="标签 - Editor">Editor</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/2020/04/17/iperf3-learning-note/" class="post-nav-item" rel="prev" title="Iperf3 网络性能测试工具"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Iperf3 网络性能测试工具</a><a href="/2022/09/07/dbus-learning-notes-01/" class="post-nav-item" rel="next" title="D-Bus 学习笔记 01">D-Bus 学习笔记 01<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
+</article>
 
-  </main><div class="footer gradient-2">
-  <div class="container footer-container ">
-    <div class="row">
-      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-        <div class="footer-title">网站地图</div>
-        <ul class="list-unstyled">
-            
-              
-                <li><a href="https://devcharl.github.io/tags/">标签</a></li>
-              
-              
-                <li><a href="https://devcharl.github.io/categories/">分类</a></li>
-              
-            
-            
-            
-            <li><a rel="alternate" type="application/rss&#43;xml" href="https://devcharl.github.io/index.xml"><i class="fas fa-rss-square"></i> RSS订阅</a></li>
-            
-            
-            
-        </ul>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#正则表达式">正则表达式</a></li>
+    <li><a href="#常用快捷键">常用快捷键</a></li>
+  </ul>
+</nav></div>
       </div>
-      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-        
-        <div class="footer-title">社群</div>
-        <ul class="list-unstyled">
-          
-          <li><a href="https://github.com/devCharl/devcharl.github.io" rel="noopener" target="_blank">GitHub</a></li>
-          
-        </ul>
-        
-      </div>
-      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-        
-        <div class="footer-title">友链</div>
-        <ul class="list-unstyled">
-          
-          
-          <li><a href="https://devcharl.github.io/about/">关于我</a></li>
-          
-          
-        </ul>
-        
-      </div> 
-      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-        <p class="pull-right text-right">
-          <small>语言：<a href="https://devcharl.github.io/2022/08/24/vscode-learning-note/" hreflang="zh-cn">中文</a> | <a href="https://devcharl.github.io/en/" hreflang="en">English</a></small><br/>
-          <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
-          <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
-          <small>
-            &copy; 
-            Charles Y
-            
-              2022 -
-            2026
-          </small>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-</body>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.1"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/devCharl/devcharl.github.io" target="_blank" rel="external nofollow noopener noreferrer">Charles Y</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/b733911330bd1aefc33c583afc629ce4.js" defer></script><script src="/js/theme.min.js" defer></script></body>
 </html>

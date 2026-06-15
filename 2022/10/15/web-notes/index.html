@@ -1,132 +1,200 @@
 <!DOCTYPE html>
-<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
-<head>
-  <meta name="generator" content="Hugo 0.101.0" />
-  <meta charset="utf-8">
-  <title>HTML / PHP 开发踩坑笔记 · Charles&#39; Personal Development Notes</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>HTML / PHP 开发踩坑笔记 - Charles&#39; Personal Development Notes</title><meta name="author" content="Charles Y">
+<meta name="description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。"><meta name="keywords" content='html, javascript, php, web'>
+	<meta itemprop="name" content="HTML / PHP 开发踩坑笔记">
+	<meta itemprop="description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。">
+	<meta itemprop="datePublished" content="2022-10-15T16:03:16+08:00">
+	<meta itemprop="dateModified" content="2022-10-15T16:03:16+08:00">
+	<meta itemprop="wordCount" content="1133">
+	<meta itemprop="keywords" content="Html,Javascript,Php,Web"><meta property="og:url" content="https://devcharl.github.io/2022/10/15/web-notes/">
+	<meta property="og:site_name" content="Charles&#39; Personal Development Notes">
+	<meta property="og:title" content="HTML / PHP 开发踩坑笔记">
+	<meta property="og:description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2022-10-15T16:03:16+08:00">
+		<meta property="article:modified_time" content="2022-10-15T16:03:16+08:00">
+		<meta property="article:tag" content="Html">
+		<meta property="article:tag" content="Javascript">
+		<meta property="article:tag" content="Php">
+		<meta property="article:tag" content="Web">
 
-  <meta name="keywords" content="personal, development" />
-
-<link rel="canonical" href="https://devcharl.github.io/2022/10/15/web-notes/" />
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://devcharl.github.io/css/den.css">
-
-
-
-
-<meta property="og:title" content="HTML / PHP 开发踩坑笔记" />
-<meta property="og:description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://devcharl.github.io/2022/10/15/web-notes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-10-15T16:03:16+08:00" />
-<meta property="article:modified_time" content="2022-10-15T16:03:16+08:00" />
-
-<meta itemprop="name" content="HTML / PHP 开发踩坑笔记">
-<meta itemprop="description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。"><meta itemprop="datePublished" content="2022-10-15T16:03:16+08:00" />
-<meta itemprop="dateModified" content="2022-10-15T16:03:16+08:00" />
-<meta itemprop="wordCount" content="1089">
-<meta itemprop="keywords" content="html,javascript,php,web," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="HTML / PHP 开发踩坑笔记"/>
-<meta name="twitter:description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。"/>
-</head>
-<body>
-  
-  <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://devcharl.github.io/images/background.jpg'); background-position: center; background-size: cover;">
-  <div class="container">
-  <nav class="header-nav navbar navbar-expand-md navbar-dark light-dark">
-    <div class="header-logo navbar-brand">
-      
-        <a class="float-left" href="https://devcharl.github.io/">
-      
-        
-        <img class="mr20 header-logo-image" src="https://devcharl.github.io/images/globe.svg" alt="logo">
-        
-        
-          Charles' personal development notes
-         
-      </a>
-    </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="nav-menu collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        
-          <li class="nav-item">
-            
-              
-                <a class="nav-link" href="https://devcharl.github.io/category/notes/">笔记</a>
-              
-            
-          </li>
-        
-          <li class="nav-item">
-            
-              
-                <a class="nav-link" href="https://devcharl.github.io/about/">关于</a>
-              
-            
-          </li>
-        
-        
-      </ul>
-    </div>
-  </nav>
-</div>
-
-<div class="container header-wrapper">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="header-content">
-        <h1 class="header-title">HTML / PHP 开发踩坑笔记</h1>
-        <p class="header-date">
-        2022-10-15
-          / 分类：
-          <a href="https://devcharl.github.io/category/notes/">notes</a>, 
-            <a href="https://devcharl.github.io/category/develop/">develop</a>
-        </p>
-        
-        <div class="header-underline"></div>
-        
-          <div class="clearfix"></div>
-          <p class="float-right header-tags">
-              <i class="fas fa-tags" aria-hidden="true"></i>
-              <a href="https://devcharl.github.io/tag/html/">html</a>, 
-                <a href="https://devcharl.github.io/tag/javascript/">javascript</a>, 
-                <a href="https://devcharl.github.io/tag/php/">php</a>, 
-                <a href="https://devcharl.github.io/tag/web/">web</a>
-          </p>
-        
-        
-
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="HTML / PHP 开发踩坑笔记">
+	<meta name="twitter:description" content="HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://devcharl.github.io/2022/10/15/web-notes/" title="HTML / PHP 开发踩坑笔记 - Charles&#39; Personal Development Notes" /><link rel="prev" type="text/html" href="https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/" title="D-Bus 学习笔记 01" /><link rel="next" type="text/html" href="https://devcharl.github.io/2023/02/26/shell-learning-note/" title="Shell 脚本中各种符号意义详解" /><link rel="alternate" type="text/markdown" href="https://devcharl.github.io/2022/10/15/web-notes/index.md" title="HTML / PHP 开发踩坑笔记 - Charles' Personal Development Notes"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "HTML / PHP 开发踩坑笔记",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/devcharl.github.io\/2022\/10\/15\/web-notes\/"
+    },"genre": "posts","keywords": "html, javascript, php, web","wordcount":  1133 ,
+    "url": "https:\/\/devcharl.github.io\/2022\/10\/15\/web-notes\/","datePublished": "2022-10-15T16:03:16+08:00","dateModified": "2022-10-15T16:03:16+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Charles Y"
+      },"description": "HTML disabled 属性、表格样式、select 选项禁用，以及 PHP 常见问题速查。"
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="Charles&#39; Personal Development Notes"><span class="header-title-text">Charles&#39; Notes</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/category/develop/"><i class="fa-solid fa-book fa-sm" aria-hidden="true"></i> 开发</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> 归档</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> 关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
+            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="Charles&#39; Personal Development Notes"><span class="header-title-text">Charles&#39; Notes</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
       </div>
     </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/category/develop/"><i class="fa-solid fa-book fa-sm" aria-hidden="true"></i> 开发</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> 归档</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> 关于</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
+              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              <select id="language-select" class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+            </span></li>
+      </ul>
+    </nav>
   </div>
-</div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
 
-  </div>
-  <main>
-<div class="container content">
-  <article>
-  <p>记录 HTML / JavaScript DOM 操作和 PHP 混排页面时的踩坑笔记。</p>
-<h2 id="html--javascript">HTML / JavaScript</h2>
-<h3 id="disabled-属性"><code>disabled</code> 属性</h3>
-<p><code>disabled</code> 是布尔属性，对 <code>input</code>、<code>button</code>、<code>select</code>、<code>option</code> 等元素有效。注意属性名是 <code>disabled</code>，不是 <code>disable</code>。</p>
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>HTML / PHP 开发踩坑笔记</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/devCharl/devcharl.github.io" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Charles Y</a></span><span class="post-included-in">&nbsp;收录于 <a href="/category/develop/" class="post-category" title="分类 - 开发"><i class="fa-regular fa-folder" aria-hidden="true"></i> 开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-10-15 16:03:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-10-15">2022-10-15</time></span>&nbsp;<span title="1133 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#html--javascript">HTML / JavaScript</a>
+      <ul>
+        <li><a href="#disabled-属性"><code>disabled</code> 属性</a></li>
+        <li><a href="#span"><code>&lt;span&gt;</code></a></li>
+        <li><a href="#table"><code>&lt;table&gt;</code></a></li>
+        <li><a href="#td"><code>&lt;td&gt;</code></a></li>
+        <li><a href="#select"><code>&lt;select&gt;</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#php">PHP</a>
+      <ul>
+        <li><a href="#未解决问题">未解决问题</a></li>
+        <li><a href="#已解决问题">已解决问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>记录 HTML / JavaScript DOM 操作和 PHP 混排页面时的踩坑笔记。</p>
+<h2 class="heading-element" id="html--javascript"><span>HTML / JavaScript</span>
+  <a href="#html--javascript" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="disabled-属性"><span><code>disabled</code> 属性</span>
+  <a href="#disabled-%e5%b1%9e%e6%80%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>disabled</code> 是布尔属性，对 <code>input</code>、<code>button</code>、<code>select</code>、<code>option</code> 等元素有效。注意属性名是 <code>disabled</code>，不是 <code>disable</code>。</p>
 <p><strong>标准做法：</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">);</span>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-javascript"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 禁用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 取消禁用（推荐）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">el</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">&#34;disabled&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span></span></code></pre></div><p><strong>HTML 中的陷阱：</strong></p>
+</span></span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">&#34;disabled&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><strong>HTML 中的陷阱：</strong></p>
 <p>只要 <code>disabled</code> 属性存在，元素就会被禁用，<strong>与属性值无关</strong>：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 以下写法全部处于禁用状态 --&gt;</span>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-html"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 以下写法全部处于禁用状态 --&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">disabled</span><span class="o">=</span><span class="s">&#34;false&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">disabled</span><span class="o">=</span><span class="s">&#34;true&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">disabled</span><span class="o">=</span><span class="s">&#34;123&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
@@ -134,72 +202,137 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">disabled</span><span class="o">=</span><span class="s">&#34;any word&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 以下写法才是不禁用 --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
-</span></span></code></pre></div><p><strong>JS 赋值的行为：</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 以下赋值均会禁用元素
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><strong>JS 赋值的行为：</strong></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-javascript"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 以下赋值均会禁用元素
+</span></span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="s2">&#34;11&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 以下赋值可取消禁用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span>
 </span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">null</span>
 </span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">undefined</span>
-</span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">&#34;disabled&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><h3 id="span"><code>&lt;span&gt;</code></h3>
-<p><code>&lt;span&gt;</code> 是行内容器，本身不带样式，通常配合 CSS 对局部文字做修饰：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>普通文字 <span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: red; font-weight: bold;&#34;</span><span class="p">&gt;</span>高亮文字<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> 继续普通文字<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span></span></code></pre></div><h3 id="table"><code>&lt;table&gt;</code></h3>
-<p>默认情况下，<code>&lt;table&gt;</code> 中各列 <code>td</code> 宽度会随最长内容撑开，长文本容易溢出。</p>
+</span></span><span class="line"><span class="cl"><span class="nx">el</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">&#34;disabled&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h3 class="heading-element" id="span"><span><code>&lt;span&gt;</code></span>
+  <a href="#span" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>&lt;span&gt;</code> 是行内容器，本身不带样式，通常配合 CSS 对局部文字做修饰：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-html"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>普通文字 <span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: red; font-weight: bold;&#34;</span><span class="p">&gt;</span>高亮文字<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> 继续普通文字<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="table"><span><code>&lt;table&gt;</code></span>
+  <a href="#table" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>默认情况下，<code>&lt;table&gt;</code> 中各列 <code>td</code> 宽度会随最长内容撑开，长文本容易溢出。</p>
 <p>推荐组合样式：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">table</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;table-layout: fixed; width: 100%; overflow-wrap: break-word; word-break: break-all;&#34;</span><span class="p">&gt;</span>
-</span></span></code></pre></div><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>table-layout: fixed</code></td>
-<td>列宽由表格宽度和列宽设定决定，不随内容无限撑开</td>
-</tr>
-<tr>
-<td><code>overflow-wrap: break-word</code></td>
-<td>优先在单词边界换行；仍溢出时再断行（<code>word-wrap</code> 的旧写法）</td>
-</tr>
-<tr>
-<td><code>word-break: break-all</code></td>
-<td>允许在任意字符处断行，适合无空格的长字符串</td>
-</tr>
-</tbody>
-</table>
-<h3 id="td"><code>&lt;td&gt;</code></h3>
-<p>通过 <code>text-align</code> 和 <code>vertical-align</code> 控制单元格内容对齐：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">td</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;text-align: left; vertical-align: middle;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-</span></span></code></pre></div><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>text-align</code></td>
-<td>水平对齐（<code>left</code> / <code>center</code> / <code>right</code>）</td>
-</tr>
-<tr>
-<td><code>vertical-align</code></td>
-<td>垂直对齐（<code>top</code> / <code>middle</code> / <code>bottom</code>）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="select"><code>&lt;select&gt;</code></h3>
-<p>按选项文本禁用 <code>select</code> 中的特定 <code>option</code>：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">select</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;WlanAuthMode_select&#34;</span><span class="p">);</span>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-html"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">table</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;table-layout: fixed; width: 100%; overflow-wrap: break-word; word-break: break-all;&#34;</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>属性</th>
+            <th>说明</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>table-layout: fixed</code></td>
+            <td>列宽由表格宽度和列宽设定决定，不随内容无限撑开</td>
+        </tr>
+        <tr>
+            <td><code>overflow-wrap: break-word</code></td>
+            <td>优先在单词边界换行；仍溢出时再断行（<code>word-wrap</code> 的旧写法）</td>
+        </tr>
+        <tr>
+            <td><code>word-break: break-all</code></td>
+            <td>允许在任意字符处断行，适合无空格的长字符串</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h3 class="heading-element" id="td"><span><code>&lt;td&gt;</code></span>
+  <a href="#td" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>通过 <code>text-align</code> 和 <code>vertical-align</code> 控制单元格内容对齐：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-html"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">td</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;text-align: left; vertical-align: middle;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>属性</th>
+            <th>作用</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>text-align</code></td>
+            <td>水平对齐（<code>left</code> / <code>center</code> / <code>right</code>）</td>
+        </tr>
+        <tr>
+            <td><code>vertical-align</code></td>
+            <td>垂直对齐（<code>top</code> / <code>middle</code> / <code>bottom</code>）</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h3 class="heading-element" id="select"><span><code>&lt;select&gt;</code></span>
+  <a href="#select" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>按选项文本禁用 <code>select</code> 中的特定 <code>option</code>：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-javascript"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">select</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;WlanAuthMode_select&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">disabledValues</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;Shared&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;WPA Pre-Shared Key&#34;</span><span class="p">,</span>
@@ -210,158 +343,153 @@
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">disabledValues</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">option</span><span class="p">.</span><span class="nx">text</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">option</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>注意：</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>注意：</p>
 <ul>
 <li>遍历 <code>options</code> 应使用 <code>for...of</code> 或索引循环，不要用 <code>for...in</code></li>
 <li>读取选项文字用 <code>option.text</code> 或 <code>option.textContent</code>，不要用 <code>innerText</code></li>
 <li>JS 中设置禁应用 <code>option.disabled = true</code>，不要赋字符串 <code>&quot;disabled&quot;</code></li>
 </ul>
-<h2 id="php">PHP</h2>
-<h3 id="未解决问题">未解决问题</h3>
-<p>在 PHP 与 HTML 混排的页面中，若 JavaScript 代码写在 PHP 输出逻辑之外，或 <code>&lt;script&gt;</code> 标签未正确闭合，可能导致后续 HTML 无法渲染，页面表现为「全部空白」。</p>
+<h2 class="heading-element" id="php"><span>PHP</span>
+  <a href="#php" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="未解决问题"><span>未解决问题</span>
+  <a href="#%e6%9c%aa%e8%a7%a3%e5%86%b3%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 PHP 与 HTML 混排的页面中，若 JavaScript 代码写在 PHP 输出逻辑之外，或 <code>&lt;script&gt;</code> 标签未正确闭合，可能导致后续 HTML 无法渲染，页面表现为「全部空白」。</p>
 <p>当时尝试在 PHP 中补一行：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;&lt;script language=&#34;javascript&#34;&gt;&lt;/script&gt;&#39;</span><span class="p">;</span>
-</span></span></code></pre></div><p>页面才恢复显示，但根因尚未定位。<code>language</code> 属性在 HTML5 中已废弃，后续应优先检查：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-php"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;&lt;script language=&#34;javascript&#34;&gt;&lt;/script&gt;&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>页面才恢复显示，但根因尚未定位。<code>language</code> 属性在 HTML5 中已废弃，后续应优先检查：</p>
 <ol>
 <li><code>&lt;script&gt;</code> 标签是否成对闭合</li>
 <li>PHP 的 <code>echo</code> / <code>print</code> 是否打断了 HTML 结构</li>
 <li>浏览器控制台是否有 JS 语法错误导致解析中断</li>
 </ol>
-<h3 id="已解决问题">已解决问题</h3>
-<table>
-<thead>
-<tr>
-<th>问题</th>
-<th>解决方法</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>自定义 JS 函数报错</td>
-<td>将函数定义放在 <code>&lt;script&gt;...&lt;/script&gt;</code> 块内</td>
-<td>不要写在 PHP 字符串拼接的半截位置</td>
-</tr>
-<tr>
-<td>避免重复加载文件</td>
-<td>使用 <code>require_once</code></td>
-<td>防止函数/常量重复定义</td>
-</tr>
-<tr>
-<td>设置框架组成和属性</td>
-<td>使用 <code>frameset</code> / <code>frame</code></td>
-<td>HTML5 已废弃，新项目勿用</td>
-</tr>
-<tr>
-<td>检查变量是否已设置</td>
-<td>使用 <code>isset($var)</code></td>
-<td>避免未定义变量告警</td>
-</tr>
-<tr>
-<td>忽略错误输出</td>
-<td>在表达式前加 <code>@</code></td>
-<td>如 <code>@fopen(...)</code>，仅用于明确可忽略的场景</td>
-</tr>
-<tr>
-<td>获取数组当前键名</td>
-<td>使用 <code>key($array)</code></td>
-<td>配合 <code>next()</code> / <code>reset()</code> 遍历</td>
-</tr>
-<tr>
-<td>将数组指针移到第一个元素</td>
-<td>使用 <code>reset($array)</code></td>
-<td>返回第一个元素的值</td>
-</tr>
-<tr>
-<td>将数组指针移到下一个元素</td>
-<td>使用 <code>next($array)</code></td>
-<td>返回下一个元素的值</td>
-</tr>
-<tr>
-<td>PHP 短标签输出</td>
-<td>使用 <code>&lt;?php ?&gt;</code></td>
-<td><code>&lt;? ?&gt;</code> 依赖 <code>short_open_tag</code>，很多环境默认关闭</td>
-</tr>
-</tbody>
-</table>
+<h3 class="heading-element" id="已解决问题"><span>已解决问题</span>
+  <a href="#%e5%b7%b2%e8%a7%a3%e5%86%b3%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>问题</th>
+            <th>解决方法</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>自定义 JS 函数报错</td>
+            <td>将函数定义放在 <code>&lt;script&gt;...&lt;/script&gt;</code> 块内</td>
+            <td>不要写在 PHP 字符串拼接的半截位置</td>
+        </tr>
+        <tr>
+            <td>避免重复加载文件</td>
+            <td>使用 <code>require_once</code></td>
+            <td>防止函数/常量重复定义</td>
+        </tr>
+        <tr>
+            <td>设置框架组成和属性</td>
+            <td>使用 <code>frameset</code> / <code>frame</code></td>
+            <td>HTML5 已废弃，新项目勿用</td>
+        </tr>
+        <tr>
+            <td>检查变量是否已设置</td>
+            <td>使用 <code>isset($var)</code></td>
+            <td>避免未定义变量告警</td>
+        </tr>
+        <tr>
+            <td>忽略错误输出</td>
+            <td>在表达式前加 <code>@</code></td>
+            <td>如 <code>@fopen(...)</code>，仅用于明确可忽略的场景</td>
+        </tr>
+        <tr>
+            <td>获取数组当前键名</td>
+            <td>使用 <code>key($array)</code></td>
+            <td>配合 <code>next()</code> / <code>reset()</code> 遍历</td>
+        </tr>
+        <tr>
+            <td>将数组指针移到第一个元素</td>
+            <td>使用 <code>reset($array)</code></td>
+            <td>返回第一个元素的值</td>
+        </tr>
+        <tr>
+            <td>将数组指针移到下一个元素</td>
+            <td>使用 <code>next($array)</code></td>
+            <td>返回下一个元素的值</td>
+        </tr>
+        <tr>
+            <td>PHP 短标签输出</td>
+            <td>使用 <code>&lt;?php ?&gt;</code></td>
+            <td><code>&lt;? ?&gt;</code> 依赖 <code>short_open_tag</code>，很多环境默认关闭</td>
+        </tr>
+    </tbody>
+  </table>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2022-10-15 16:03:16">更新于 2022-10-15&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/2022/10/15/web-notes/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://devcharl.github.io/2022/10/15/web-notes/" data-title="HTML / PHP 开发踩坑笔记" data-hashtags="html,javascript,php,web"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://devcharl.github.io/2022/10/15/web-notes/" data-hashtag="html"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://devcharl.github.io/2022/10/15/web-notes/" data-title="HTML / PHP 开发踩坑笔记"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
 
-  </article>
-
-  
-  
-    
-  
-  
-
-
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tag/html/" class="post-tag" title="标签 - Html">Html</a><a href="/tag/javascript/" class="post-tag" title="标签 - Javascript">Javascript</a><a href="/tag/php/" class="post-tag" title="标签 - Php">Php</a><a href="/tag/web/" class="post-tag" title="标签 - Web">Web</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/2022/09/07/dbus-learning-notes-01/" class="post-nav-item" rel="prev" title="D-Bus 学习笔记 01"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>D-Bus 学习笔记 01</a><a href="/2023/02/26/shell-learning-note/" class="post-nav-item" rel="next" title="Shell 脚本中各种符号意义详解">Shell 脚本中各种符号意义详解<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
+</article>
 
-  </main><div class="footer gradient-2">
-  <div class="container footer-container ">
-    <div class="row">
-      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-        <div class="footer-title">网站地图</div>
-        <ul class="list-unstyled">
-            
-              
-                <li><a href="https://devcharl.github.io/tags/">标签</a></li>
-              
-              
-                <li><a href="https://devcharl.github.io/categories/">分类</a></li>
-              
-            
-            
-            
-            <li><a rel="alternate" type="application/rss&#43;xml" href="https://devcharl.github.io/index.xml"><i class="fas fa-rss-square"></i> RSS订阅</a></li>
-            
-            
-            
-        </ul>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#html--javascript">HTML / JavaScript</a>
+      <ul>
+        <li><a href="#disabled-属性"><code>disabled</code> 属性</a></li>
+        <li><a href="#span"><code>&lt;span&gt;</code></a></li>
+        <li><a href="#table"><code>&lt;table&gt;</code></a></li>
+        <li><a href="#td"><code>&lt;td&gt;</code></a></li>
+        <li><a href="#select"><code>&lt;select&gt;</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#php">PHP</a>
+      <ul>
+        <li><a href="#未解决问题">未解决问题</a></li>
+        <li><a href="#已解决问题">已解决问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
       </div>
-      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-        
-        <div class="footer-title">社群</div>
-        <ul class="list-unstyled">
-          
-          <li><a href="https://github.com/devCharl/devcharl.github.io" rel="noopener" target="_blank">GitHub</a></li>
-          
-        </ul>
-        
-      </div>
-      <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-        
-        <div class="footer-title">友链</div>
-        <ul class="list-unstyled">
-          
-          
-          <li><a href="https://devcharl.github.io/about/">关于我</a></li>
-          
-          
-        </ul>
-        
-      </div> 
-      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-        <p class="pull-right text-right">
-          <small>语言：<a href="https://devcharl.github.io/2022/10/15/web-notes/" hreflang="zh-cn">中文</a> | <a href="https://devcharl.github.io/en/" hreflang="en">English</a></small><br/>
-          <small><em>Proudly powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a></em></small><br/>
-          <small><em>Theme - <a href="https://github.com/shaform/hugo-theme-den" rel="noopener" target="_blank">Den</a></em></small><br/>
-          <small>
-            &copy; 
-            Charles Y
-            
-              2022 -
-            2026
-          </small>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-</body>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.1"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/devCharl/devcharl.github.io" target="_blank" rel="external nofollow noopener noreferrer">Charles Y</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/c1ce2c7ba4cd14e240f54ce88b938f7c.js" defer></script><script src="/js/theme.min.js" defer></script></body>
 </html>
