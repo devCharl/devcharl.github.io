@@ -10,9 +10,9 @@
     <atom:link href="https://devcharl.github.io/tag/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Iperf3 网络性能测试工具</title>
-      <link>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</link>
+      <link>https://devcharl.github.io/develop/iperf3-learning-note/</link>
       <pubDate>Fri, 17 Apr 2020 16:03:16 +0800</pubDate>
-      <guid>https://devcharl.github.io/2020/04/17/iperf3-learning-note/</guid>
+      <guid>https://devcharl.github.io/develop/iperf3-learning-note/</guid>
       <category domain="https://devcharl.github.io/category/develop/">开发</category>
       <description>&lt;p&gt;网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络带宽利用率不高。要找到网络带宽利用率不高的原因，就需要对网络传输进行监控，此时就需要用到一些网络性能评估工具，而 Iperf 就是这样一款网络带宽测试工具。&lt;/p&gt;</description>
     </item>

@@ -11,7 +11,7 @@
 	<meta itemprop="datePublished" content="2026-06-15T10:00:00+08:00">
 	<meta itemprop="dateModified" content="2026-06-15T10:00:00+08:00">
 	<meta itemprop="wordCount" content="4494">
-	<meta itemprop="keywords" content="Makefile,Linux,Gcc,Build"><meta property="og:url" content="https://devcharl.github.io/2026/06/15/makefile-learning-note/">
+	<meta itemprop="keywords" content="Makefile,Linux,Gcc,Build"><meta property="og:url" content="https://devcharl.github.io/develop/makefile-learning-note/">
 	<meta property="og:site_name" content="Charles&#39; Personal Development Notes">
 	<meta property="og:title" content="Makefile/GCC编译选项 学习笔记">
 	<meta property="og:description" content="Makefile 基本语法、GCC 编译与安全选项、Sanitizer 代码追踪、动态库 rpath、GDB 调试及常见构建错误排查。">
@@ -31,7 +31,7 @@
 <meta name="application-name" content="FixIt">
 <meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://devcharl.github.io/2026/06/15/makefile-learning-note/" title="Makefile/GCC编译选项 学习笔记 - Charles&#39; Personal Development Notes" /><link rel="prev" type="text/html" href="https://devcharl.github.io/2024/05/11/git-notes-summary/" title="Git 笔记总结" /><link rel="next" type="text/html" href="https://devcharl.github.io/search/" title="搜索" /><link rel="alternate" type="text/markdown" href="https://devcharl.github.io/2026/06/15/makefile-learning-note/index.md" title="Makefile/GCC编译选项 学习笔记 - Charles' Personal Development Notes"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://devcharl.github.io/develop/makefile-learning-note/" title="Makefile/GCC编译选项 学习笔记 - Charles&#39; Personal Development Notes" /><link rel="prev" type="text/html" href="https://devcharl.github.io/develop/git-notes-summary/" title="Git 笔记总结" /><link rel="next" type="text/html" href="https://devcharl.github.io/search/" title="搜索" /><link rel="alternate" type="text/markdown" href="https://devcharl.github.io/develop/makefile-learning-note/index.md" title="Makefile/GCC编译选项 学习笔记 - Charles' Personal Development Notes"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -41,9 +41,9 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https:\/\/devcharl.github.io\/2026\/06\/15\/makefile-learning-note\/"
+      "@id": "https:\/\/devcharl.github.io\/develop\/makefile-learning-note\/"
     },"genre": "posts","keywords": "makefile, linux, gcc, build","wordcount":  4494 ,
-    "url": "https:\/\/devcharl.github.io\/2026\/06\/15\/makefile-learning-note\/","datePublished": "2026-06-15T10:00:00+08:00","dateModified": "2026-06-15T10:00:00+08:00","publisher": {
+    "url": "https:\/\/devcharl.github.io\/develop\/makefile-learning-note\/","datePublished": "2026-06-15T10:00:00+08:00","dateModified": "2026-06-15T10:00:00+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -1495,11 +1495,11 @@
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="/2026/06/15/makefile-learning-note/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-md"><span><a href="/develop/makefile-learning-note/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://devcharl.github.io/2026/06/15/makefile-learning-note/" data-title="Makefile/GCC编译选项 学习笔记" data-hashtags="makefile,linux,gcc,build"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://devcharl.github.io/2026/06/15/makefile-learning-note/" data-hashtag="makefile"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://devcharl.github.io/2026/06/15/makefile-learning-note/" data-title="Makefile/GCC编译选项 学习笔记"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://devcharl.github.io/develop/makefile-learning-note/" data-title="Makefile/GCC编译选项 学习笔记" data-hashtags="makefile,linux,gcc,build"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://devcharl.github.io/develop/makefile-learning-note/" data-hashtag="makefile"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://devcharl.github.io/develop/makefile-learning-note/" data-title="Makefile/GCC编译选项 学习笔记"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>
@@ -1508,7 +1508,7 @@
     <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tag/makefile/" class="post-tag" title="标签 - Makefile">Makefile</a><a href="/tag/linux/" class="post-tag" title="标签 - Linux">Linux</a><a href="/tag/gcc/" class="post-tag" title="标签 - Gcc">Gcc</a><a href="/tag/build/" class="post-tag" title="标签 - Build">Build</a></section>
     <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/2024/05/11/git-notes-summary/" class="post-nav-item" rel="prev" title="Git 笔记总结"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Git 笔记总结</a></div>
+  </div><div class="post-nav"><a href="/develop/git-notes-summary/" class="post-nav-item" rel="prev" title="Git 笔记总结"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Git 笔记总结</a></div>
 </div>
 </article>
 

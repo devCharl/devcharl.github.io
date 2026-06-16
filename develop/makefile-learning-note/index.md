@@ -610,5 +610,5 @@ main    ---ld---> libA.so
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2026/06/15/makefile-learning-note/  
+> URL: https://devcharl.github.io/develop/makefile-learning-note/  
 

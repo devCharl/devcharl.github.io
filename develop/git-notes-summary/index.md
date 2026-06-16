@@ -689,5 +689,5 @@ git checkout -b <本地分支名> origin/<远程分支名>
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2024/05/11/git-notes-summary/  
+> URL: https://devcharl.github.io/develop/git-notes-summary/  
 

@@ -23,5 +23,5 @@
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2022/08/24/vscode-learning-note/  
+> URL: https://devcharl.github.io/develop/vscode-learning-note/  
 

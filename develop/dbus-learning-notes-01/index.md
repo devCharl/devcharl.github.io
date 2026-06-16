@@ -91,5 +91,5 @@
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2022/09/07/dbus-learning-notes-01/  
+> URL: https://devcharl.github.io/develop/dbus-learning-notes-01/  
 

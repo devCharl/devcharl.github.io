@@ -152,5 +152,5 @@ echo '<script language="javascript"></script>';
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2022/10/15/web-notes/  
+> URL: https://devcharl.github.io/develop/web-notes/  
 

@@ -239,5 +239,5 @@ done
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2023/02/26/shell-learning-note/  
+> URL: https://devcharl.github.io/develop/shell-learning-note/  
 

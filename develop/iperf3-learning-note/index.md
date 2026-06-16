@@ -362,5 +362,5 @@ IP 层设置：
 ---
 
 > 作者: [Charles Y](https://github.com/devCharl/devcharl.github.io)  
-> URL: https://devcharl.github.io/2020/04/17/iperf3-learning-note/  
+> URL: https://devcharl.github.io/develop/iperf3-learning-note/  
 
