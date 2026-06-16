@@ -1,854 +1,132 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>Iperf3 网络性能测试工具 - Charles&#39; Personal Development Notes</title><meta name="author" content="Charles Y">
-<meta name="description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"><meta name="keywords" content='iperf, iperf3, network, linux, jperf'>
-	<meta itemprop="name" content="Iperf3 网络性能测试工具">
-	<meta itemprop="description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。">
-	<meta itemprop="datePublished" content="2020-04-17T16:03:16+08:00">
-	<meta itemprop="dateModified" content="2020-04-17T16:03:16+08:00">
-	<meta itemprop="wordCount" content="4564">
-	<meta itemprop="keywords" content="Iperf,Iperf3,Network,Linux,Jperf"><meta property="og:url" content="https://devcharl.github.io/develop/iperf3-learning-note/">
-	<meta property="og:site_name" content="Charles&#39; Personal Development Notes">
-	<meta property="og:title" content="Iperf3 网络性能测试工具">
-	<meta property="og:description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。">
-	<meta property="og:locale" content="zh_cn">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2020-04-17T16:03:16+08:00">
-		<meta property="article:modified_time" content="2020-04-17T16:03:16+08:00">
-		<meta property="article:tag" content="Iperf">
-		<meta property="article:tag" content="Iperf3">
-		<meta property="article:tag" content="Network">
-		<meta property="article:tag" content="Linux">
-		<meta property="article:tag" content="Jperf">
-
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Iperf3 网络性能测试工具">
-	<meta name="twitter:description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://devcharl.github.io/develop/iperf3-learning-note/" title="Iperf3 网络性能测试工具 - Charles&#39; Personal Development Notes" /><link rel="prev" type="text/html" href="https://devcharl.github.io/en/about/" title="About" /><link rel="next" type="text/html" href="https://devcharl.github.io/develop/vscode-learning-note/" title="VS Code 正则表达式与快捷键" /><link rel="alternate" type="text/markdown" href="https://devcharl.github.io/develop/iperf3-learning-note/index.md" title="Iperf3 网络性能测试工具 - Charles' Personal Development Notes"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Iperf3 网络性能测试工具",
-    "inLanguage": "zh-cn",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/devcharl.github.io\/develop\/iperf3-learning-note\/"
-    },"genre": "posts","keywords": "iperf, iperf3, network, linux, jperf","wordcount":  4564 ,
-    "url": "https:\/\/devcharl.github.io\/develop\/iperf3-learning-note\/","datePublished": "2020-04-17T16:03:16+08:00","dateModified": "2020-04-17T16:03:16+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "Charles Y"
-      },"description": "Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/" title="Charles&#39; Personal Development Notes"><span class="header-title-text">Charles&#39; Notes</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/category/develop/"><i class="fa-solid fa-book fa-sm" aria-hidden="true"></i> 开发</a></li><li class="menu-item">
-              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
-              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> 归档</a></li><li class="menu-item">
-              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> 关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/" title="Charles&#39; Personal Development Notes"><span class="header-title-text">Charles&#39; Notes</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              取消
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/category/develop/"><i class="fa-solid fa-book fa-sm" aria-hidden="true"></i> 开发</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> 归档</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> 关于</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
-
-  <article class="page single">
-    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Iperf3 网络性能测试工具</span>
-      </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/devCharl/devcharl.github.io" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    Charles Y</a></span><span class="post-included-in">&nbsp;收录于 <a href="/category/develop/" class="post-category" title="分类 - 开发"><i class="fa-regular fa-folder" aria-hidden="true"></i> 开发</a></span></div><div class="post-meta-line"><span title="发布于 2020-04-17 16:03:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2020-04-17">2020-04-17</time></span>&nbsp;<span title="4564 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 4600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
-    </div><div class="details toc" id="toc-static" data-kept="false">
-        <div class="details-summary toc-title">
-          <span>目录</span>
-          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
-        </div>
-        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#iperf-简介">Iperf 简介</a>
-      <ul>
-        <li><a href="#什么是-iperf">什么是 iperf？</a></li>
-        <li><a href="#iperf-的功能">Iperf 的功能</a></li>
-      </ul>
-    </li>
-    <li><a href="#iperf-的安装">Iperf 的安装</a>
-      <ul>
-        <li><a href="#iperf-的版本">iperf 的版本</a></li>
-        <li><a href="#windows-版-iperf-安装">Windows 版 iperf 安装</a></li>
-        <li><a href="#linux-版-iperf-安装">Linux 版 iperf 安装</a></li>
-      </ul>
-    </li>
-    <li><a href="#iperf-的使用">Iperf 的使用</a>
-      <ul>
-        <li><a href="#iperf-的工作模式">Iperf 的工作模式</a></li>
-        <li><a href="#iperf-常用参数测试够用">Iperf 常用参数（测试够用）</a></li>
-        <li><a href="#通用参数server-端和-client-端共用">通用参数（Server 端和 Client 端共用）</a></li>
-        <li><a href="#server-端专用参数">Server 端专用参数</a></li>
-        <li><a href="#client-端专用参数">Client 端专用参数</a></li>
-        <li><a href="#其他参数">其他参数</a></li>
-      </ul>
-    </li>
-    <li><a href="#iperf-使用实例">Iperf 使用实例</a>
-      <ul>
-        <li><a href="#环境准备">环境准备</a></li>
-        <li><a href="#测试-tcp-吞吐量">测试 TCP 吞吐量</a></li>
-        <li><a href="#测试-udp-吞吐量">测试 UDP 吞吐量</a></li>
-      </ul>
-    </li>
-    <li><a href="#jperf-介绍">Jperf 介绍</a>
-      <ul>
-        <li><a href="#jperf-简介">Jperf 简介</a></li>
-        <li><a href="#jperf20-运行环境">JPerf2.0 运行环境</a></li>
-        <li><a href="#jperf20-页面介绍">JPerf2.0 页面介绍</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考资料">参考资料</a></li>
-  </ul>
-</nav></div>
-      </div><div class="content" id="content"><p>网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络带宽利用率不高。要找到网络带宽利用率不高的原因，就需要对网络传输进行监控，此时就需要用到一些网络性能评估工具，而 Iperf 就是这样一款网络带宽测试工具。</p>
-<h2 class="heading-element" id="iperf-简介"><span>Iperf 简介</span>
-  <a href="#iperf-%e7%ae%80%e4%bb%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="什么是-iperf"><span>什么是 iperf？</span>
-  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-iperf" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>Iperf 是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具，可以用来测试网络节点间（也包括回环）TCP 或 UDP 连接的性能，包括带宽、抖动以及丢包率。其中抖动和丢包率适用于 UDP 测试，而带宽测试适用于 TCP 和 UDP。</p>
-<p>Iperf 是一款基于 TCP/IP 和 UDP/IP 的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p>
-<p>Iperf 是一款基于命令行模式的网络性能测试工具，是跨平台的，提供横跨 Windows、Linux、Mac 的全平台支持。iperf 全程使用内存作为发送/接收缓冲区，不受磁盘性能的影响，对于机器配置要求很低。不过由于是命令行工具，iperf 不支持输出测试图形。</p>
-<p>Iperf 可以测试 TCP 和 UDP 带宽质量，具有多种参数和 UDP 特性，可以用来测试一些网络设备如路由器、防火墙、交换机等的性能。</p>
-<h3 class="heading-element" id="iperf-的功能"><span>Iperf 的功能</span>
-  <a href="#iperf-%e7%9a%84%e5%8a%9f%e8%83%bd" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>（1）TCP 方面</strong></p>
-<ul>
-<li>测量网络带宽</li>
-<li>报告 MSS/MTU 值的大小和观测值</li>
-<li>支持 TCP 窗口值通过套接字缓冲</li>
-<li>当 P 线程或 Win32 线程可用时，支持多线程。客户端与服务端支持同时多重连接</li>
-</ul>
-<p><strong>（2）UDP 方面</strong></p>
-<ul>
-<li>客户端可以创建指定带宽的 UDP 流</li>
-<li>测量丢包</li>
-<li>测量延迟</li>
-<li>支持多播</li>
-<li>当 P 线程可用时，支持多线程。客户端与服务端支持同时多重连接（不支持 Windows）</li>
-</ul>
-<p><strong>（3）其他方面</strong></p>
-<ul>
-<li>在适当的地方，选项中可以使用 K（kilo-）和 M（mega-）。例如 131072 字节可以用 128K 代替</li>
-<li>可以指定运行的总时间，甚至可以设置传输的数据总量</li>
-<li>在报告中，为数据选用最合适的单位</li>
-<li>服务器支持多重连接，而不是等待一个单线程测试</li>
-<li>在指定时间间隔重复显示网络带宽、波动和丢包情况</li>
-<li>服务器端可作为后台程序运行</li>
-<li>服务器端可作为 Windows 服务运行</li>
-<li>使用典型数据流来测试链接层压缩对于可用带宽的影响</li>
-</ul>
-<h2 class="heading-element" id="iperf-的安装"><span>Iperf 的安装</span>
-  <a href="#iperf-%e7%9a%84%e5%ae%89%e8%a3%85" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="iperf-的版本"><span>iperf 的版本</span>
-  <a href="#iperf-%e7%9a%84%e7%89%88%e6%9c%ac" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>Iperf 有两种版本，Windows 版和 Linux 版本。</p>
-<p><strong>（1）Unix/Linux 版</strong></p>
-<p>更新比较快，版本最新，目前最新的版本是 iperf3.0。</p>
-<p>Linux 版本下载地址：<a href="http://code.google.com/p/iperf/downloads/list" target="_blank" rel="external nofollow noopener noreferrer">http://code.google.com/p/iperf/downloads/list</a></p>
-<p>为了测试的准确性，尽量使用 Linux 环境测试。</p>
-<p><strong>（2）Windows 版</strong></p>
-<p>Windows 版 iperf 叫 jperf，或者 xjperf，更新慢，目前最新版本为 1.7（打包在 jperf 中）。</p>
-<p>Windows 版本下载地址：<a href="http://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/" target="_blank" rel="external nofollow noopener noreferrer">http://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/</a></p>
-<p>jperf 是在 iperf 基础上开发的图形界面程序，简化了复杂命令行参数的构造，而且还能保存测试结果，同时实时图形化显示结果。</p>
-<h3 class="heading-element" id="windows-版-iperf-安装"><span>Windows 版 iperf 安装</span>
-  <a href="#windows-%e7%89%88-iperf-%e5%ae%89%e8%a3%85" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>对于 Windows 版的 iperf，下载安装包后直接解压，然后将解压出来的 <code>iperf.exe</code> 和 <code>cygwin1.dll</code> 复制到 <code>%systemroot%</code> 目录即可。</p>
-<h3 class="heading-element" id="linux-版-iperf-安装"><span>Linux 版 iperf 安装</span>
-  <a href="#linux-%e7%89%88-iperf-%e5%ae%89%e8%a3%85" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>（1）在线安装</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># CentOS</span>
-</span></span><span class="line"><span class="cl">yum install -y iperf3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Debian / Ubuntu</span>
-</span></span><span class="line"><span class="cl">apt-get install iperf3</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（2）离线安装</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gunzip -c iperf-&lt;version&gt;.tar.gz <span class="p">|</span> tar -xvf -
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> iperf-&lt;version&gt;
-</span></span><span class="line"><span class="cl">./configure
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">make install</span></span></code></pre></td></tr></table></div>
-</div>
-</div><h2 class="heading-element" id="iperf-的使用"><span>Iperf 的使用</span>
-  <a href="#iperf-%e7%9a%84%e4%bd%bf%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="iperf-的工作模式"><span>Iperf 的工作模式</span>
-  <a href="#iperf-%e7%9a%84%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>Iperf 可以运行在任何 IP 网络上，包括本地以太网、接入因特网、Wi-Fi 网络等。在工作模式上，iperf 运行于服务器、客户端模式下，其服务器端主要用于监听到达的测试请求，而客户端主要用于发起测试连接会话，因此要使用 iperf 至少需要两台服务器，一台运行在服务器模式下，另一台运行在客户端模式下。</p>
-<p>在完成 iperf 安装后，执行 <code>iperf3 -h</code> 即可显示 iperf 的详细用法。iperf 的命令行选项共分为三类，分别是客户端与服务器端公用选项、服务器端专用选项和客户端专用选项。</p>
-<h3 class="heading-element" id="iperf-常用参数测试够用"><span>Iperf 常用参数（测试够用）</span>
-  <a href="#iperf-%e5%b8%b8%e7%94%a8%e5%8f%82%e6%95%b0%e6%b5%8b%e8%af%95%e5%a4%9f%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>参数</th>
-            <th>说明</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>-s, --server</code></td>
-            <td>iperf 服务器模式，默认启动的监听端口为 5201，如：<code>iperf -s</code></td>
-        </tr>
-        <tr>
-            <td><code>-c, --client host</code></td>
-            <td>iperf 客户端模式，host 是 server 端地址，如：<code>iperf -c 222.35.11.23</code></td>
-        </tr>
-        <tr>
-            <td><code>-i, --interval</code></td>
-            <td>指定每次报告之间的时间间隔，单位为秒，如：<code>iperf3 -c 192.168.12.168 -i 2</code></td>
-        </tr>
-        <tr>
-            <td><code>-p, --port</code></td>
-            <td>指定服务器端监听的端口或客户端所连接的端口，默认是 5001 端口</td>
-        </tr>
-        <tr>
-            <td><code>-u, --udp</code></td>
-            <td>表示采用 UDP 协议发送报文，不带该参数表示采用 TCP 协议</td>
-        </tr>
-        <tr>
-            <td><code>-l, --len</code></td>
-            <td>设置读写缓冲区的长度，单位为 Byte。TCP 方式默认为 8KB，UDP 方式默认为 1470 字节。通常测试 PPS 的时候该值为 16，测试 BPS 时该值为 1400</td>
-        </tr>
-        <tr>
-            <td><code>-b, --bandwidth [K|M|G]</code></td>
-            <td>指定 UDP 模式使用的带宽，单位 bits/sec，默认值是 1 Mbit/sec</td>
-        </tr>
-        <tr>
-            <td><code>-t, --time</code></td>
-            <td>指定数据传输的总时间，即在指定的时间内，重复发送指定长度的数据包。默认 10 秒</td>
-        </tr>
-        <tr>
-            <td><code>-A</code></td>
-            <td>CPU 亲和性，可以将具体的 iperf3 进程绑定对应编号的逻辑 CPU，避免 iperf 进程在不同的 CPU 间调度</td>
-        </tr>
-    </tbody>
-  </table>
-</div><h3 class="heading-element" id="通用参数server-端和-client-端共用"><span>通用参数（Server 端和 Client 端共用）</span>
-  <a href="#%e9%80%9a%e7%94%a8%e5%8f%82%e6%95%b0server-%e7%ab%af%e5%92%8c-client-%e7%ab%af%e5%85%b1%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>参数</th>
-            <th>说明</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>-f, --format [k|m|g|K|M|G]</code></td>
-            <td>指定带宽输出单位，<code>[k|m|g|K|M|G]</code> 分别表示以 Kbits、Mbits、Gbits、KBytes、MBytes、GBytes 显示输出结果，默认 Mbits，如：<code>iperf3 -c 192.168.12.168 -f M</code></td>
-        </tr>
-        <tr>
-            <td><code>-p, --port</code></td>
-            <td>指定服务器端监听的端口或客户端所连接的端口，默认是 5001 端口</td>
-        </tr>
-        <tr>
-            <td><code>-i, --interval</code></td>
-            <td>指定每次报告之间的时间间隔，单位为秒，如：<code>iperf3 -c 192.168.12.168 -i 2</code></td>
-        </tr>
-        <tr>
-            <td><code>-F</code></td>
-            <td>指定文件作为数据流进行带宽测试，如：<code>iperf3 -c 192.168.12.168 -F web-ixdba.tar.gz</code></td>
-        </tr>
-    </tbody>
-  </table>
-</div><h3 class="heading-element" id="server-端专用参数"><span>Server 端专用参数</span>
-  <a href="#server-%e7%ab%af%e4%b8%93%e7%94%a8%e5%8f%82%e6%95%b0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>参数</th>
-            <th>说明</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>-s, --server</code></td>
-            <td>iperf 服务器模式，默认启动的监听端口为 5201，如：<code>iperf -s</code></td>
-        </tr>
-        <tr>
-            <td><code>-c, --client host</code></td>
-            <td>如果 iperf 运行在服务器模式，并且用 <code>-c</code> 参数指定一个主机，那么 iperf 将只接受指定主机的连接。此参数不能工作于 UDP 模式</td>
-        </tr>
-        <tr>
-            <td><code>-D</code></td>
-            <td>Unix 平台下将 Iperf 作为后台守护进程运行。在 Win32 平台下，Iperf 将作为服务运行</td>
-        </tr>
-        <tr>
-            <td><code>-R</code></td>
-            <td>卸载 Iperf 服务（仅用于 Windows）</td>
-        </tr>
-        <tr>
-            <td><code>-o</code></td>
-            <td>重定向输出到指定文件（仅用于 Windows）</td>
-        </tr>
-        <tr>
-            <td><code>-P, --parallel</code></td>
-            <td>服务器关闭之前保持的连接数。默认是 0，这意味着永远接受连接</td>
-        </tr>
-    </tbody>
-  </table>
-</div><h3 class="heading-element" id="client-端专用参数"><span>Client 端专用参数</span>
-  <a href="#client-%e7%ab%af%e4%b8%93%e7%94%a8%e5%8f%82%e6%95%b0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>参数</th>
-            <th>说明</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>-c, --client host</code></td>
-            <td>iperf 客户端模式，host 是 server 端地址，如：<code>iperf -c 222.35.11.23</code></td>
-        </tr>
-        <tr>
-            <td><code>-u, --udp</code></td>
-            <td>表示采用 UDP 协议发送报文，不带该参数表示采用 TCP 协议</td>
-        </tr>
-        <tr>
-            <td><code>-b, --bandwidth [K|M|G]</code></td>
-            <td>指定 UDP 模式使用的带宽，单位 bits/sec，默认值是 1 Mbit/sec</td>
-        </tr>
-        <tr>
-            <td><code>-t, --time</code></td>
-            <td>指定数据传输的总时间，即在指定的时间内，重复发送指定长度的数据包。默认 10 秒</td>
-        </tr>
-        <tr>
-            <td><code>-l, --len</code></td>
-            <td>设置读写缓冲区的长度，单位为 Byte。TCP 默认为 8KB，UDP 默认为 1470 字节。通常测试 PPS 的时候该值为 16，测试 BPS 时该值为 1400</td>
-        </tr>
-        <tr>
-            <td><code>-n, --num [K|M|G]</code></td>
-            <td>指定传输数据包的字节数，如：<code>iperf3 -c 192.168.12.168 -n 100M</code></td>
-        </tr>
-        <tr>
-            <td><code>-P, --parallel</code></td>
-            <td>指定客户端与服务端之间使用的线程数。默认是 1 个线程。需要客户端与服务器端同时使用此参数</td>
-        </tr>
-        <tr>
-            <td><code>-w, --window</code></td>
-            <td>指定套接字缓冲区大小，在 TCP 方式下，此设置为 TCP 窗口的大小。在 UDP 方式下，此设置为接受 UDP 数据包的缓冲区大小，用来限制可以接收数据包的最大值</td>
-        </tr>
-        <tr>
-            <td><code>-B, --bind</code></td>
-            <td>用来绑定一个主机地址或接口，这个参数仅用于具有多个网络接口的主机。在 UDP 模式下，此参数用于绑定和加入一个多播组</td>
-        </tr>
-        <tr>
-            <td><code>-M, --mss</code></td>
-            <td>设置 TCP 最大信息段的值</td>
-        </tr>
-        <tr>
-            <td><code>-N, --nodelay</code></td>
-            <td>设置 TCP 无延时</td>
-        </tr>
-        <tr>
-            <td><code>-V</code></td>
-            <td>绑定一个 IPv6 地址</td>
-        </tr>
-        <tr>
-            <td><code>-d, --dualtest</code></td>
-            <td>运行双测试模式。将使服务器端反向连接到客户端，使用 <code>-L</code> 参数中指定的端口（或默认使用客户端连接到服务器端的端口）。使用参数 <code>-r</code> 以运行交互模式</td>
-        </tr>
-        <tr>
-            <td><code>-L, --listenport</code></td>
-            <td>指定服务端反向连接到客户端时使用的端口。默认使用客户端连接至服务端的端口</td>
-        </tr>
-        <tr>
-            <td><code>-r, --tradeoff</code></td>
-            <td>往复测试模式。当客户端到服务器端的测试结束时，服务器端反向连接至客户端。当客户端连接终止时，反向连接随即开始。如果需要同时进行双向测试，请尝试 <code>-d</code> 参数</td>
-        </tr>
-    </tbody>
-  </table>
-</div><h3 class="heading-element" id="其他参数"><span>其他参数</span>
-  <a href="#%e5%85%b6%e4%bb%96%e5%8f%82%e6%95%b0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>参数</th>
-            <th>说明</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>-h, --help</code></td>
-            <td>显示命令行参考并退出</td>
-        </tr>
-        <tr>
-            <td><code>-v, --version</code></td>
-            <td>显示版本信息和编译信息并退出</td>
-        </tr>
-    </tbody>
-  </table>
-</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -h
-</span></span><span class="line"><span class="cl"><span class="c1"># Usage: iperf3 [-s|-c host] [options]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#        iperf3 [-h|--help] [-v|--version]</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><h2 class="heading-element" id="iperf-使用实例"><span>Iperf 使用实例</span>
-  <a href="#iperf-%e4%bd%bf%e7%94%a8%e5%ae%9e%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="环境准备"><span>环境准备</span>
-  <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><ul>
-<li>Server 端 IP 地址：192.168.0.120</li>
-<li>Client 端 IP 地址：192.168.0.121</li>
-</ul>
-<h3 class="heading-element" id="测试-tcp-吞吐量"><span>测试 TCP 吞吐量</span>
-  <a href="#%e6%b5%8b%e8%af%95-tcp-%e5%90%9e%e5%90%90%e9%87%8f" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>（1）Server 端开启 iperf 的服务器模式，指定 TCP 端口</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-server ~<span class="o">]</span><span class="c1"># iperf3 -s -i 1 -p 520</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">Server listening on TCP port <span class="m">520</span>
-</span></span><span class="line"><span class="cl">TCP window size: 85.3 KByte <span class="o">(</span>default<span class="o">)</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（2）Client 端启动 iperf 的客户端模式，连接服务端</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-client ~<span class="o">]</span><span class="c1"># iperf -c 192.168.0.120 -i 1 -t 60 -p 520</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">Client connecting to 192.168.0.120, TCP port <span class="m">520</span>
-</span></span><span class="line"><span class="cl">TCP window size: 45.0 KByte <span class="o">(</span>default<span class="o">)</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span> <span class="nb">local</span> 192.168.0.121 port <span class="m">50616</span> connected with 192.168.0.120 port <span class="m">520</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span> ID<span class="o">]</span> Interval       Transfer     Bandwidth
-</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span>  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（3）Server 端监听结果</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">Server listening on TCP port 5001
-</span></span><span class="line"><span class="cl">TCP window size: 85.3 KByte (default)
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">[  4] local 192.168.0.120 port 520 connected with 192.168.0.121 port 50616
-</span></span><span class="line"><span class="cl">[ ID] Interval       Transfer     Bandwidth
-</span></span><span class="line"><span class="cl">[  4]  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>输出字段说明：</p>
-<ul>
-<li><strong>Interval</strong>：时间间隔</li>
-<li><strong>Transfer</strong>：时间间隔里面传输的数据量</li>
-<li><strong>Bandwidth</strong>：时间间隔里的传输速率</li>
-</ul>
-<p><strong>（4）测试多线程 TCP 吞吐量</strong></p>
-<p>如果没有指定发送方式，iPerf 客户端只会使用单线程。</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -c 192.168.0.120 -P <span class="m">30</span> -t <span class="m">60</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（5）进行上下行带宽测试（双向传输）</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -c 192.168.0.120 -d -t <span class="m">60</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（6）其他建议</strong></p>
-<ul>
-<li>建议在 Server 端执行 <code>sar</code> 命令来统计实际收到的包并作为实际结果：<code>sar -n DEV 1 320</code></li>
-<li>要停止 iperf3 服务进程，请按 <code>Ctrl+Z</code> 或 <code>Ctrl+C</code></li>
-</ul>
-<h3 class="heading-element" id="测试-udp-吞吐量"><span>测试 UDP 吞吐量</span>
-  <a href="#%e6%b5%8b%e8%af%95-udp-%e5%90%9e%e5%90%90%e9%87%8f" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>带宽测试通常采用 UDP 模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为 100Mbps，先用 <code>-b 100M</code> 进行测试，然后根据测试结果（包括实际带宽、时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。</p>
-<p><strong>（1）Server 端开启 iperf 的服务器模式，指定 UDP 端口</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-server ~<span class="o">]</span><span class="c1"># iperf3 -s -i 1 -p 521</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">Server listening on port <span class="m">521</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（2）Client 端启动 iperf 的客户端模式，连接服务端</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@iperf-client ~<span class="o">]</span><span class="c1"># iperf3 -u -c 192.168.0.120 -b 100m -t 60 -p 521</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">Client connecting to 192.168.0.120, port <span class="m">521</span>
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span> <span class="nb">local</span> 192.168.0.121 port <span class="m">50616</span> connected with 192.168.0.120 port <span class="m">521</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span> ID<span class="o">]</span> Interval       Transfer     Bandwidth       TotalDatagrams
-</span></span><span class="line"><span class="cl"><span class="o">[</span>  3<span class="o">]</span>  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec  <span class="m">82</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（3）Server 端监听结果</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">Server listening on port 521
-</span></span><span class="line"><span class="cl">------------------------------------------------------------
-</span></span><span class="line"><span class="cl">[  4] local 192.168.0.120 port 520 connected with 192.168.0.121 port 50616
-</span></span><span class="line"><span class="cl">[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
-</span></span><span class="line"><span class="cl">[  4]  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec  0.007 ms  0/82 (0%)</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>输出字段说明：</p>
-<ul>
-<li><strong>Jitter</strong>：抖动，在连续传输中的平滑平均值差</li>
-<li><strong>Lost</strong>：丢包数量</li>
-<li><strong>Total Datagrams</strong>：包数量</li>
-</ul>
-<p><strong>（4）测试多线程 UDP 吞吐量</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -u -c 192.168.1.1 -b 5M -P <span class="m">30</span> -t <span class="m">60</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>（5）进行上下行带宽测试（双向传输）</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iperf3 -u -c 192.168.1.1 -b 100M -d -t <span class="m">60</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><h2 class="heading-element" id="jperf-介绍"><span>Jperf 介绍</span>
-  <a href="#jperf-%e4%bb%8b%e7%bb%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="jperf-简介"><span>Jperf 简介</span>
-  <a href="#jperf-%e7%ae%80%e4%bb%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>jperf 是基于 iperf 开发的图形界面程序，简化了复杂命令行参数的构造，而且还能够保存测试结果，同时实时图形化显示结果。JPerf 可以测试 TCP 和 UDP 带宽质量，可以测量最大 TCP 带宽，具有多种参数和 UDP 特性，可以报告带宽、延迟抖动和数据包丢失。</p>
-<h3 class="heading-element" id="jperf20-运行环境"><span>JPerf2.0 运行环境</span>
-  <a href="#jperf20-%e8%bf%90%e8%a1%8c%e7%8e%af%e5%a2%83" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><ul>
-<li><strong>操作系统</strong>：Java 运行环境</li>
-<li><strong>网络要求</strong>：Jperf 可以在任何 IP 网络上运行，包括本地以太网、因特网接入连接和 Wi-Fi 网络</li>
-<li><strong>其他要求</strong>：JPerf 必须安装两个组件：JPerf 服务器和 JPerf 客户端</li>
-</ul>
-<h3 class="heading-element" id="jperf20-页面介绍"><span>JPerf2.0 页面介绍</span>
-  <a href="#jperf20-%e9%a1%b5%e9%9d%a2%e4%bb%8b%e7%bb%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><figure><img loading="lazy" src='/develop/iperf3-learning-note/images/jperf-main.png' alt="JPerf 主界面" height="397" width="554"><figcaption class="image-caption">JPerf Main</figcaption>
-  </figure></p>
-<p><figure><img loading="lazy" src='/develop/iperf3-learning-note/images/jperf-settings.png' alt="JPerf 设置界面" height="1755" width="1241"><figcaption class="image-caption">JPerf Settings</figcaption>
-  </figure></p>
-<p><strong>（1）Iperf 命令行（无法直接输入）</strong></p>
-<p>服务端设置：</p>
-<ul>
-<li>监听端口：5001</li>
-<li>Client limit：客户端限制，仅允许指定客户端连接</li>
-<li>Num Connections：最大允许连接的数量，为 0 不限制</li>
-</ul>
-<p>客户端设置：</p>
-<ul>
-<li>服务器地址：10.0.115.82，端口：5001，并发流：1 个</li>
-</ul>
-<p><strong>（2）应用层设置</strong></p>
-<ul>
-<li>兼容旧版本（当 server 端和 client 端版本不一样时使用）</li>
-<li>设置测试模式：传输字节总量大小 15 Bytes 或者按传输时间总长度 15 秒</li>
-<li>同时进行双向传输测试</li>
-<li>单独进行双向传输测试，先测 c 到 s 的带宽</li>
-<li>指定需要传输的文件</li>
-<li>显示 TCP 最大 MTU 值</li>
-</ul>
-<p><strong>（3）传输层设置</strong></p>
-<p>TCP 协议：</p>
-<ul>
-<li>设置缓冲区大小</li>
-<li>指定 TCP 窗口大小</li>
-<li>设定 TCP 数据包的最大 MTU 值</li>
-<li>设定 TCP 不延时</li>
-</ul>
-<p>UDP 协议：</p>
-<ul>
-<li>设置 UDP 最大带宽</li>
-<li>设置 UDP 缓冲区</li>
-<li>UDP 包封装大小：默认 1470 byte</li>
-</ul>
-<p>IP 层设置：</p>
-<ul>
-<li>指定 TTL 值</li>
-<li>服务类型（Type of Service，ToS），大小范围从 0x10（最小延迟）到 0x2（最少费用）</li>
-</ul>
-<h2 class="heading-element" id="参考资料"><span>参考资料</span>
-  <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li><a href="https://help.aliyun.com/knowledge_detail/55757.html#HFXbx" target="_blank" rel="external nofollow noopener noreferrer">《网络性能测试方法》</a> — 阿里云帮助文档</li>
-<li><a href="https://baike.baidu.com/item/iperf/11067694?fr=aladdin" target="_blank" rel="external nofollow noopener noreferrer">《iperf - 百度百科》</a></li>
-<li><a href="https://www.cnblogs.com/klb561/p/9215952.html" target="_blank" rel="external nofollow noopener noreferrer">《Linux 网络性能评估工具 iperf、CHARIOT 测试网络吞吐量》</a> — Konglingbin</li>
-<li><a href="https://man.linuxde.net/iperf" target="_blank" rel="external nofollow noopener noreferrer">《Linux 命令大全 - iperf 命令》</a></li>
-<li><a href="http://www.veryhuo.com/a/view/159685.html" target="_blank" rel="external nofollow noopener noreferrer">《网络性能测试工具 iPerf 功能与使用教程》</a></li>
-<li><a href="http://www.veryhuo.com/a/view/159704.html" target="_blank" rel="external nofollow noopener noreferrer">《iPerf 图形化工具 Jperf 图文使用教程》</a></li>
-<li><a href="https://www.jianshu.com/p/15f888309c72" target="_blank" rel="external nofollow noopener noreferrer">《使用 iPerf 进行网络吞吐量测试》</a> — 放开那个电扇</li>
-</ol>
-</div><div class="post-footer" id="post-footer">
-  <div class="post-info">
-    <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2020-04-17 16:03:16">更新于 2020-04-17&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="/develop/iperf3-learning-note/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
-        <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://devcharl.github.io/develop/iperf3-learning-note/" data-title="Iperf3 网络性能测试工具" data-hashtags="iperf,iperf3,network,linux,jperf"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://devcharl.github.io/develop/iperf3-learning-note/" data-hashtag="iperf"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://devcharl.github.io/develop/iperf3-learning-note/" data-title="Iperf3 网络性能测试工具"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
-  </span>
-        </div>
-      </div></div>
-
-  <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tag/iperf/" class="post-tag" title="标签 - Iperf">Iperf</a><a href="/tag/iperf3/" class="post-tag" title="标签 - Iperf3">Iperf3</a><a href="/tag/network/" class="post-tag" title="标签 - Network">Network</a><a href="/tag/linux/" class="post-tag" title="标签 - Linux">Linux</a><a href="/tag/jperf/" class="post-tag" title="标签 - Jperf">Jperf</a></section>
-    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-    </section>
-  </div><div class="post-nav"><a href="/develop/vscode-learning-note/" class="post-nav-item" rel="next" title="VS Code 正则表达式与快捷键">VS Code 正则表达式与快捷键<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-</article>
-
-  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
-      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
-      <div class="toc">
-        <h2 class="toc-title">目录</h2>
-        <div class="toc-content" id="toc-content-drawer"><nav >
-  <ul>
-    <li><a href="#iperf-简介">Iperf 简介</a>
-      <ul>
-        <li><a href="#什么是-iperf">什么是 iperf？</a></li>
-        <li><a href="#iperf-的功能">Iperf 的功能</a></li>
-      </ul>
-    </li>
-    <li><a href="#iperf-的安装">Iperf 的安装</a>
-      <ul>
-        <li><a href="#iperf-的版本">iperf 的版本</a></li>
-        <li><a href="#windows-版-iperf-安装">Windows 版 iperf 安装</a></li>
-        <li><a href="#linux-版-iperf-安装">Linux 版 iperf 安装</a></li>
-      </ul>
-    </li>
-    <li><a href="#iperf-的使用">Iperf 的使用</a>
-      <ul>
-        <li><a href="#iperf-的工作模式">Iperf 的工作模式</a></li>
-        <li><a href="#iperf-常用参数测试够用">Iperf 常用参数（测试够用）</a></li>
-        <li><a href="#通用参数server-端和-client-端共用">通用参数（Server 端和 Client 端共用）</a></li>
-        <li><a href="#server-端专用参数">Server 端专用参数</a></li>
-        <li><a href="#client-端专用参数">Client 端专用参数</a></li>
-        <li><a href="#其他参数">其他参数</a></li>
-      </ul>
-    </li>
-    <li><a href="#iperf-使用实例">Iperf 使用实例</a>
-      <ul>
-        <li><a href="#环境准备">环境准备</a></li>
-        <li><a href="#测试-tcp-吞吐量">测试 TCP 吞吐量</a></li>
-        <li><a href="#测试-udp-吞吐量">测试 UDP 吞吐量</a></li>
-      </ul>
-    </li>
-    <li><a href="#jperf-介绍">Jperf 介绍</a>
-      <ul>
-        <li><a href="#jperf-简介">Jperf 简介</a></li>
-        <li><a href="#jperf20-运行环境">JPerf2.0 运行环境</a></li>
-        <li><a href="#jperf20-页面介绍">JPerf2.0 页面介绍</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考资料">参考资料</a></li>
-  </ul>
-</nav></div>
-      </div>
-    </dialog></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.1"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="https://github.com/devCharl/devcharl.github.io" target="_blank" rel="external nofollow noopener noreferrer">Charles Y</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/04dda9b63e61eada274cc86cfac2dc96.js" defer></script><script src="/js/theme.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Iperf3 网络性能测试工具 - Charles' Personal Development Notes</title><meta name=author content="Charles Y"><meta name=description content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"><meta name=keywords content='iperf,iperf3,network,linux,jperf'><meta itemprop=name content="Iperf3 网络性能测试工具"><meta itemprop=description content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"><meta itemprop=datePublished content="2020-04-17T16:03:16+08:00"><meta itemprop=dateModified content="2020-04-17T16:03:16+08:00"><meta itemprop=wordCount content="4564"><meta itemprop=keywords content="Iperf,Iperf3,Network,Linux,Jperf"><meta property="og:url" content="https://devcharl.github.io/develop/iperf3-learning-note/"><meta property="og:site_name" content="Charles' Personal Development Notes"><meta property="og:title" content="Iperf3 网络性能测试工具"><meta property="og:description" content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2020-04-17T16:03:16+08:00"><meta property="article:modified_time" content="2020-04-17T16:03:16+08:00"><meta property="article:tag" content="Iperf"><meta property="article:tag" content="Iperf3"><meta property="article:tag" content="Network"><meta property="article:tag" content="Linux"><meta property="article:tag" content="Jperf"><meta name=twitter:card content="summary"><meta name=twitter:title content="Iperf3 网络性能测试工具"><meta name=twitter:description content="Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://devcharl.github.io/develop/iperf3-learning-note/ title="Iperf3 网络性能测试工具 - Charles' Personal Development Notes"><link rel=prev type=text/html href=https://devcharl.github.io/en/about/ title=About><link rel=next type=text/html href=https://devcharl.github.io/develop/vscode-learning-note/ title="VS Code 正则表达式与快捷键"><link rel=alternate type=text/markdown href=https://devcharl.github.io/develop/iperf3-learning-note/index.md title="Iperf3 网络性能测试工具 - Charles' Personal Development Notes"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Iperf3 网络性能测试工具","inLanguage":"zh-cn","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/devcharl.github.io\/develop\/iperf3-learning-note\/"},"genre":"posts","keywords":"iperf, iperf3, network, linux, jperf","wordcount":4564,"url":"https:\/\/devcharl.github.io\/develop\/iperf3-learning-note\/","datePublished":"2020-04-17T16:03:16+08:00","dateModified":"2020-04-17T16:03:16+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Charles Y"},"description":"Iperf3 简介、安装、常用参数与 TCP/UDP 测试实例，以及 Jperf 图形界面工具介绍。"}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Charles' Personal Development Notes"><span class=header-title-text>Charles' Notes</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/category/develop/><i class="fa-solid fa-book fa-sm" aria-hidden=true></i> 开发</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 归档</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label=选择语言 title=选择语言><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item>没有更多翻译</li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Charles' Personal Development Notes"><span class=header-title-text>Charles' Notes</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/category/develop/><i class="fa-solid fa-book fa-sm" aria-hidden=true></i> 开发</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 归档</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label=选择语言 title=选择语言>简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option disabled>没有更多翻译</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Iperf3 网络性能测试工具</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://github.com/devCharl/devcharl.github.io title=作者 target=_blank rel="external nofollow noopener noreferrer author" class=author><i class="fa-solid fa-user-circle" aria-hidden=true></i>
+Charles Y</a></span><span class=post-included-in>&nbsp;收录于 <a href=/category/develop/ class=post-category title="分类 - 开发"><i class="fa-regular fa-folder" aria-hidden=true></i> 开发</a></span></div><div class=post-meta-line><span title="发布于 2020-04-17 16:03:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2020-04-17>2020-04-17</time></span>&nbsp;<span title="4564 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden=true></i>约 4600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>预计阅读 10 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#iperf-简介>Iperf 简介</a><ul><li><a href=#什么是-iperf>什么是 iperf？</a></li><li><a href=#iperf-的功能>Iperf 的功能</a></li></ul></li><li><a href=#iperf-的安装>Iperf 的安装</a><ul><li><a href=#iperf-的版本>iperf 的版本</a></li><li><a href=#windows-版-iperf-安装>Windows 版 iperf 安装</a></li><li><a href=#linux-版-iperf-安装>Linux 版 iperf 安装</a></li></ul></li><li><a href=#iperf-的使用>Iperf 的使用</a><ul><li><a href=#iperf-的工作模式>Iperf 的工作模式</a></li><li><a href=#iperf-常用参数测试够用>Iperf 常用参数（测试够用）</a></li><li><a href=#通用参数server-端和-client-端共用>通用参数（Server 端和 Client 端共用）</a></li><li><a href=#server-端专用参数>Server 端专用参数</a></li><li><a href=#client-端专用参数>Client 端专用参数</a></li><li><a href=#其他参数>其他参数</a></li></ul></li><li><a href=#iperf-使用实例>Iperf 使用实例</a><ul><li><a href=#环境准备>环境准备</a></li><li><a href=#测试-tcp-吞吐量>测试 TCP 吞吐量</a></li><li><a href=#测试-udp-吞吐量>测试 UDP 吞吐量</a></li></ul></li><li><a href=#jperf-介绍>Jperf 介绍</a><ul><li><a href=#jperf-简介>Jperf 简介</a></li><li><a href=#jperf20-运行环境>JPerf2.0 运行环境</a></li><li><a href=#jperf20-页面介绍>JPerf2.0 页面介绍</a></li></ul></li><li><a href=#参考资料>参考资料</a></li></ul></nav></div></div><div class=content id=content><p>网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础。但由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络带宽利用率不高。要找到网络带宽利用率不高的原因，就需要对网络传输进行监控，此时就需要用到一些网络性能评估工具，而 Iperf 就是这样一款网络带宽测试工具。</p><h2 class=heading-element id=iperf-简介><span>Iperf 简介</span>
+<a href=#iperf-%e7%ae%80%e4%bb%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=什么是-iperf><span>什么是 iperf？</span>
+<a href=#%e4%bb%80%e4%b9%88%e6%98%af-iperf class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Iperf 是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具，可以用来测试网络节点间（也包括回环）TCP 或 UDP 连接的性能，包括带宽、抖动以及丢包率。其中抖动和丢包率适用于 UDP 测试，而带宽测试适用于 TCP 和 UDP。</p><p>Iperf 是一款基于 TCP/IP 和 UDP/IP 的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p><p>Iperf 是一款基于命令行模式的网络性能测试工具，是跨平台的，提供横跨 Windows、Linux、Mac 的全平台支持。iperf 全程使用内存作为发送/接收缓冲区，不受磁盘性能的影响，对于机器配置要求很低。不过由于是命令行工具，iperf 不支持输出测试图形。</p><p>Iperf 可以测试 TCP 和 UDP 带宽质量，具有多种参数和 UDP 特性，可以用来测试一些网络设备如路由器、防火墙、交换机等的性能。</p><h3 class=heading-element id=iperf-的功能><span>Iperf 的功能</span>
+<a href=#iperf-%e7%9a%84%e5%8a%9f%e8%83%bd class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>（1）TCP 方面</strong></p><ul><li>测量网络带宽</li><li>报告 MSS/MTU 值的大小和观测值</li><li>支持 TCP 窗口值通过套接字缓冲</li><li>当 P 线程或 Win32 线程可用时，支持多线程。客户端与服务端支持同时多重连接</li></ul><p><strong>（2）UDP 方面</strong></p><ul><li>客户端可以创建指定带宽的 UDP 流</li><li>测量丢包</li><li>测量延迟</li><li>支持多播</li><li>当 P 线程可用时，支持多线程。客户端与服务端支持同时多重连接（不支持 Windows）</li></ul><p><strong>（3）其他方面</strong></p><ul><li>在适当的地方，选项中可以使用 K（kilo-）和 M（mega-）。例如 131072 字节可以用 128K 代替</li><li>可以指定运行的总时间，甚至可以设置传输的数据总量</li><li>在报告中，为数据选用最合适的单位</li><li>服务器支持多重连接，而不是等待一个单线程测试</li><li>在指定时间间隔重复显示网络带宽、波动和丢包情况</li><li>服务器端可作为后台程序运行</li><li>服务器端可作为 Windows 服务运行</li><li>使用典型数据流来测试链接层压缩对于可用带宽的影响</li></ul><h2 class=heading-element id=iperf-的安装><span>Iperf 的安装</span>
+<a href=#iperf-%e7%9a%84%e5%ae%89%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=iperf-的版本><span>iperf 的版本</span>
+<a href=#iperf-%e7%9a%84%e7%89%88%e6%9c%ac class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Iperf 有两种版本，Windows 版和 Linux 版本。</p><p><strong>（1）Unix/Linux 版</strong></p><p>更新比较快，版本最新，目前最新的版本是 iperf3.0。</p><p>Linux 版本下载地址：<a href=http://code.google.com/p/iperf/downloads/list target=_blank rel="external nofollow noopener noreferrer">http://code.google.com/p/iperf/downloads/list</a></p><p>为了测试的准确性，尽量使用 Linux 环境测试。</p><p><strong>（2）Windows 版</strong></p><p>Windows 版 iperf 叫 jperf，或者 xjperf，更新慢，目前最新版本为 1.7（打包在 jperf 中）。</p><p>Windows 版本下载地址：<a href=http://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/ target=_blank rel="external nofollow noopener noreferrer">http://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/</a></p><p>jperf 是在 iperf 基础上开发的图形界面程序，简化了复杂命令行参数的构造，而且还能保存测试结果，同时实时图形化显示结果。</p><h3 class=heading-element id=windows-版-iperf-安装><span>Windows 版 iperf 安装</span>
+<a href=#windows-%e7%89%88-iperf-%e5%ae%89%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>对于 Windows 版的 iperf，下载安装包后直接解压，然后将解压出来的 <code>iperf.exe</code> 和 <code>cygwin1.dll</code> 复制到 <code>%systemroot%</code> 目录即可。</p><h3 class=heading-element id=linux-版-iperf-安装><span>Linux 版 iperf 安装</span>
+<a href=#linux-%e7%89%88-iperf-%e5%ae%89%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>（1）在线安装</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># CentOS</span>
+</span></span><span class=line><span class=cl>yum install -y iperf3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Debian / Ubuntu</span>
+</span></span><span class=line><span class=cl>apt-get install iperf3</span></span></code></pre></td></tr></table></div></div></div><p><strong>（2）离线安装</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>gunzip -c iperf-&lt;version&gt;.tar.gz <span class=p>|</span> tar -xvf -
+</span></span><span class=line><span class=cl><span class=nb>cd</span> iperf-&lt;version&gt;
+</span></span><span class=line><span class=cl>./configure
+</span></span><span class=line><span class=cl>make
+</span></span><span class=line><span class=cl>make install</span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=iperf-的使用><span>Iperf 的使用</span>
+<a href=#iperf-%e7%9a%84%e4%bd%bf%e7%94%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=iperf-的工作模式><span>Iperf 的工作模式</span>
+<a href=#iperf-%e7%9a%84%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Iperf 可以运行在任何 IP 网络上，包括本地以太网、接入因特网、Wi-Fi 网络等。在工作模式上，iperf 运行于服务器、客户端模式下，其服务器端主要用于监听到达的测试请求，而客户端主要用于发起测试连接会话，因此要使用 iperf 至少需要两台服务器，一台运行在服务器模式下，另一台运行在客户端模式下。</p><p>在完成 iperf 安装后，执行 <code>iperf3 -h</code> 即可显示 iperf 的详细用法。iperf 的命令行选项共分为三类，分别是客户端与服务器端公用选项、服务器端专用选项和客户端专用选项。</p><h3 class=heading-element id=iperf-常用参数测试够用><span>Iperf 常用参数（测试够用）</span>
+<a href=#iperf-%e5%b8%b8%e7%94%a8%e5%8f%82%e6%95%b0%e6%b5%8b%e8%af%95%e5%a4%9f%e7%94%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=table-wrapper><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>-s, --server</code></td><td>iperf 服务器模式，默认启动的监听端口为 5201，如：<code>iperf -s</code></td></tr><tr><td><code>-c, --client host</code></td><td>iperf 客户端模式，host 是 server 端地址，如：<code>iperf -c 222.35.11.23</code></td></tr><tr><td><code>-i, --interval</code></td><td>指定每次报告之间的时间间隔，单位为秒，如：<code>iperf3 -c 192.168.12.168 -i 2</code></td></tr><tr><td><code>-p, --port</code></td><td>指定服务器端监听的端口或客户端所连接的端口，默认是 5001 端口</td></tr><tr><td><code>-u, --udp</code></td><td>表示采用 UDP 协议发送报文，不带该参数表示采用 TCP 协议</td></tr><tr><td><code>-l, --len</code></td><td>设置读写缓冲区的长度，单位为 Byte。TCP 方式默认为 8KB，UDP 方式默认为 1470 字节。通常测试 PPS 的时候该值为 16，测试 BPS 时该值为 1400</td></tr><tr><td><code>-b, --bandwidth [K|M|G]</code></td><td>指定 UDP 模式使用的带宽，单位 bits/sec，默认值是 1 Mbit/sec</td></tr><tr><td><code>-t, --time</code></td><td>指定数据传输的总时间，即在指定的时间内，重复发送指定长度的数据包。默认 10 秒</td></tr><tr><td><code>-A</code></td><td>CPU 亲和性，可以将具体的 iperf3 进程绑定对应编号的逻辑 CPU，避免 iperf 进程在不同的 CPU 间调度</td></tr></tbody></table></div><h3 class=heading-element id=通用参数server-端和-client-端共用><span>通用参数（Server 端和 Client 端共用）</span>
+<a href=#%e9%80%9a%e7%94%a8%e5%8f%82%e6%95%b0server-%e7%ab%af%e5%92%8c-client-%e7%ab%af%e5%85%b1%e7%94%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=table-wrapper><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>-f, --format [k|m|g|K|M|G]</code></td><td>指定带宽输出单位，<code>[k|m|g|K|M|G]</code> 分别表示以 Kbits、Mbits、Gbits、KBytes、MBytes、GBytes 显示输出结果，默认 Mbits，如：<code>iperf3 -c 192.168.12.168 -f M</code></td></tr><tr><td><code>-p, --port</code></td><td>指定服务器端监听的端口或客户端所连接的端口，默认是 5001 端口</td></tr><tr><td><code>-i, --interval</code></td><td>指定每次报告之间的时间间隔，单位为秒，如：<code>iperf3 -c 192.168.12.168 -i 2</code></td></tr><tr><td><code>-F</code></td><td>指定文件作为数据流进行带宽测试，如：<code>iperf3 -c 192.168.12.168 -F web-ixdba.tar.gz</code></td></tr></tbody></table></div><h3 class=heading-element id=server-端专用参数><span>Server 端专用参数</span>
+<a href=#server-%e7%ab%af%e4%b8%93%e7%94%a8%e5%8f%82%e6%95%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=table-wrapper><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>-s, --server</code></td><td>iperf 服务器模式，默认启动的监听端口为 5201，如：<code>iperf -s</code></td></tr><tr><td><code>-c, --client host</code></td><td>如果 iperf 运行在服务器模式，并且用 <code>-c</code> 参数指定一个主机，那么 iperf 将只接受指定主机的连接。此参数不能工作于 UDP 模式</td></tr><tr><td><code>-D</code></td><td>Unix 平台下将 Iperf 作为后台守护进程运行。在 Win32 平台下，Iperf 将作为服务运行</td></tr><tr><td><code>-R</code></td><td>卸载 Iperf 服务（仅用于 Windows）</td></tr><tr><td><code>-o</code></td><td>重定向输出到指定文件（仅用于 Windows）</td></tr><tr><td><code>-P, --parallel</code></td><td>服务器关闭之前保持的连接数。默认是 0，这意味着永远接受连接</td></tr></tbody></table></div><h3 class=heading-element id=client-端专用参数><span>Client 端专用参数</span>
+<a href=#client-%e7%ab%af%e4%b8%93%e7%94%a8%e5%8f%82%e6%95%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=table-wrapper><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>-c, --client host</code></td><td>iperf 客户端模式，host 是 server 端地址，如：<code>iperf -c 222.35.11.23</code></td></tr><tr><td><code>-u, --udp</code></td><td>表示采用 UDP 协议发送报文，不带该参数表示采用 TCP 协议</td></tr><tr><td><code>-b, --bandwidth [K|M|G]</code></td><td>指定 UDP 模式使用的带宽，单位 bits/sec，默认值是 1 Mbit/sec</td></tr><tr><td><code>-t, --time</code></td><td>指定数据传输的总时间，即在指定的时间内，重复发送指定长度的数据包。默认 10 秒</td></tr><tr><td><code>-l, --len</code></td><td>设置读写缓冲区的长度，单位为 Byte。TCP 默认为 8KB，UDP 默认为 1470 字节。通常测试 PPS 的时候该值为 16，测试 BPS 时该值为 1400</td></tr><tr><td><code>-n, --num [K|M|G]</code></td><td>指定传输数据包的字节数，如：<code>iperf3 -c 192.168.12.168 -n 100M</code></td></tr><tr><td><code>-P, --parallel</code></td><td>指定客户端与服务端之间使用的线程数。默认是 1 个线程。需要客户端与服务器端同时使用此参数</td></tr><tr><td><code>-w, --window</code></td><td>指定套接字缓冲区大小，在 TCP 方式下，此设置为 TCP 窗口的大小。在 UDP 方式下，此设置为接受 UDP 数据包的缓冲区大小，用来限制可以接收数据包的最大值</td></tr><tr><td><code>-B, --bind</code></td><td>用来绑定一个主机地址或接口，这个参数仅用于具有多个网络接口的主机。在 UDP 模式下，此参数用于绑定和加入一个多播组</td></tr><tr><td><code>-M, --mss</code></td><td>设置 TCP 最大信息段的值</td></tr><tr><td><code>-N, --nodelay</code></td><td>设置 TCP 无延时</td></tr><tr><td><code>-V</code></td><td>绑定一个 IPv6 地址</td></tr><tr><td><code>-d, --dualtest</code></td><td>运行双测试模式。将使服务器端反向连接到客户端，使用 <code>-L</code> 参数中指定的端口（或默认使用客户端连接到服务器端的端口）。使用参数 <code>-r</code> 以运行交互模式</td></tr><tr><td><code>-L, --listenport</code></td><td>指定服务端反向连接到客户端时使用的端口。默认使用客户端连接至服务端的端口</td></tr><tr><td><code>-r, --tradeoff</code></td><td>往复测试模式。当客户端到服务器端的测试结束时，服务器端反向连接至客户端。当客户端连接终止时，反向连接随即开始。如果需要同时进行双向测试，请尝试 <code>-d</code> 参数</td></tr></tbody></table></div><h3 class=heading-element id=其他参数><span>其他参数</span>
+<a href=#%e5%85%b6%e4%bb%96%e5%8f%82%e6%95%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=table-wrapper><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>-h, --help</code></td><td>显示命令行参考并退出</td></tr><tr><td><code>-v, --version</code></td><td>显示版本信息和编译信息并退出</td></tr></tbody></table></div><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iperf3 -h
+</span></span><span class=line><span class=cl><span class=c1># Usage: iperf3 [-s|-c host] [options]</span>
+</span></span><span class=line><span class=cl><span class=c1>#        iperf3 [-h|--help] [-v|--version]</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=iperf-使用实例><span>Iperf 使用实例</span>
+<a href=#iperf-%e4%bd%bf%e7%94%a8%e5%ae%9e%e4%be%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=环境准备><span>环境准备</span>
+<a href=#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ul><li>Server 端 IP 地址：192.168.0.120</li><li>Client 端 IP 地址：192.168.0.121</li></ul><h3 class=heading-element id=测试-tcp-吞吐量><span>测试 TCP 吞吐量</span>
+<a href=#%e6%b5%8b%e8%af%95-tcp-%e5%90%9e%e5%90%90%e9%87%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>（1）Server 端开启 iperf 的服务器模式，指定 TCP 端口</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@iperf-server ~<span class=o>]</span><span class=c1># iperf3 -s -i 1 -p 520</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>Server listening on TCP port <span class=m>520</span>
+</span></span><span class=line><span class=cl>TCP window size: 85.3 KByte <span class=o>(</span>default<span class=o>)</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------</span></span></code></pre></td></tr></table></div></div></div><p><strong>（2）Client 端启动 iperf 的客户端模式，连接服务端</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@iperf-client ~<span class=o>]</span><span class=c1># iperf -c 192.168.0.120 -i 1 -t 60 -p 520</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>Client connecting to 192.168.0.120, TCP port <span class=m>520</span>
+</span></span><span class=line><span class=cl>TCP window size: 45.0 KByte <span class=o>(</span>default<span class=o>)</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl><span class=o>[</span>  3<span class=o>]</span> <span class=nb>local</span> 192.168.0.121 port <span class=m>50616</span> connected with 192.168.0.120 port <span class=m>520</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> ID<span class=o>]</span> Interval       Transfer     Bandwidth
+</span></span><span class=line><span class=cl><span class=o>[</span>  3<span class=o>]</span>  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec</span></span></code></pre></td></tr></table></div></div></div><p><strong>（3）Server 端监听结果</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>Server listening on TCP port 5001
+</span></span><span class=line><span class=cl>TCP window size: 85.3 KByte (default)
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>[  4] local 192.168.0.120 port 520 connected with 192.168.0.121 port 50616
+</span></span><span class=line><span class=cl>[ ID] Interval       Transfer     Bandwidth
+</span></span><span class=line><span class=cl>[  4]  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec</span></span></code></pre></td></tr></table></div></div></div><p>输出字段说明：</p><ul><li><strong>Interval</strong>：时间间隔</li><li><strong>Transfer</strong>：时间间隔里面传输的数据量</li><li><strong>Bandwidth</strong>：时间间隔里的传输速率</li></ul><p><strong>（4）测试多线程 TCP 吞吐量</strong></p><p>如果没有指定发送方式，iPerf 客户端只会使用单线程。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iperf3 -c 192.168.0.120 -P <span class=m>30</span> -t <span class=m>60</span></span></span></code></pre></td></tr></table></div></div></div><p><strong>（5）进行上下行带宽测试（双向传输）</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iperf3 -c 192.168.0.120 -d -t <span class=m>60</span></span></span></code></pre></td></tr></table></div></div></div><p><strong>（6）其他建议</strong></p><ul><li>建议在 Server 端执行 <code>sar</code> 命令来统计实际收到的包并作为实际结果：<code>sar -n DEV 1 320</code></li><li>要停止 iperf3 服务进程，请按 <code>Ctrl+Z</code> 或 <code>Ctrl+C</code></li></ul><h3 class=heading-element id=测试-udp-吞吐量><span>测试 UDP 吞吐量</span>
+<a href=#%e6%b5%8b%e8%af%95-udp-%e5%90%9e%e5%90%90%e9%87%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>带宽测试通常采用 UDP 模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为 100Mbps，先用 <code>-b 100M</code> 进行测试，然后根据测试结果（包括实际带宽、时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。</p><p><strong>（1）Server 端开启 iperf 的服务器模式，指定 UDP 端口</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@iperf-server ~<span class=o>]</span><span class=c1># iperf3 -s -i 1 -p 521</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>Server listening on port <span class=m>521</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------</span></span></code></pre></td></tr></table></div></div></div><p><strong>（2）Client 端启动 iperf 的客户端模式，连接服务端</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@iperf-client ~<span class=o>]</span><span class=c1># iperf3 -u -c 192.168.0.120 -b 100m -t 60 -p 521</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>Client connecting to 192.168.0.120, port <span class=m>521</span>
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl><span class=o>[</span>  3<span class=o>]</span> <span class=nb>local</span> 192.168.0.121 port <span class=m>50616</span> connected with 192.168.0.120 port <span class=m>521</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> ID<span class=o>]</span> Interval       Transfer     Bandwidth       TotalDatagrams
+</span></span><span class=line><span class=cl><span class=o>[</span>  3<span class=o>]</span>  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec  <span class=m>82</span></span></span></code></pre></td></tr></table></div></div></div><p><strong>（3）Server 端监听结果</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>Server listening on port 521
+</span></span><span class=line><span class=cl>------------------------------------------------------------
+</span></span><span class=line><span class=cl>[  4] local 192.168.0.120 port 520 connected with 192.168.0.121 port 50616
+</span></span><span class=line><span class=cl>[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+</span></span><span class=line><span class=cl>[  4]  0.0-10.1 sec  1.27 GBytes  1.08 Gbits/sec  0.007 ms  0/82 (0%)</span></span></code></pre></td></tr></table></div></div></div><p>输出字段说明：</p><ul><li><strong>Jitter</strong>：抖动，在连续传输中的平滑平均值差</li><li><strong>Lost</strong>：丢包数量</li><li><strong>Total Datagrams</strong>：包数量</li></ul><p><strong>（4）测试多线程 UDP 吞吐量</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iperf3 -u -c 192.168.1.1 -b 5M -P <span class=m>30</span> -t <span class=m>60</span></span></span></code></pre></td></tr></table></div></div></div><p><strong>（5）进行上下行带宽测试（双向传输）</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-bash"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iperf3 -u -c 192.168.1.1 -b 100M -d -t <span class=m>60</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=jperf-介绍><span>Jperf 介绍</span>
+<a href=#jperf-%e4%bb%8b%e7%bb%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=jperf-简介><span>Jperf 简介</span>
+<a href=#jperf-%e7%ae%80%e4%bb%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>jperf 是基于 iperf 开发的图形界面程序，简化了复杂命令行参数的构造，而且还能够保存测试结果，同时实时图形化显示结果。JPerf 可以测试 TCP 和 UDP 带宽质量，可以测量最大 TCP 带宽，具有多种参数和 UDP 特性，可以报告带宽、延迟抖动和数据包丢失。</p><h3 class=heading-element id=jperf20-运行环境><span>JPerf2.0 运行环境</span>
+<a href=#jperf20-%e8%bf%90%e8%a1%8c%e7%8e%af%e5%a2%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ul><li><strong>操作系统</strong>：Java 运行环境</li><li><strong>网络要求</strong>：Jperf 可以在任何 IP 网络上运行，包括本地以太网、因特网接入连接和 Wi-Fi 网络</li><li><strong>其他要求</strong>：JPerf 必须安装两个组件：JPerf 服务器和 JPerf 客户端</li></ul><h3 class=heading-element id=jperf20-页面介绍><span>JPerf2.0 页面介绍</span>
+<a href=#jperf20-%e9%a1%b5%e9%9d%a2%e4%bb%8b%e7%bb%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><figure><img loading=lazy src=/develop/iperf3-learning-note/images/jperf-main.png alt="JPerf 主界面" height=397 width=554><figcaption class=image-caption>JPerf Main</figcaption></figure></p><p><figure><img loading=lazy src=/develop/iperf3-learning-note/images/jperf-settings.png alt="JPerf 设置界面" height=1755 width=1241><figcaption class=image-caption>JPerf Settings</figcaption></figure></p><p><strong>（1）Iperf 命令行（无法直接输入）</strong></p><p>服务端设置：</p><ul><li>监听端口：5001</li><li>Client limit：客户端限制，仅允许指定客户端连接</li><li>Num Connections：最大允许连接的数量，为 0 不限制</li></ul><p>客户端设置：</p><ul><li>服务器地址：10.0.115.82，端口：5001，并发流：1 个</li></ul><p><strong>（2）应用层设置</strong></p><ul><li>兼容旧版本（当 server 端和 client 端版本不一样时使用）</li><li>设置测试模式：传输字节总量大小 15 Bytes 或者按传输时间总长度 15 秒</li><li>同时进行双向传输测试</li><li>单独进行双向传输测试，先测 c 到 s 的带宽</li><li>指定需要传输的文件</li><li>显示 TCP 最大 MTU 值</li></ul><p><strong>（3）传输层设置</strong></p><p>TCP 协议：</p><ul><li>设置缓冲区大小</li><li>指定 TCP 窗口大小</li><li>设定 TCP 数据包的最大 MTU 值</li><li>设定 TCP 不延时</li></ul><p>UDP 协议：</p><ul><li>设置 UDP 最大带宽</li><li>设置 UDP 缓冲区</li><li>UDP 包封装大小：默认 1470 byte</li></ul><p>IP 层设置：</p><ul><li>指定 TTL 值</li><li>服务类型（Type of Service，ToS），大小范围从 0x10（最小延迟）到 0x2（最少费用）</li></ul><h2 class=heading-element id=参考资料><span>参考资料</span>
+<a href=#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li><a href=https://help.aliyun.com/knowledge_detail/55757.html#HFXbx target=_blank rel="external nofollow noopener noreferrer">《网络性能测试方法》</a> — 阿里云帮助文档</li><li><a href="https://baike.baidu.com/item/iperf/11067694?fr=aladdin" target=_blank rel="external nofollow noopener noreferrer">《iperf - 百度百科》</a></li><li><a href=https://www.cnblogs.com/klb561/p/9215952.html target=_blank rel="external nofollow noopener noreferrer">《Linux 网络性能评估工具 iperf、CHARIOT 测试网络吞吐量》</a> — Konglingbin</li><li><a href=https://man.linuxde.net/iperf target=_blank rel="external nofollow noopener noreferrer">《Linux 命令大全 - iperf 命令》</a></li><li><a href=http://www.veryhuo.com/a/view/159685.html target=_blank rel="external nofollow noopener noreferrer">《网络性能测试工具 iPerf 功能与使用教程》</a></li><li><a href=http://www.veryhuo.com/a/view/159704.html target=_blank rel="external nofollow noopener noreferrer">《iPerf 图形化工具 Jperf 图文使用教程》</a></li><li><a href=https://www.jianshu.com/p/15f888309c72 target=_blank rel="external nofollow noopener noreferrer">《使用 iPerf 进行网络吞吐量测试》</a> — 放开那个电扇</li></ol></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2020-04-17 16:03:16">更新于 2020-04-17&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/develop/iperf3-learning-note/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://devcharl.github.io/develop/iperf3-learning-note/ data-title="Iperf3 网络性能测试工具" data-hashtags=iperf,iperf3,network,linux,jperf><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://devcharl.github.io/develop/iperf3-learning-note/ data-hashtag=iperf><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://devcharl.github.io/develop/iperf3-learning-note/ data-title="Iperf3 网络性能测试工具"><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/tag/iperf/ class=post-tag title="标签 - Iperf">Iperf</a><a href=/tag/iperf3/ class=post-tag title="标签 - Iperf3">Iperf3</a><a href=/tag/network/ class=post-tag title="标签 - Network">Network</a><a href=/tag/linux/ class=post-tag title="标签 - Linux">Linux</a><a href=/tag/jperf/ class=post-tag title="标签 - Jperf">Jperf</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/develop/vscode-learning-note/ class=post-nav-item rel=next title="VS Code 正则表达式与快捷键">VS Code 正则表达式与快捷键<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div></article><aside class=toc id=toc-auto aria-label=目录><h2 class=toc-title>目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden=true></i></h2><div class=toc-content id=toc-content-auto></div></aside><dialog id=toc-dialog aria-labelledby=toc-dialog-title role=dialog><div class=toc><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-drawer><nav><ul><li><a href=#iperf-简介>Iperf 简介</a><ul><li><a href=#什么是-iperf>什么是 iperf？</a></li><li><a href=#iperf-的功能>Iperf 的功能</a></li></ul></li><li><a href=#iperf-的安装>Iperf 的安装</a><ul><li><a href=#iperf-的版本>iperf 的版本</a></li><li><a href=#windows-版-iperf-安装>Windows 版 iperf 安装</a></li><li><a href=#linux-版-iperf-安装>Linux 版 iperf 安装</a></li></ul></li><li><a href=#iperf-的使用>Iperf 的使用</a><ul><li><a href=#iperf-的工作模式>Iperf 的工作模式</a></li><li><a href=#iperf-常用参数测试够用>Iperf 常用参数（测试够用）</a></li><li><a href=#通用参数server-端和-client-端共用>通用参数（Server 端和 Client 端共用）</a></li><li><a href=#server-端专用参数>Server 端专用参数</a></li><li><a href=#client-端专用参数>Client 端专用参数</a></li><li><a href=#其他参数>其他参数</a></li></ul></li><li><a href=#iperf-使用实例>Iperf 使用实例</a><ul><li><a href=#环境准备>环境准备</a></li><li><a href=#测试-tcp-吞吐量>测试 TCP 吞吐量</a></li><li><a href=#测试-udp-吞吐量>测试 UDP 吞吐量</a></li></ul></li><li><a href=#jperf-介绍>Jperf 介绍</a><ul><li><a href=#jperf-简介>Jperf 简介</a></li><li><a href=#jperf20-运行环境>JPerf2.0 运行环境</a></li><li><a href=#jperf20-页面介绍>JPerf2.0 页面介绍</a></li></ul></li><li><a href=#参考资料>参考资料</a></li></ul></nav></div></div></dialog></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.163.1"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2022 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=https://github.com/devCharl/devcharl.github.io target=_blank rel="external nofollow noopener noreferrer">Charles Y</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div id=toc-drawer-button class="fixed-button toc-drawer-button d-none" role=button aria-label=目录><i class="fa-solid fa-bars" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/js/config/04dda9b63e61eada274cc86cfac2dc96.js defer></script><script src=/js/theme.min.js defer></script></body></html>
